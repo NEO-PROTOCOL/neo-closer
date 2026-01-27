@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=none
 skills:
   ops-status:
     risk: low
