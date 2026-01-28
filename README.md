@@ -27,6 +27,10 @@ O NEO BOT CLI é a sua interface de controle para o protocolo NEO. Aqui estão o
 * `pnpm neobot cron run <job>` - Executa uma tarefa agendada manualmente agora.
 * `pnpm neobot cron start` - Inicia o agendador autônomo.
 
+### 📱 Telegram & Automação
+* **[📖 Guia Completo de Uso](GUIA_DE_USO.md)** - Documentação detalhada de comandos, exemplos e troubleshooting
+* Envio de mensagens, agendamento, descoberta de Chat IDs e muito mais!
+
 ---
 
 
