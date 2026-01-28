@@ -5,13 +5,33 @@ import os from "node:os";
 import path from "node:path";
 import { loadRuntimeConfig } from "../config/runtime-config.js";
 
+function banner() {
+  console.log(
+    `                       
+        <;:                   
+    [_<;I:;;;;III              ▄▄▄       ▄████  █████▒███▄    █ ▄▄▄█████▓    ███▄ ▄███▓ ▓█████  ▒█████    
+  }]-~!,i:;;;;IIIIIl.         ▒████▄    ██▒ ▀█▒▓██   ▒ ██ ▀█   █ ▓  ██▒ ▓▒   ▓██▒▀█▀ ██▒ ▓█   ▀ ▒██▒  ██▒  
+1[?#MMMMMMMMM##M#######Ml     ▒██  ▀█▄ ▒██░▄▄▄░▒████ ░▓██  ▀█ ██▒▒ ▓██░ ▒░   ▓██    ▓██░ ▒███   ▒██░  ██▒  
+1}?<i;";,m##########qqqll     ░██▄▄▄▄██░▓█  ██▓░▓█▒  ░▓██▒  ▐▌██▒░ ▓██▓ ░    ▒██    ▒██  ▒▓█  ▄ ▒██   ██░  
+{]-+>!:"I::::x####oqqqqll      ▓█   ▓██▒░▒▓███▀▒░▒█░   ▒██░   ▓██░  ▒██▒ ░    ▒██▒   ░██▒ ░▒████▒░ ████▓▒░  
+-[?+<iI,":,:::;;;QqwwwwIll     ▒▒   ▓▒█░ ░▒   ▒  ▒ ░   ░ ▒░   ▒ ▒   ▒ ░░      ░ ▒░   ░  ░ ░░ ▒░ ░░ ▒░▒░▒░  
+}]_~>l:",",::::;;wwmmwIII,      ▒   ▒▒ ░  ░   ░  ░     ░ ░░   ░ ▒░    ░       ░  ░      ░  ░ ░  ░  ░ ▒ ▒░  
+[?+<iI;lI,",:::;;mmmmIIII       ░   ▒   ░ ░   ░  ░        ░   ░ ░   ░         ░      ░       ░   ░ ░ ░ ▒   
+]-+~?{]]???-__~~:QZZO;;III          ░  ░      ░                 ░                    ░       ░  ░    ░ ░   
+|^((()1111{{{{}}[ZZ?~+<:;"    
+ //\\\\||(((())))))ZZ)))1[~          NEO PROTOCOL ◍ It's own!
+      tttttttf0f^>^           
+            /^^               
+`.trim(),
+  );
+}
+
 function usage() {
+  banner();
   console.log(
     `
-neobot CLI (MVP)
-
 Usage:
-  neobot run ops-status
+  neobot run <skill> [args...]
   neobot whoami
   neobot config show
   neobot ledger path
@@ -21,7 +41,6 @@ Examples:
   pnpm neobot run ops-status
   pnpm neobot whoami
   pnpm neobot config show
-  pnpm neobot ledger path
   pnpm neobot ledger tail 20
 `.trim(),
   );
