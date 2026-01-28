@@ -39,6 +39,7 @@ Usage:
   neobot cron list
   neobot cron run <job>
   neobot cron start
+  neobot health [--full] [--json] [--since <hours>]
 
 Examples:
   pnpm neobot run ops-status
@@ -47,6 +48,7 @@ Examples:
   pnpm neobot ledger tail 20
   pnpm neobot cron list
   pnpm neobot cron run daily-ops-status
+  pnpm neobot health
 `.trim(),
   );
 }
@@ -57,6 +59,45 @@ async function main() {
   if (!cmd) {
     usage();
     process.exit(0);
+  }
+
+  if (cmd === "health") {
+    const { runHealthCheck } = await import("../infra/health/health.js");
+    const allArgs = [subcmd, ...rest];
+    const isJson = allArgs.includes("--json");
+    const isFull = allArgs.includes("--full");
+    const sinceIdx = allArgs.indexOf("--since");
+    const sinceHours = sinceIdx !== -1 ? parseInt(allArgs[sinceIdx + 1]) || 24 : 24;
+
+    const report = await runHealthCheck({ sinceHours });
+
+    if (isJson) {
+      console.log(JSON.stringify(report, null, 2));
+      process.exit(report.overall_status === "fail" ? 1 : 0);
+    }
+
+    const statusIcons = { ok: "✅", warn: "⚠️", fail: "❌" };
+
+    console.log(`\nNEOBOT HEALTH ${statusIcons[report.overall_status]}`);
+    console.log(`Time: ${report.ts}`);
+    console.log("----------------------------------------------------------------");
+
+    for (const check of report.checks) {
+      console.log(`${statusIcons[check.status]} ${check.key}: ${check.summary}`);
+      if (isFull) {
+        if (check.details) {
+          console.log(
+            `   Details: ${JSON.stringify(check.details, null, 2).split("\n").join("\n   ")}`,
+          );
+        }
+        if (check.recommendation) {
+          console.log(`   💡 Recommendation: ${check.recommendation}`);
+        }
+      }
+    }
+    console.log("----------------------------------------------------------------\n");
+
+    process.exit(report.overall_status === "fail" ? 1 : 0);
   }
 
   if (cmd === "cron") {
