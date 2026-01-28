@@ -80,6 +80,41 @@ pnpm neobot cron start
 
 ---
 
+## 🔔 Sistema de Lembretes Pessoais
+
+### Criar um Lembrete
+
+```bash
+pnpm tsx skills/reminders/remind.ts "texto do lembrete" "quando"
+```
+
+**Exemplos práticos:**
+
+```bash
+# Lembrete em 30 minutos
+pnpm tsx skills/reminders/remind.ts "Ir à academia" "in 30 minutes"
+
+# Lembrete amanhã às 9h
+pnpm tsx skills/reminders/remind.ts "Reunião importante" "tomorrow at 9am"
+
+# Lembrete diário (todo dia às 8h)
+pnpm tsx skills/reminders/remind.ts "Tomar vitamina" "0 8 * * *"
+
+# Lembrete em 2 horas
+pnpm tsx skills/reminders/remind.ts "Ligar para mãe" "in 2 hours"
+
+# Em português também funciona
+pnpm tsx skills/reminders/remind.ts "Beber água" "em 1 hora"
+```
+
+**Como funciona:**
+1. Você cria o lembrete com texto e horário
+2. O sistema agenda automaticamente
+3. No horário marcado, você recebe uma mensagem no Telegram com 🔔
+4. Simples e direto!
+
+---
+
 ## 🔑 Configuração Inicial
 
 ### Arquivo `.env`
