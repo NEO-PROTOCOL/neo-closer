@@ -1,5 +1,9 @@
 import { runShellSkill } from "../infra/runner/run-shell-skill.js";
 import { getLedgerFilePath } from "../infra/ledger/ledger.js";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { loadRuntimeConfig } from "../config/runtime-config.js";
 
 function usage() {
   console.log(
@@ -8,11 +12,17 @@ neobot CLI (MVP)
 
 Usage:
   neobot run ops-status
+  neobot whoami
+  neobot config show
   neobot ledger path
+  neobot ledger tail [n]
 
 Examples:
   pnpm neobot run ops-status
+  pnpm neobot whoami
+  pnpm neobot config show
   pnpm neobot ledger path
+  pnpm neobot ledger tail 20
 `.trim(),
   );
 }
@@ -25,11 +35,65 @@ async function main() {
     process.exit(1);
   }
 
+  if (cmd === "whoami") {
+    const cfg = loadRuntimeConfig();
+    const user = os.userInfo();
+    console.log(
+      JSON.stringify(
+        {
+          actor: "user",
+          channel: "cli",
+          os_user: user.username,
+          homedir: os.homedir(),
+          cwd: process.cwd(),
+          node: process.version,
+          runtime_config: path.resolve(process.cwd(), "config/neobot.runtime.json"),
+          enabled_channels: Object.entries(cfg.channels ?? {})
+            .filter(([, v]) => v?.enabled === true)
+            .map(([k]) => k),
+          enabled_executors: Object.entries(cfg.executors ?? {})
+            .filter(([, v]) => v?.enabled === true)
+            .map(([k]) => k),
+          social_enabled: cfg.social_browser_automation?.enabled === true,
+        },
+        null,
+        2,
+      ),
+    );
+    process.exit(0);
+  }
+
+  if (cmd === "config") {
+    const action = subcmd;
+    if (action === "show") {
+      const cfg = loadRuntimeConfig();
+      console.log(JSON.stringify(cfg, null, 2));
+      process.exit(0);
+    }
+    usage();
+    process.exit(1);
+  }
+
   if (cmd === "ledger") {
     if (subcmd === "path") {
       console.log(getLedgerFilePath());
       process.exit(0);
     }
+
+    if (subcmd === "tail") {
+      const nRaw = rest[0] ?? "20";
+      const n = Math.max(1, Math.min(200, Number(nRaw) || 20));
+      const p = getLedgerFilePath();
+      if (!fs.existsSync(p)) {
+        console.error(`Ledger file not found: ${p}`);
+        process.exit(1);
+      }
+      const lines = fs.readFileSync(p, "utf8").trim().split("\n").filter(Boolean);
+      const last = lines.slice(-n);
+      console.log(last.join("\n"));
+      process.exit(0);
+    }
+
     usage();
     process.exit(1);
   }
@@ -42,6 +106,8 @@ async function main() {
     }
 
     if (skill === "ops-status") {
+      // load runtime config early (gatekeeper)
+      loadRuntimeConfig();
       const { assertChannelEnabled, assertExecutorEnabled, requiresConfirmation } =
         await import("../config/runtime-config.js");
       const readline = await import("readline-sync");
