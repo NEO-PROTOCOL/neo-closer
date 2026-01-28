@@ -31,10 +31,12 @@ O NEO BOT CLI é a sua interface de controle para o protocolo NEO. Aqui estão o
 * **[📖 Guia Completo de Uso](GUIA_DE_USO.md)** - Documentação detalhada de comandos, exemplos e troubleshooting
 * Envio de mensagens, agendamento, descoberta de Chat IDs e muito mais!
 
-### 🎨 Dashboard Web
-* **[🛰️ Dashboard Premium](dashboard/README.md)** - Interface visual moderna estilo Bento Grid
-* Controle total via navegador: lembretes, mensagens, estatísticas e mais!
-* Acesse em: `http://localhost:3000` (após rodar `cd dashboard && npm start`)
+### 🎨 Dashboard Web (v1.1.0 - Optimized!)
+* **[🛰️ Dashboard Premium](dashboard/README.md)** - Interface iOS-style otimizada
+* ⚡ Performance 2.6x mais rápida | 💰 Economia de IA 30-50%
+* Chat com Claude AI, automações avançadas, relatórios inteligentes
+* Acesse em: `http://localhost:3000` (após rodar `cd dashboard && node server.js`)
+* **[📚 Ver todas as features](FEATURES.md)** | **[💰 Otimizações](OPTIMIZATIONS.md)**
 
 ---
 

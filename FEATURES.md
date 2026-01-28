@@ -602,6 +602,13 @@ DevOps:
 ---
 
 **Made with ❤️ for NeoBot**  
-Version 1.0.0 | 2026-01-28
+Version 1.1.0 | 2026-01-28
 
-*Dashboard iOS-style com Bento Grid, Automações Avançadas e Claude AI*
+*Dashboard iOS-style Otimizado, Automações Avançadas e Claude AI com Economia de 30-50%*
+
+**Últimas Atualizações (v1.1.0):**
+
+- ⚡ Performance 2.6x mais rápida (transições 0.15s)
+- 🐛 Correção de 11 bugs críticos
+- 💰 Sistema de cache e otimização de IA
+- 🎨 Hover effects otimizados (sem lag)

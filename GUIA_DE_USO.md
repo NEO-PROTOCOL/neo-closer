@@ -265,5 +265,5 @@ pnpm tsx skills/scheduler/scripts/scheduler.ts add \
 ---
 
 **Última atualização:** 27/01/2026 23:34  
-**Versão do Neobot:** v1.0.0-neobot  
+**Versão do Neobot:** v1.1.0  
 **Protocolo:** NΞØ 🛰️
