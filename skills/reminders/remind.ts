@@ -110,7 +110,7 @@ Formatos aceitos:
 
     if (success) {
         console.log(`✅ Lembrete agendado para ${targetTime.toLocaleString('pt-BR')}`);
-        console.log(`� Você receberá: "🔔 LEMBRETE: ${reminderText}"`);
+        console.log(`📱 Você receberá: "🔔 LEMBRETE: ${reminderText}"`);
         console.log(`\n💡 O lembrete será enviado automaticamente pelo sistema.`);
     } else {
         console.error(`❌ Erro ao agendar lembrete.`);
