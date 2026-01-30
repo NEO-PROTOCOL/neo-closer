@@ -23,7 +23,7 @@ Minimal config:
   channels: {
     whatsapp: {
       dmPolicy: "allowlist",
-      allowFrom: ["+15551234567"]
+      allowFrom: ["+5562983231110"]
     }
   }
 }

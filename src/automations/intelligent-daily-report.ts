@@ -9,7 +9,7 @@ export interface ClaudeService {
   chat(message: string, context?: string): Promise<{ message: string }>;
 }
 
-const ADMIN_CHAT = process.env.TELEGRAM_ADMIN_CHAT || "6582122066";
+const ADMIN_CHAT = process.env.TELEGRAM_ADMIN_CHAT || "[CHAT_ID]";
 
 /**
  * Setup Intelligent Daily Report Automation

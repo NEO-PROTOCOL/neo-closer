@@ -128,7 +128,7 @@ Crie ou atualize seu `.env`:
 ```env
 # Telegram
 TELEGRAM_BOT_TOKEN=seu_token_aqui
-TELEGRAM_ADMIN_CHAT=6582122066
+TELEGRAM_ADMIN_CHAT=[CHAT_ID]
 
 # Claude AI (já configurado)
 ANTHROPIC_API_KEY=sua_api_key

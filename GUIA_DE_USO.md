@@ -154,7 +154,7 @@ ANTHROPIC_API_KEY=sk-ant-sua-chave-aqui
 
 | Nome | Username | Chat ID |
 |------|----------|---------|
-| Netto MELLØ | - | `6582122066` |
+| Netto MELLØ | - | `[CHAT_ID]` |
 | Ana Carolina | @anacarolinamaia | `8181568281` |
 
 ---
@@ -198,7 +198,7 @@ pnpm tsx skills/scheduler/scripts/scheduler.ts add \
 pnpm tsx skills/scheduler/scripts/scheduler.ts add \
   --name "Lembrete Reunião" \
   --when "in 30 minutes" \
-  --command "pnpm tsx skills/telegram/scripts/telegram.ts --to 6582122066 --message 'Reunião em 30 minutos!'"
+  --command "pnpm tsx skills/telegram/scripts/telegram.ts --to [CHAT_ID] --message 'Reunião em 30 minutos!'"
 ```
 
 ### Exemplo 3: Sequência de Mensagens

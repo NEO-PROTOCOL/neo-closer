@@ -39,7 +39,7 @@ pnpm tsx skills/reminders/remind.ts "Ligar para mãe" "em 2 horas"
 
 O sistema usa automaticamente seu Chat ID configurado em:
 - Variável de ambiente: `MY_TELEGRAM_CHAT_ID`
-- Fallback: `6582122066` (seu ID padrão)
+- Fallback: `[CHAT_ID]` (seu ID padrão)
 
 ## Formatos de Tempo Aceitos
 

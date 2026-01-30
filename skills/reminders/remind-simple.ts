@@ -15,7 +15,7 @@ import path from "node:path";
 const execAsync = promisify(exec);
 
 const TELEGRAM_SCRIPT = path.resolve(process.cwd(), "skills/telegram/scripts/telegram.ts");
-const MY_CHAT_ID = process.env.MY_TELEGRAM_CHAT_ID || "6582122066";
+const MY_CHAT_ID = process.env.MY_TELEGRAM_CHAT_ID || "[CHAT_ID]";
 const CRON_FILE = path.join(os.homedir(), ".neobot-reminders.cron");
 
 function parseToCron(when: string): { cronExpr?: string; atTime?: Date } {

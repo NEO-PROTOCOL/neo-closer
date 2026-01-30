@@ -13,7 +13,7 @@ import path from "node:path";
 const execAsync = promisify(exec);
 
 const TELEGRAM_SCRIPT = path.resolve(process.cwd(), "skills/telegram/scripts/telegram.ts");
-const MY_CHAT_ID = process.env.MY_TELEGRAM_CHAT_ID || "6582122066";
+const MY_CHAT_ID = process.env.MY_TELEGRAM_CHAT_ID || "[CHAT_ID]";
 
 function parseTime(when: string): Date | null {
     const now = new Date();
