@@ -34,12 +34,6 @@ get_secret() {
 export ANTHROPIC_API_KEY=$(get_secret "ANTHROPIC_API_KEY")
 export TELEGRAM_BOT_TOKEN=$(get_secret "TELEGRAM_BOT_TOKEN")
 export TELEGRAM_CHAT_ID=$(get_secret "TELEGRAM_CHAT_ID")
-export ASI1AI_API_KEY=$(get_secret "ASI1AI_API_KEY")
-
-# Load Twilio (if exists)
-export TWILIO_ACCOUNT_SID=$(get_secret "TWILIO_ACCOUNT_SID")
-export TWILIO_AUTH_TOKEN=$(get_secret "TWILIO_AUTH_TOKEN")
-export TWILIO_WHATSAPP_FROM=$(get_secret "TWILIO_WHATSAPP_FROM")
 
 # Load NEO Protocol keys
 export NEO_CORE_PRIVATE_KEY=$(get_secret "NEO_CORE_PRIVATE_KEY")
