@@ -1296,7 +1296,7 @@ Slack action groups (gate `slack` tool actions):
 ### `channels.mattermost` (bot token)
 
 Mattermost ships as a plugin and is not bundled with the core install.
-Install it first: `moltbot plugins install @moltbot/mattermost` (or `./extensions/mattermost` from a git checkout).
+Install it first: `moltbot plugins install @openclaw/mattermost` (or `./extensions/mattermost` from a git checkout).
 
 Mattermost requires a bot token plus the base URL for your server:
 

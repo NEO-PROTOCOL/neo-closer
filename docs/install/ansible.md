@@ -9,17 +9,17 @@ read_when:
 
 # Ansible Installation
 
-The recommended way to deploy Moltbot to production servers is via **[moltbot-ansible](https://github.com/moltbot/moltbot-ansible)** — an automated installer with security-first architecture.
+The recommended way to deploy Moltbot to production servers is via **[moltbot-ansible](https://github.com/openclaw/openclaw-ansible)** — an automated installer with security-first architecture.
 
 ## Quick Start
 
 One-command install:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/moltbot/moltbot-ansible/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/openclaw/openclaw-ansible/main/install.sh | bash
 ```
 
-> **📦 Full guide: [github.com/moltbot/moltbot-ansible](https://github.com/moltbot/moltbot-ansible)**
+> **📦 Full guide: [github.com/openclaw/openclaw-ansible](https://github.com/openclaw/openclaw-ansible)**
 >
 > The moltbot-ansible repo is the source of truth for Ansible deployment. This page is a quick overview.
 
@@ -118,7 +118,7 @@ If you prefer manual control over the automation:
 sudo apt update && sudo apt install -y ansible git
 
 # 2. Clone repository
-git clone https://github.com/moltbot/moltbot-ansible.git
+git clone https://github.com/openclaw/openclaw-ansible.git
 cd moltbot-ansible
 
 # 3. Install Ansible collections
@@ -196,13 +196,13 @@ moltbot channels login
 
 For detailed security architecture and troubleshooting:
 
-- [Security Architecture](https://github.com/moltbot/moltbot-ansible/blob/main/docs/security.md)
-- [Technical Details](https://github.com/moltbot/moltbot-ansible/blob/main/docs/architecture.md)
-- [Troubleshooting Guide](https://github.com/moltbot/moltbot-ansible/blob/main/docs/troubleshooting.md)
+- [Security Architecture](https://github.com/openclaw/openclaw-ansible/blob/main/docs/security.md)
+- [Technical Details](https://github.com/openclaw/openclaw-ansible/blob/main/docs/architecture.md)
+- [Troubleshooting Guide](https://github.com/openclaw/openclaw-ansible/blob/main/docs/troubleshooting.md)
 
 ## Related
 
-- [moltbot-ansible](https://github.com/moltbot/moltbot-ansible) — full deployment guide
+- [moltbot-ansible](https://github.com/openclaw/openclaw-ansible) — full deployment guide
 - [Docker](/install/docker) — containerized gateway setup
 - [Sandboxing](/gateway/sandboxing) — agent sandbox configuration
 - [Multi-Agent Sandbox & Tools](/multi-agent-sandbox-tools) — per-agent isolation

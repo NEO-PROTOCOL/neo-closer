@@ -22,7 +22,7 @@ are not supported.
 Install the LINE plugin:
 
 ```bash
-moltbot plugins install @moltbot/line
+moltbot plugins install @openclaw/line
 ```
 
 Local checkout (when running from a git repo):

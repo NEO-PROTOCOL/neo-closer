@@ -28,7 +28,7 @@ You can always override the choice in the prompt.
 ### Manual install
 
 ```bash
-moltbot plugins install @moltbot/nostr
+moltbot plugins install @openclaw/nostr
 ```
 
 Use a local checkout (dev workflows):

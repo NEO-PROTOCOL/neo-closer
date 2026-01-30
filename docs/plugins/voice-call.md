@@ -36,7 +36,7 @@ If you use a remote Gateway, install/configure the plugin on the **machine runni
 ### Option A: install from npm (recommended)
 
 ```bash
-moltbot plugins install @moltbot/voice-call
+moltbot plugins install @openclaw/voice-call
 ```
 
 Restart the Gateway afterwards.

@@ -21,7 +21,7 @@ Matrix ships as a plugin and is not bundled with the core install.
 Install via CLI (npm registry):
 
 ```bash
-moltbot plugins install @moltbot/matrix
+moltbot plugins install @openclaw/matrix
 ```
 
 Local checkout (when running from a git repo):
@@ -39,7 +39,7 @@ Details: [Plugins](/plugin)
 
 1) Install the Matrix plugin:
 
-   - From npm: `moltbot plugins install @moltbot/matrix`
+   - From npm: `moltbot plugins install @openclaw/matrix`
    - From a local checkout: `moltbot plugins install ./extensions/matrix`
 2) Create a Matrix account on a homeserver:
 

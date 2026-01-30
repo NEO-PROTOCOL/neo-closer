@@ -27,7 +27,7 @@ If you use a remote Gateway, install/configure it on the **machine running the G
 ### Option A: install from npm
 
 ```bash
-moltbot plugins install @moltbot/zalouser
+moltbot plugins install @openclaw/zalouser
 ```
 
 Restart the Gateway afterwards.

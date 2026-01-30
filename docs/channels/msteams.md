@@ -24,7 +24,7 @@ Explainable: keeps core installs lighter and lets MS Teams dependencies update i
 Install via CLI (npm registry):
 
 ```bash
-moltbot plugins install @moltbot/msteams
+moltbot plugins install @openclaw/msteams
 ```
 
 Local checkout (when running from a git repo):
@@ -232,7 +232,7 @@ This is often easier than hand-editing JSON manifests.
 ## Setup (minimal text-only)
 
 1. **Install the Microsoft Teams plugin**
-   - From npm: `moltbot plugins install @moltbot/msteams`
+   - From npm: `moltbot plugins install @openclaw/msteams`
    - From a local checkout: `moltbot plugins install ./extensions/msteams`
 
 2. **Bot registration**

@@ -14,7 +14,7 @@ Status: experimental. This integration automates a **personal Zalo account** via
 ## Plugin required
 
 Zalo Personal ships as a plugin and is not bundled with the core install.
-- Install via CLI: `moltbot plugins install @moltbot/zalouser`
+- Install via CLI: `moltbot plugins install @openclaw/zalouser`
 - Or from a source checkout: `moltbot plugins install ./extensions/zalouser`
 - Details: [Plugins](/plugin)
 

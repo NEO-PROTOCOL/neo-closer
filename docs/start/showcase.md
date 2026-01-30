@@ -349,7 +349,7 @@ Full setup walkthrough (28m) by VelvetShark.
   Control and automate Home Assistant devices via natural language.
 </Card>
 
-<Card title="Nix Packaging" icon="snowflake" href="https://github.com/moltbot/nix-moltbot">
+<Card title="Nix Packaging" icon="snowflake" href="https://github.com/openclaw/nix-openclaw">
   **@moltbot** • `nix` `packaging` `deployment`
   
   Batteries-included nixified Moltbot configuration for reproducible deployments.

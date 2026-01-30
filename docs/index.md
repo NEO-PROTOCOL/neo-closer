@@ -19,8 +19,8 @@ read_when:
 </p>
 
 <p align="center">
-  <a href="https://github.com/moltbot/moltbot">GitHub</a> ·
-  <a href="https://github.com/moltbot/moltbot/releases">Releases</a> ·
+  <a href="https://github.com/openclaw/openclaw">GitHub</a> ·
+  <a href="https://github.com/openclaw/openclaw/releases">Releases</a> ·
   <a href="/">Docs</a> ·
   <a href="/start/clawd">Moltbot assistant setup</a>
 </p>
@@ -121,7 +121,7 @@ Switching between npm and git installs later is easy: install the other flavor a
 From source (development):
 
 ```bash
-git clone https://github.com/moltbot/moltbot.git
+git clone https://github.com/openclaw/openclaw.git
 cd moltbot
 pnpm install
 pnpm ui:build # auto-installs UI deps on first run

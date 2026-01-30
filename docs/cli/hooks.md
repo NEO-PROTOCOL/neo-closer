@@ -203,7 +203,7 @@ moltbot hooks install ./my-hook-pack
 moltbot hooks install ./my-hook-pack.zip
 
 # NPM package
-moltbot hooks install @moltbot/my-hook-pack
+moltbot hooks install @openclaw/my-hook-pack
 
 # Link a local directory without copying
 moltbot hooks install -l ./my-hook-pack

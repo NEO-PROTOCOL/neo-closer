@@ -27,7 +27,7 @@ moltbot plugins list
 2) Install an official plugin (example: Voice Call):
 
 ```bash
-moltbot plugins install @moltbot/voice-call
+moltbot plugins install @openclaw/voice-call
 ```
 
 3) Restart the Gateway, then configure under `plugins.entries.<id>.config`.
@@ -36,15 +36,15 @@ See [Voice Call](/plugins/voice-call) for a concrete example plugin.
 
 ## Available plugins (official)
 
-- Microsoft Teams is plugin-only as of 2026.1.15; install `@moltbot/msteams` if you use Teams.
+- Microsoft Teams is plugin-only as of 2026.1.15; install `@openclaw/msteams` if you use Teams.
 - Memory (Core) — bundled memory search plugin (enabled by default via `plugins.slots.memory`)
 - Memory (LanceDB) — bundled long-term memory plugin (auto-recall/capture; set `plugins.slots.memory = "memory-lancedb"`)
-- [Voice Call](/plugins/voice-call) — `@moltbot/voice-call`
-- [Zalo Personal](/plugins/zalouser) — `@moltbot/zalouser`
-- [Matrix](/channels/matrix) — `@moltbot/matrix`
-- [Nostr](/channels/nostr) — `@moltbot/nostr`
-- [Zalo](/channels/zalo) — `@moltbot/zalo`
-- [Microsoft Teams](/channels/msteams) — `@moltbot/msteams`
+- [Voice Call](/plugins/voice-call) — `@openclaw/voice-call`
+- [Zalo Personal](/plugins/zalouser) — `@openclaw/zalouser`
+- [Matrix](/channels/matrix) — `@openclaw/matrix`
+- [Nostr](/channels/nostr) — `@openclaw/nostr`
+- [Zalo](/channels/zalo) — `@openclaw/zalo`
+- [Microsoft Teams](/channels/msteams) — `@openclaw/msteams`
 - Google Antigravity OAuth (provider auth) — bundled as `google-antigravity-auth` (disabled by default)
 - Gemini CLI OAuth (provider auth) — bundled as `google-gemini-cli-auth` (disabled by default)
 - Qwen OAuth (provider auth) — bundled as `qwen-portal-auth` (disabled by default)
@@ -142,7 +142,7 @@ Example:
 
 ```json
 {
-  "name": "@moltbot/nextcloud-talk",
+  "name": "@openclaw/nextcloud-talk",
   "moltbot": {
     "extensions": ["./index.ts"],
     "channel": {
@@ -156,7 +156,7 @@ Example:
       "aliases": ["nc-talk", "nc"]
     },
     "install": {
-      "npmSpec": "@moltbot/nextcloud-talk",
+      "npmSpec": "@openclaw/nextcloud-talk",
       "localPath": "extensions/nextcloud-talk",
       "defaultChoice": "npm"
     }
@@ -282,7 +282,7 @@ moltbot plugins install ./extensions/voice-call # relative path ok
 moltbot plugins install ./plugin.tgz           # install from a local tarball
 moltbot plugins install ./plugin.zip           # install from a local zip
 moltbot plugins install -l ./extensions/voice-call # link (no copy) for dev
-moltbot plugins install @moltbot/voice-call # install from npm
+moltbot plugins install @openclaw/voice-call # install from npm
 moltbot plugins update <id>
 moltbot plugins update --all
 moltbot plugins enable <id>
@@ -609,7 +609,7 @@ it’s present in your workspace/managed skills locations.
 Recommended packaging:
 
 - Main package: `moltbot` (this repo)
-- Plugins: separate npm packages under `@moltbot/*` (example: `@moltbot/voice-call`)
+- Plugins: separate npm packages under `@openclaw/*` (example: `@openclaw/voice-call`)
 
 Publishing contract:
 

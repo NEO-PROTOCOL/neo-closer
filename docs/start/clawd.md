@@ -37,7 +37,7 @@ npm install -g moltbot@latest
 From source (development):
 
 ```bash
-git clone https://github.com/moltbot/moltbot.git
+git clone https://github.com/openclaw/openclaw.git
 cd moltbot
 pnpm install
 pnpm ui:build # auto-installs UI deps on first run

@@ -11,7 +11,7 @@ Status: experimental. Direct messages only; groups coming soon per Zalo docs.
 ## Plugin required
 
 Zalo ships as a plugin and is not bundled with the core install.
-- Install via CLI: `moltbot plugins install @moltbot/zalo`
+- Install via CLI: `moltbot plugins install @openclaw/zalo`
 - Or select **Zalo** during onboarding and confirm the install prompt
 - Details: [Plugins](/plugin)
 
@@ -20,7 +20,7 @@ Zalo ships as a plugin and is not bundled with the core install.
 1) Install the Zalo plugin:
 
    - From a source checkout: `moltbot plugins install ./extensions/zalo`
-   - From npm (if published): `moltbot plugins install @moltbot/zalo`
+   - From npm (if published): `moltbot plugins install @openclaw/zalo`
    - Or pick **Zalo** in onboarding and confirm the install prompt
 2) Set the token:
 
