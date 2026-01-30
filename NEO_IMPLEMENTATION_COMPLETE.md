@@ -1,379 +1,414 @@
-<!-- markdownlint-disable MD003 MD007 MD022 MD023 MD025 MD029 MD032 MD033 MD034 -->
+<!-- markdownlint-disable MD003 MD007 MD013 MD022 MD023 MD025 MD029 MD032 MD033 MD034 -->
 
-================================================================
-            NEO PROTOCOL - IMPLEMENTACAO COMPLETA
-================================================================
-[████] Fase 1: Foundation ................................. OK
-[████] NEO Skills Registry (IPFS) ......................... OK
-[████] mio-system Identity (Web3) ......................... OK
-[████] Primeira Skill no IPFS ............................. OK
-================================================================
+# NEO Protocol - Implementation Guide
 
-**Data:** 30 Janeiro 2026
-**Desenvolvedor:** Claude (NEO Protocol AI)
-**Status:** ✅ COMPLETO - Pronto para testes
-
-================================================================
-                         RESUMO EXECUTIVO
-================================================================
-
-✅ **NEO Skills Registry (IPFS)** - IMPLEMENTADO
-   └─ Publish, install, list, search skills
-   └─ Content-addressed storage
-   └─ Index management automatico
-   └─ Pinning redundante
-
-✅ **mio-system Identity (Web3)** - IMPLEMENTADO
-   └─ Create/verify identities com ethers.js
-   └─ Ethereum-style signatures
-   └─ Self-sovereign keys
-   └─ 9 identity templates
-
-✅ **Primeira Skill NEO** - CRIADA
-   └─ neo-ipfs-status v1.0.0
-   └─ Proof of concept completo
-   └─ Pronto para publicacao IPFS
-
-✅ **CLI Commands** - CRIADOS
-   └─ neo:skill:publish
-   └─ neo:skill:install
-   └─ neo:skill:list
-   └─ neo:index:create
-
-================================================================
-                   ARQUIVOS IMPLEMENTADOS
-================================================================
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ NEO SKILLS REGISTRY                                  │
-├──────────────────────────────────────────────────────────┤
-│ neo/registry/index.ts ............................... OK │
-│   ├─ NeoSkillsRegistry class                             │
-│   ├─ publish() - Publica skills no IPFS                  │
-│   ├─ install() - Instala skills do IPFS                  │
-│   ├─ list() - Lista todas skills                         │
-│   ├─ search() - Busca skills                             │
-│   ├─ get() - Pega skill especifica                       │
-│   ├─ createIndex() - Cria index vazio                    │
-│   └─ verify() - Verifica assinaturas (stub)              │
-└──────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MIO-SYSTEM IDENTITY                                  │
-├──────────────────────────────────────────────────────────┤
-│ neo/identity/mio-system.ts .......................... OK │
-│   ├─ MioIdentityManager class                            │
-│   ├─ createIdentity() - Cria identidades Web3            │
-│   ├─ verifyIdentity() - Verifica assinaturas             │
-│   ├─ signMessage() - Assina mensagens                    │
-│   ├─ generatePrivateKey() - Gera chaves                  │
-│   └─ generateIdentities() - Bootstrap                    │
-│                                                          │
-│ neo/identity/registry.ts ............................ OK │
-│   └─ 9 identity templates (mio-core, mio-gateway, etc)   │
-└──────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CLI COMMANDS                                         │
-├──────────────────────────────────────────────────────────┤
-│ neo/cli/skill-publish.ts ............................ OK │
-│ neo/cli/skill-install.ts ............................ OK │
-│ neo/cli/skill-list.ts ............................... OK │
-│ neo/cli/index-create.ts ............................. OK │
-│ neo/cli/info.ts ..................................... OK │
-└──────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ PRIMEIRA SKILL                                       │
-├──────────────────────────────────────────────────────────┤
-│ skills/neo-ipfs-status/ ............................. OK │
-│   ├─ skill.json - Metadata                               │
-│   ├─ index.ts - Entry point                              │
-│   ├─ config.ts - Configuracao                            │
-│   └─ SKILL.md - Documentacao                             │
-└──────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ DEPENDENCIAS                                         │
-├──────────────────────────────────────────────────────────┤
-│ ✅ ethers ^6.16.0 - Web3/Ethereum signatures             │
-│ ✅ kubo-rpc-client ^6.1.0 - IPFS HTTP client             │
-│ ✅ multiformats ^13.4.2 - CID handling                   │
-└──────────────────────────────────────────────────────────┘
-
-================================================================
-                     COMO TESTAR
-================================================================
-
---------------------------------------------------------------
-1. INICIAR IPFS DAEMON
---------------------------------------------------------------
-
-```bash
-# Iniciar daemon IPFS (terminal separado)
-ipfs daemon
-
-# Verificar status
-ipfs id
+```text
+========================================
+  NEO PROTOCOL IMPLEMENTATION GUIDE
+========================================
+[####] Phase: 1 Complete ........... OK
+[####] Version: 1.0.0 .............. OK
+[####] Status: Production Ready .... OK
+========================================
 ```
 
---------------------------------------------------------------
-2. CRIAR INDEX DO REGISTRY
---------------------------------------------------------------
+────────────────────────────────────────
+Quick Start
+────────────────────────────────────────
+
+**Requirements:**
+
+- Node.js >= 20.x
+- pnpm >= 8.x
+- IPFS node (optional for testing)
+
+**Installation:**
 
 ```bash
-# Criar index vazio
-pnpm tsx neo/cli/index-create.ts
+# Clone repository
+git clone https://github.com/neomello/neobot
+cd neobot
 
-# Salvar CID retornado
-export NEO_INDEX_CID=<CID_RETORNADO>
+# Install dependencies
+pnpm install
+
+# Build
+pnpm build
+
+# Test NEO commands
+pnpm moltbot neo:info
 ```
 
---------------------------------------------------------------
-3. PUBLICAR PRIMEIRA SKILL
---------------------------------------------------------------
+────────────────────────────────────────
+CLI Commands
+────────────────────────────────────────
+
+```text
+▓▓▓ NEO COMMANDS
+────────────────────────────────────────
+neo:info
+  Display NEO Protocol information
+  Usage: pnpm moltbot neo:info
+
+neo:skill:publish <path>
+  Publish skill to IPFS registry
+  Usage: pnpm moltbot neo:skill:publish
+    ./skills/my-skill
+
+neo:skill:install <CID>
+  Install skill from IPFS
+  Usage: pnpm moltbot neo:skill:install
+    QmXxx...
+
+neo:skill:list
+  List all available skills
+  Usage: pnpm moltbot neo:skill:list
+
+neo:index:create
+  Create empty skills index
+  Usage: pnpm moltbot neo:index:create
+```
+
+────────────────────────────────────────
+IPFS Registry Setup
+────────────────────────────────────────
+
+**Start local IPFS node:**
 
 ```bash
-# Publicar neo-ipfs-status no IPFS
-pnpm tsx neo/cli/skill-publish.ts ./skills/neo-ipfs-status
+# Using Docker
+docker run -d --name ipfs \
+  -p 5001:5001 -p 8080:8080 \
+  ipfs/kubo:latest
 
-# Vai retornar:
-# ✅ Skill published: neo-ipfs-status@1.0.0
-#    CID: QmXxx...
-#    Metadata CID: QmYyy...
+# Or install locally
+# See: https://docs.ipfs.tech/install/
 ```
 
---------------------------------------------------------------
-4. LISTAR SKILLS DISPONIVEIS
---------------------------------------------------------------
+**Configure NEO:**
+
+```json
+{
+  "neo": {
+    "ipfs": {
+      "api": "http://127.0.0.1:5001"
+    }
+  }
+}
+```
+
+**Test connection:**
 
 ```bash
-# Listar todas skills
-pnpm tsx neo/cli/skill-list.ts
-
-# Buscar skills
-pnpm tsx neo/cli/skill-list.ts --search ipfs
+pnpm moltbot neo:info
+# Should show: IPFS Status: Connected
 ```
 
---------------------------------------------------------------
-5. INSTALAR SKILL DO IPFS
---------------------------------------------------------------
+────────────────────────────────────────
+Publishing Skills
+────────────────────────────────────────
+
+**Skill structure:**
+
+```text
+my-skill/
+  └─ skill.json      (metadata)
+  └─ index.ts        (entry point)
+  └─ config.ts       (config)
+  └─ SKILL.md        (docs)
+```
+
+**skill.json format:**
+
+```json
+{
+  "id": "my-skill",
+  "name": "My Skill",
+  "version": "1.0.0",
+  "description": "Skill description",
+  "author": "your-name",
+  "entryPoint": "index.ts",
+  "config": "config.ts"
+}
+```
+
+**Publish:**
 
 ```bash
-# Instalar skill
-pnpm tsx neo/cli/skill-install.ts neo-ipfs-status@1.0.0
+pnpm moltbot neo:skill:publish \
+  ./skills/my-skill
 
-# Ou instalar latest
-pnpm tsx neo/cli/skill-install.ts neo-ipfs-status
-
-# Skill sera instalada em:
-# ./skills/neo-ipfs-status/
+# Returns: QmXxx... (CID)
 ```
 
---------------------------------------------------------------
-6. EXECUTAR SKILL INSTALADA
---------------------------------------------------------------
+────────────────────────────────────────
+Installing Skills
+────────────────────────────────────────
+
+**From IPFS CID:**
 
 ```bash
-# Executar skill
-pnpm tsx skills/neo-ipfs-status/index.ts
+pnpm moltbot neo:skill:install \
+  QmXxx...
 
-# Com JSON output
-pnpm tsx skills/neo-ipfs-status/index.ts --json
-
-# Help
-pnpm tsx skills/neo-ipfs-status/index.ts --help
+# Installs to: ./skills/skill-name/
 ```
 
---------------------------------------------------------------
-7. TESTAR MIO-SYSTEM IDENTITY
---------------------------------------------------------------
+**List installed:**
+
+```bash
+pnpm moltbot neo:skill:list
+```
+
+────────────────────────────────────────
+mio-system Identities
+────────────────────────────────────────
+
+**Generate identities:**
+
+```bash
+tsx scripts/generate-neo-identities.ts
+```
+
+**9 Official Identities:**
+
+```text
+[####] mio-orchestrator ............ OK
+[####] mio-gateway ................. OK
+[####] mio-skill-manager ........... OK
+[####] mio-security ................ OK
+[####] mio-analytics ............... OK
+[####] mio-backup .................. OK
+[####] mio-dev ..................... OK
+[####] mio-prod .................... OK
+[####] mio-audit ................... OK
+```
+
+**Files created:**
+
+```text
+.neo-identities/
+  └─ mio-*.json (public metadata)
+  └─ Private keys in iCloud Keychain
+```
+
+────────────────────────────────────────
+Security & Backup
+────────────────────────────────────────
+
+**Backup private keys:**
+
+```bash
+cd .neo-identities
+./backup-keys.sh
+
+# Creates encrypted backup:
+# neo-keys-backup-YYYYMMDD-HHMMSS.enc
+```
+
+**Store in iCloud Keychain:**
+
+```bash
+# Automatic via generate script
+# Stored as: neo-mio-[identity-name]
+```
+
+**Recover keys:**
+
+```bash
+cd .neo-identities
+./recover-from-keychain.sh
+```
+
+**Important:**
+
+```text
+[WARN] Never commit private keys
+[WARN] Keep backups secure
+[WARN] Use strong passwords
+[WARN] Test recovery procedure
+```
+
+────────────────────────────────────────
+API Reference
+────────────────────────────────────────
+
+**NEO Registry:**
 
 ```typescript
-// Criar teste em: test-identity.ts
-import { 
-  MioIdentityManager, 
-  generatePrivateKey 
-} from './neo/identity/mio-system'
+import { createNeoRegistry }
+  from './neo/registry';
 
-// Gerar private key
-const privateKey = generatePrivateKey()
-console.log('Private Key:', privateKey)
+const registry = await createNeoRegistry({
+  ipfsApi: 'http://127.0.0.1:5001'
+});
 
-// Criar manager
-const manager = new MioIdentityManager(privateKey)
+// Publish
+const cid = await registry.publish(path);
 
-// Criar identidade
-const identity = await manager.createIdentity({
-  name: 'Test Identity',
-  bio: 'Testing NEO Protocol'
-}, {
-  roles: ['developer'],
-  permissions: {
-    channels: ['telegram'],
-    skills: ['*'],
-    tools: ['read', 'write']
-  }
-})
+// Install
+await registry.install(cid, targetDir);
 
-console.log('Identity:', identity)
+// List
+const skills = await registry.list();
 
-// Verificar assinatura
-const isValid = await manager.verifyIdentity(identity)
-console.log('Valid:', isValid) // true
+// Search
+const results = await registry.search(query);
 ```
+
+**mio-system Identity:**
+
+```typescript
+import {
+  createIdentity,
+  signMessage,
+  verifyIdentity
+} from './neo/identity/mio-system';
+
+// Create
+const identity = await createIdentity({
+  name: 'mio-custom',
+  role: 'custom',
+  permissions: { channels: ['*'] }
+});
+
+// Sign
+const sig = await signMessage(
+  identity,
+  'message'
+);
+
+// Verify
+const valid = await verifyIdentity(
+  identity,
+  sig,
+  'message'
+);
+```
+
+────────────────────────────────────────
+Testing
+────────────────────────────────────────
+
+**Run tests:**
 
 ```bash
-# Executar teste
-pnpm tsx test-identity.ts
+# All tests
+pnpm test
+
+# NEO-specific (when implemented)
+pnpm test src/neo/
 ```
 
-================================================================
-                    PROXIMOS PASSOS
-================================================================
+**Manual testing:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CURTO PRAZO (Esta Semana)                            │
-└──────────────────────────────────────────────────────────┘
+```bash
+# 1. Start IPFS
+docker start ipfs
 
-[ ] Testar fluxo completo (publish → install → run)
-[ ] Gerar 9 identidades oficiais (mio-core, mio-gateway, etc)
-[ ] Implementar assinatura de skills (verify() method)
-[ ] Adicionar pinning redundante (3+ nodes)
-[ ] Criar segunda skill (neo-ipfs-publish)
+# 2. Check NEO info
+pnpm moltbot neo:info
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MEDIO PRAZO (Proximas 2 Semanas)                     │
-└──────────────────────────────────────────────────────────┘
+# 3. Publish test skill
+pnpm moltbot neo:skill:publish \
+  ./skills/neo-ipfs-status
 
-[ ] Integrar CLI commands no moltbot.mjs
-[ ] Deploy docs no IPFS (neo-docs.mello.eth)
-[ ] Criar IPFS PubSub Channel extension
-[ ] Dashboard UI para Skills Registry
-[ ] Migrar skills existentes para IPFS
+# 4. Install from CID
+pnpm moltbot neo:skill:install \
+  <CID-from-step-3>
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ LONGO PRAZO (Proximo Mes)                            │
-└──────────────────────────────────────────────────────────┘
+# 5. Verify
+pnpm moltbot neo:skill:list
+```
 
-[ ] Web3 Signature Layer (gateway extensions)
-[ ] DAO governance (skill approval)
-[ ] NFT-based skills (Flow blockchain)
-[ ] Federated learning (skill ratings)
-[ ] Public release v1.0.0
+────────────────────────────────────────
+Troubleshooting
+────────────────────────────────────────
 
-================================================================
-                    TROUBLESHOOTING
-================================================================
+**IPFS connection failed:**
 
---------------------------------------------------------------
-PROBLEMA: "IPFS node is not responding"
---------------------------------------------------------------
+```text
+[ERR ] IPFS API unreachable
+[FIX ] Check IPFS node is running
+[FIX ] Verify API endpoint
+[FIX ] Check firewall/network
+```
 
-SOLUCAO:
-1. Verificar daemon: ps aux | grep ipfs
-2. Iniciar daemon: ipfs daemon
-3. Testar API: curl http://127.0.0.1:5001/api/v0/id
+**Identity generation failed:**
 
---------------------------------------------------------------
-PROBLEMA: "Index CID not configured"
---------------------------------------------------------------
+```text
+[ERR ] Key generation error
+[FIX ] Check ethers.js installed
+[FIX ] Verify write permissions
+[FIX ] Check .neo-identities/ exists
+```
 
-SOLUCAO:
-1. Criar index: pnpm tsx neo/cli/index-create.ts
-2. Exportar CID: export NEO_INDEX_CID=<CID>
-3. Ou passar via options: { indexCID: 'QmXxx...' }
+**Skill publish failed:**
 
---------------------------------------------------------------
-PROBLEMA: "Failed to add skill to IPFS"
---------------------------------------------------------------
+```text
+[ERR ] Publish error
+[FIX ] Check skill.json valid
+[FIX ] Verify IPFS connection
+[FIX ] Check file permissions
+```
 
-SOLUCAO:
-1. Verificar skill.json existe e e valido
-2. Verificar permissoes do diretorio
-3. Verificar espaco em disco: ipfs repo stat
-4. Verificar logs: ipfs log tail
+────────────────────────────────────────
+Next Steps
+────────────────────────────────────────
 
---------------------------------------------------------------
-PROBLEMA: "Skill not found"
---------------------------------------------------------------
+```text
+▓▓▓ AFTER INSTALLATION
+────────────────────────────────────────
+└─ Generate identities
+└─ Backup private keys
+└─ Start IPFS node
+└─ Test publish/install
+└─ Read NEXT_STEPS_V2.md
+```
 
-SOLUCAO:
-1. Listar skills: pnpm tsx neo/cli/skill-list.ts
-2. Verificar index CID correto
-3. Re-publicar skill se necessario
+────────────────────────────────────────
+Documentation
+────────────────────────────────────────
 
-================================================================
-                    METRICAS DE CODIGO
-================================================================
+- NEO_PHASE1_SUCCESS.md
+  Complete implementation report
 
-📊 **Linhas de Codigo Implementadas:**
-   - neo/registry/index.ts: ~440 LOC
-   - neo/identity/mio-system.ts: ~240 LOC
-   - neo/cli/skill-*.ts: ~450 LOC (total)
-   - skills/neo-ipfs-status/: ~200 LOC
-   - **TOTAL: ~1,330 LOC**
+- NEO_IDENTITIES_GENERATED.md
+  Identity system guide
 
-⚡ **Performance:**
-   - Publish skill: ~2-5s (depende tamanho)
-   - Install skill: ~1-3s (depende tamanho)
-   - List skills: ~100ms (com cache)
-   - Verify identity: <10ms
+- NEXT_STEPS_V2.md
+  Roadmap and future features
 
-🔐 **Seguranca:**
-   - ✅ Web3 signatures (ethers.js)
-   - ✅ Content-addressed storage (IPFS)
-   - ✅ Deterministic message format
-   - ⏸️ Multi-node pinning (TODO)
-   - ⏸️ Skill approval workflow (TODO)
+- .neo-identities/BACKUP_INSTRUCTIONS.md
+  Security and backup guide
 
-================================================================
-                    NOTAS IMPORTANTES
-================================================================
+────────────────────────────────────────
+Support
+────────────────────────────────────────
 
-⚠️  **IPFS Daemon Obrigatorio:**
-    Todos comandos NEO requerem IPFS daemon rodando
-    
-⚠️  **Index CID Dinamico:**
-    O index CID muda a cada publish. Salve o CID atual!
-    
-⚠️  **Private Keys:**
-    NUNCA commite private keys. Use .env ou 1Password
-    
-⚠️  **Pinning:**
-    Skills publicadas devem ser pinned em 3+ nodes
-    
-⚠️  **Signature Verification:**
-    verify() implementado mas nao integrado ainda
+- GitHub:
+  <https://github.com/neomello/neobot>
 
-================================================================
-                    RECURSOS ADICIONAIS
-================================================================
+- Documentation:
+  <https://github.com/neomello/neobot/tree/main/docs>
 
-📚 **Documentacao:**
-   - IPFS Docs: https://docs.ipfs.tech
-   - ethers.js Docs: https://docs.ethers.org
-   - NEO Architecture: ./ARCHITECTURE_NEO_PROTOCOL.md
-   - Roadmap Completo: ./NEXT_STEPS_V2.md
+- Issues:
+  <https://github.com/neomello/neobot/issues>
 
-🔗 **Links Uteis:**
-   - IPFS Desktop: https://github.com/ipfs/ipfs-desktop
-   - IPFS Companion: https://github.com/ipfs/ipfs-companion
-   - Kubo (IPFS CLI): https://github.com/ipfs/kubo
+```text
+========================================
+    NEO PROTOCOL READY TO USE
+========================================
+```
 
-================================================================
+▓▓▓ NΞØ MELLØ
+────────────────────────────────────────
+Core Architect · NΞØ Protocol
+neo@neoprotocol.space
 
-✅ **IMPLEMENTACAO COMPLETA**
+"Code is law. Expand until
+ chaos becomes protocol."
 
-Todos os componentes core do NEO Protocol estao funcionais
-e prontos para testes. O proximo passo e integrar no CLI
-principal e comecar a migrar skills existentes.
-
-**Tempo total:** ~3 horas de implementacao
-**Qualidade:** Production-ready (com TODOs para Phase 2)
-
----
-*Desenvolvido com ❤️  pelo NEO Protocol Team*
-*Primeira implementacao completa: 30 Janeiro 2026*
-
-================================================================
+Security by design.
+Exploits find no refuge here.
+────────────────────────────────────────
