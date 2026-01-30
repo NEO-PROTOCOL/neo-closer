@@ -23,6 +23,7 @@
 ## 🔍 Análise evolution-api
 
 ### Stack Completo
+
 - **Core:** Baileys 7.0.0-rc.9 (WhatsApp multi-device)
 - **Framework:** Express 4.21.2 + TypeScript 5.7.2
 - **Database:** Prisma 7.2.0 (Postgres/Redis)
@@ -36,6 +37,7 @@
 - **Proxy:** SOCKS + HTTPS proxy agent
 
 ### Funcionalidades
+
 ✅ WhatsApp multi-device (QR Code + pairing)  
 ✅ REST API completa (send/receive messages)  
 ✅ Webhook handler  
@@ -54,6 +56,7 @@
 ✅ Manager UI (dist/index.html)  
 
 ### Integrações Chatbot
+
 1. **Chatwoot** ✅
 2. **Typebot** ✅
 3. **N8N** ✅
@@ -64,6 +67,7 @@
 8. **EvolutionBot** ✅
 
 ### Estrutura src/
+
 ```
 src/
 ├── api/
@@ -89,6 +93,7 @@ src/
 ## 🎯 FlowCloser (Railway)
 
 ### Conhecimento Atual
+
 - **URL:** flowcloser-agent-production.up.railway.app
 - **Deploy:** Railway (Ativo)
 - **ID Projeto:** 95ed3bcd-2e20-4477-b50c-43cd9ec04c41
@@ -97,6 +102,7 @@ src/
 - **Função:** External Services Bridge (não WhatsApp direto)
 
 ### Incertezas
+
 - ❓ Codebase (local não encontrado)
 - ❓ Stack exata
 - ❓ Funcionalidades específicas
