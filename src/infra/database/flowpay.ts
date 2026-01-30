@@ -5,9 +5,11 @@
  * No cloud, no accounts, full control.
  */
 
-import Database from "better-sqlite3";
+import * as Database from "better-sqlite3";
 import * as fs from "fs";
 import * as path from "path";
+
+type DatabaseInstance = Database.Database;
 
 // Database paths (using process.cwd() for project root)
 const DATA_DIR = path.join(process.cwd(), "data", "flowpay");
@@ -20,11 +22,11 @@ if (!fs.existsSync(DATA_DIR)) {
 }
 
 // Initialize database
-let db: Database.Database | null = null;
+let db: DatabaseInstance | null = null;
 
-export function getDatabase(): Database.Database {
+export function getDatabase(): DatabaseInstance {
   if (!db) {
-    db = new Database(DB_PATH);
+    db = new (Database as any).default(DB_PATH);
     db.pragma("journal_mode = WAL");
     db.pragma("foreign_keys = ON");
 
