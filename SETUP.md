@@ -88,6 +88,48 @@ Detalhes: [ARCHITECTURE_NEO_PROTOCOL.md](ARCHITECTURE_NEO_PROTOCOL.md)
 
 ---
 
+## NEO Protocol Layer (Overview)
+
+```text
+========================================
+         NEO PROTOCOL LAYER
+========================================
+```
+
+▓▓▓ PURPOSE
+────────────────────────────────────────
+└─ Decentralized layer on Moltbot
+└─ Sovereign identity + registry
+└─ Web3-native gateway extensions
+└─ CLI + SDK for developers
+
+▓▓▓ STRUCTURE
+────────────────────────────────────────
+
+```text
+neo/
+├── registry/   # IPFS skills
+├── identity/   # mio-system ID
+├── gateway/    # Web3 gateways
+├── cli/        # NEO CLI cmds
+└── sdk/        # Developer SDK
+```
+
+▓▓▓ QUICK START
+────────────────────────────────────────
+
+```bash
+pnpm install
+pnpm neobot neo:info
+pnpm neobot neo:skill:list
+pnpm neobot neo:identity:create \
+  --name "My Bot"
+```
+
+Docs: ARCHITECTURE_NEO_PROTOCOL.md
+
+---
+
 ## Como contribuir
 
 1. **Fork** o repositório no GitHub.
