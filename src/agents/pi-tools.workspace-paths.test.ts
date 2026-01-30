@@ -2,8 +2,18 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { createMoltbotCodingTools } from "./pi-tools.js";
+
+vi.mock("../infra/shell-env.js", () => ({
+  getShellPathFromLoginShell: vi.fn(() => null),
+  resolveShellEnvFallbackTimeoutMs: vi.fn(() => 0),
+}));
+
+vi.mock("./tools/gateway.js", () => ({
+  callGatewayTool: vi.fn().mockResolvedValue({}),
+  resolveGatewayOptions: vi.fn(),
+}));
 
 async function withTempDir<T>(prefix: string, fn: (dir: string) => Promise<T>) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));

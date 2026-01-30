@@ -40,6 +40,16 @@ vi.mock("../infra/exec-approvals.js", async (importOriginal) => {
   return { ...mod, resolveExecApprovals: () => approvals };
 });
 
+vi.mock("../infra/shell-env.js", () => ({
+  getShellPathFromLoginShell: vi.fn(() => null),
+  resolveShellEnvFallbackTimeoutMs: vi.fn(() => 0),
+}));
+
+vi.mock("./tools/gateway.js", () => ({
+  callGatewayTool: vi.fn().mockResolvedValue({}),
+  resolveGatewayOptions: vi.fn(),
+}));
+
 describe("createMoltbotCodingTools safeBins", () => {
   it("threads tools.exec.safeBins into exec allowlist checks", async () => {
     if (process.platform === "win32") return;
