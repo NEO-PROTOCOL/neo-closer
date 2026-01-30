@@ -1,6 +1,6 @@
 # 🔐 Secret Management Options
 
-## TL;DR: Sim, 1Password é pago. Use Bitwarden (gratuito).
+## TL;DR: Use Bitwarden (gratuito e melhor).
 
 ```text
 ╔════════════════════════════════════════╗
@@ -9,6 +9,7 @@
 ║  - Gratuito                            ║
 ║  - CLI incluído                        ║
 ║  - Self-hosted option                  ║
+║  - Funciona out of the box             ║
 ╚════════════════════════════════════════╝
 ```
 
