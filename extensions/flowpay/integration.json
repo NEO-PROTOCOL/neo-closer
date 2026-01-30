@@ -18,9 +18,9 @@
     "percentage_complete": 90
   },
   "endpoints": {
-    "health": "/",
-    "buy": "/api/pix/create-charge",
-    "status": "/api/pix/charge-status",
+    "health": "/api/health",
+    "buy": "/api/create-charge",
+    "status": "/api/charge-status",
     "webhook": "/api/webhooks/pix"
   },
   "integration_model": "B",

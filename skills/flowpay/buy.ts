@@ -68,51 +68,40 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
     }
 
     // Call FlowPay API (Railway production)
-    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://flowpay-production-10d8.up.railway.app/api';
-    const apiKey = process.env.FLOWPAY_API_KEY || process.env.OPENPIX_API_KEY;
+    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://flowpay-production-10d8.up.railway.app';
 
-    if (!apiKey) {
-      throw new Error('FLOWPAY_API_KEY or OPENPIX_API_KEY not configured');
-    }
+    // Generate transaction ID
+    const transactionId = `${product_ref}-${Date.now()}`;
 
-    const response = await fetch(`${flowpayUrl}/pix/create-charge`, {
+    const response = await fetch(`${flowpayUrl}/api/create-charge`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': apiKey
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        value: Math.round(amount_brl * 100), // cents
-        correlationID: `${product_ref}-${Date.now()}`,
-        comment: `NEØ Protocol - ${product_ref}`,
-        customer: {
-          name: customer_ref,
-          taxID: customer_ref // or phone
-        },
-        additionalInfo: [
-          { key: 'product_ref', value: product_ref },
-          { key: 'customer_ref', value: customer_ref },
-          { key: 'wallet_address', value: wallet_address || 'none' },
-          { key: 'source', value: 'neobot' }
-        ]
+        wallet: wallet_address || '0x0000000000000000000000000000000000000000',
+        valor: amount_brl,
+        moeda: 'BRL',
+        id_transacao: transactionId,
+        product_id: product_ref
       })
     });
 
-    if (!response.ok) {
-      throw new Error(`FlowPay API error: ${response.statusText}`);
-    }
-
     const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || `FlowPay API error: ${response.statusText}`);
+    }
 
     // Transform to our standard format
     const result: BuyOutput = {
       success: true,
-      charge_id: data.correlationID || data.txid,
-      pix_qr: data.brcode || data.qrCodeImage,
-      pix_copy_paste: data.brcode,
-      checkout_url: data.paymentLinkUrl || `${flowpayUrl}/../checkout?charge=${data.correlationID}`,
+      charge_id: data.id_transacao || data.pix_data?.correlation_id,
+      pix_qr: data.pix_data?.qr_code,
+      pix_copy_paste: data.pix_data?.br_code,
+      checkout_url: `${flowpayUrl}/checkout?charge=${data.id_transacao}`,
       amount_brl,
-      expires_at: data.expiresDate || new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+      expires_at: data.pix_data?.expires_at || new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       status: 'CREATED'
     };
 
