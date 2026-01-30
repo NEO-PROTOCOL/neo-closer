@@ -4,40 +4,40 @@
 
 ```text
 ========================================
-  ATENDIMENTO COM LLM - NÃO É BOT
+  LLM-NATIVE SUPPORT - NOT A BOT
 ========================================
 ```
 
 ────────────────────────────────────────
-Filosofia
+Philosophy
 ────────────────────────────────────────
 
-**NÃO É:**
+**NOT:**
 
 ```text
-✗ Respostas prontas
-✗ Menu de opções (1, 2, 3...)
-✗ FAQ automatizado
-✗ Bot com scripts fixos
-✗ "Aguarde ser transferido"
+✗ Pre-canned responses
+✗ Option menus (1, 2, 3...)
+✗ Automated FAQ
+✗ Bot with fixed scripts
+✗ "Please hold for transfer"
 ```
 
-**É:**
+**IS:**
 
 ```text
-✓ Conversação natural com LLM
-✓ Contexto completo preservado
-✓ Raciocínio sobre problemas reais
-✓ Ação direta (API, DB, ferramentas)
-✓ Transparência sobre limitações
+✓ Natural LLM conversation
+✓ Full context preserved
+✓ Reasoning about real problems
+✓ Direct action (API, DB, tools)
+✓ Transparency about limitations
 ```
 
 ────────────────────────────────────────
-Arquitetura Flowcloser
+Flowcloser Architecture
 ────────────────────────────────────────
 
 ```text
-▓▓▓ CAMADA 1: GATEWAY
+▓▓▓ LAYER 1: GATEWAY
 ────────────────────────────────────────
 WhatsApp <─> Neobot Gateway
                 │
@@ -45,7 +45,7 @@ WhatsApp <─> Neobot Gateway
                 ├─> Session Store
                 └─> Context Manager
 
-▓▓▓ CAMADA 2: LLM AGENT
+▓▓▓ LAYER 2: LLM AGENT
 ────────────────────────────────────────
 Claude Opus 4.5 (200k context)
                 │
@@ -55,7 +55,7 @@ Claude Opus 4.5 (200k context)
                 ├─> Tool Schemas
                 └─> Business Context
 
-▓▓▓ CAMADA 3: TOOLS/ACTIONS
+▓▓▓ LAYER 3: TOOLS/ACTIONS
 ────────────────────────────────────────
 Skills (bash, Python, APIs)
                 │
@@ -65,7 +65,7 @@ Skills (bash, Python, APIs)
                 ├─> Payment gateways
                 └─> Business logic
 
-▓▓▓ CAMADA 4: MEMORY
+▓▓▓ LAYER 4: MEMORY
 ────────────────────────────────────────
 Session Store + Ledger
                 │
@@ -79,88 +79,88 @@ Session Store + Ledger
 System Prompt Design
 ────────────────────────────────────────
 
-## Estrutura Base
+## Base Structure
 
 ```typescript
 const systemPrompt = `
-Você é o assistente de atendimento da
-${COMPANY_NAME}. Seu papel é:
+You are the support assistant for
+${COMPANY_NAME}. Your role is to:
 
-1. ENTENDER o problema real do cliente
-2. RACIOCINAR sobre a melhor solução
-3. EXECUTAR ações quando possível
-4. SER TRANSPARENTE sobre limitações
-
-═══════════════════════════════════════
-CONTEXTO DO NEGÓCIO
-═══════════════════════════════════════
-
-Empresa: ${COMPANY_NAME}
-Produtos: ${PRODUCTS}
-Horário: ${BUSINESS_HOURS}
-Política: ${POLICIES}
+1. UNDERSTAND the customer's real problem
+2. REASON about the best solution
+3. EXECUTE actions when possible
+4. BE TRANSPARENT about limitations
 
 ═══════════════════════════════════════
-FERRAMENTAS DISPONÍVEIS
+BUSINESS CONTEXT
 ═══════════════════════════════════════
 
-Você tem acesso a:
+Company: ${COMPANY_NAME}
+Products: ${PRODUCTS}
+Hours: ${BUSINESS_HOURS}
+Policy: ${POLICIES}
+
+═══════════════════════════════════════
+AVAILABLE TOOLS
+═══════════════════════════════════════
+
+You have access to:
 - check_order_status(order_id)
 - create_ticket(title, description)
 - schedule_callback(date, time)
 - process_refund(order_id, reason)
 - query_inventory(product_id)
 
-Use essas ferramentas para RESOLVER
-problemas, não apenas para "transferir".
+Use these tools to SOLVE problems,
+not just to "transfer".
 
 ═══════════════════════════════════════
-ESTILO DE COMUNICAÇÃO
+COMMUNICATION STYLE
 ═══════════════════════════════════════
 
-- Natural, não robótico
-- Direto, sem enrolação
-- Empático mas eficiente
-- Use markdown quando útil
-- Confirme ações críticas
+- Natural, not robotic
+- Direct, no fluff
+- Empathetic but efficient
+- Use markdown when helpful
+- Confirm critical actions
 
 ═══════════════════════════════════════
-NUNCA FAÇA
+NEVER DO
 ═══════════════════════════════════════
 
-✗ "Digite 1 para..."
-✗ "Por favor aguarde..."
-✗ "Não posso ajudar com isso"
-✗ Fingir que é humano
-✗ Prometer o impossível
+✗ "Press 1 for..."
+✗ "Please wait..."
+✗ "I can't help with that"
+✗ Pretend to be human
+✗ Make impossible promises
 
 ═══════════════════════════════════════
-SEMPRE FAÇA
+ALWAYS DO
 ═══════════════════════════════════════
 
-✓ Perguntar quando não tiver certeza
-✓ Explicar o que está fazendo
-✓ Confirmar ações importantes
-✓ Ser transparente sobre IA
-✓ Escalar quando necessário
+✓ Ask when unsure
+✓ Explain what you're doing
+✓ Confirm important actions
+✓ Be transparent about being AI
+✓ Escalate when necessary
 `;
 ```
 
 ────────────────────────────────────────
-Implementação Prática
+Practical Implementation
 ────────────────────────────────────────
 
-## 1. Configuração do Agent
+## 1. Agent Configuration
 
 ```typescript
 // config/agents/customer-support.ts
 export const customerSupportAgent = {
   id: "customer-support",
-  name: "Atendimento ao Cliente",
+  name: "Customer Support Agent",
   
   model: {
     primary: "anthropic/claude-opus-4-5",
-    temperature: 0.7, // Natural mas focado
+    temperature: 0.7, // Natural but focused
     maxTokens: 4096,
   },
 
@@ -179,13 +179,13 @@ export const customerSupportAgent = {
 
   memory: {
     enabled: true,
-    maxMessages: 50, // ~25 turnos
+    maxMessages: 50, // ~25 turns
     summarize: true,
   },
 
   channels: {
     whatsapp: {
-      allowFrom: ["+55*"], // Brasil
+      allowFrom: ["+55*"], // Brazil
       respondToMentions: true,
       ackReactions: true,
     },
@@ -279,11 +279,11 @@ Returns: status, location, ETA
 ## 3. Conversation Flow
 
 ```text
-▓▓▓ EXEMPLO: RASTREAMENTO DE PEDIDO
+▓▓▓ EXAMPLE: ORDER TRACKING
 ────────────────────────────────────────
 
 [User]
-Oi, cadê meu pedido #12345?
+Where's my order #12345?
 
 [Assistant - Thinking]
 1. User asking about order status
@@ -302,7 +302,7 @@ check_order_status({
   "status": "in_transit",
   "shipping": {
     "carrier": "Correios",
-    "status": "Saiu para entrega",
+    "status": "Out for delivery",
     "location": "CD Goiânia",
     "eta": "2026-01-31",
     "trackingUrl": "..."
@@ -310,16 +310,16 @@ check_order_status({
 }
 
 [Assistant - Response]
-Seu pedido #12345 está a caminho!
+Your order #12345 is on the way!
 
-**Status:** Saiu para entrega
-**Localização:** CD Goiânia
-**Previsão:** Amanhã (31/01)
+**Status:** Out for delivery
+**Location:** CD Goiânia
+**ETA:** Tomorrow (01/31)
 
-Código de rastreio:
+Tracking code:
 https://rastreamento.correios.com.br/...
 
-Posso ajudar com mais alguma coisa?
+Can I help with anything else?
 ```
 
 ────────────────────────────────────────
@@ -329,7 +329,7 @@ Advanced Patterns
 ## Multi-Step Workflows
 
 ```text
-▓▓▓ CENÁRIO: PROCESSO DE DEVOLUÇÃO
+▓▓▓ SCENARIO: RETURN PROCESS
 ────────────────────────────────────────
 
 Step 1: Validate order
@@ -347,7 +347,7 @@ Step 3: Create return
   └─> send_email(label_url)
 
 Step 4: Confirm
-  └─> "Tudo certo! Label enviada..."
+  └─> "All set! Label sent..."
 ```
 
 ## Context Management
@@ -459,12 +459,12 @@ export class EscalationManager {
     // 3. Inform user
     return {
       message: `
-Vou te conectar com um especialista
-humano. Já criei o ticket #${ticket.id}
-e um atendente vai assumir em breve.
+I'll connect you with a human specialist.
+Created ticket #${ticket.id} and an agent
+will take over shortly.
 
-Enquanto isso, pode continuar falando
-aqui que eu mantenho o histórico.
+Meanwhile, you can keep talking here
+and I'll maintain the history.
       `,
     };
   }
@@ -563,7 +563,7 @@ describe("Customer Support Flow", () => {
     // 1. Send user message
     const response = await sendMessage({
       from: "+5562983231110",
-      body: "Cadê meu pedido #12345?",
+      body: "Where's my order #12345?",
     });
 
     // 2. Wait for agent response
@@ -578,7 +578,7 @@ describe("Customer Support Flow", () => {
     // 4. Verify response quality
     const reply = await getLastMessage();
     expect(reply).toContain("Status:");
-    expect(reply).toContain("Previsão:");
+    expect(reply).toContain("ETA:");
   });
 });
 ```
@@ -586,23 +586,23 @@ describe("Customer Support Flow", () => {
 ## 3. Manual Test Script
 
 ```text
-▓▓▓ CHECKLIST DE TESTES MANUAIS
+▓▓▓ MANUAL TEST CHECKLIST
 ────────────────────────────────────────
 
 [ ] Happy Path: Order tracking
-    └─> "Cadê pedido #12345?"
+    └─> "Where's order #12345?"
     └─> Should return status + ETA
 
 [ ] Error Handling: Invalid order
-    └─> "Cadê pedido #99999?"
+    └─> "Where's order #99999?"
     └─> Should explain not found
 
 [ ] Tool Usage: Create ticket
-    └─> "Produto chegou quebrado"
+    └─> "Product arrived broken"
     └─> Should create ticket + confirm
 
 [ ] Escalation: Ask for human
-    └─> "Quero falar com gerente"
+    └─> "I want to talk to manager"
     └─> Should escalate gracefully
 
 [ ] Multi-turn: Complex issue
@@ -624,7 +624,7 @@ Production Checklist
 ────────────────────────────────────────
 
 ```text
-▓▓▓ PRÉ-DEPLOY
+▓▓▓ PRE-DEPLOY
 ────────────────────────────────────────
 [ ] System prompt reviewed
 [ ] Tools tested individually
@@ -664,14 +664,14 @@ Key Differentiators
 ╚═══════════════════════════════════╝
 
 Traditional Bot:
-✗ Menu: "Digite 1, 2, 3..."
+✗ Menu: "Press 1, 2, 3..."
 ✗ Rigid: Can't handle variations
 ✗ Dumb: No reasoning
 ✗ Limited: Pre-programmed flows
-✗ Frustrating: "Opção inválida"
+✗ Frustrating: "Invalid option"
 
 Flowcloser LLM:
-✓ Natural: "Cadê meu pedido?"
+✓ Natural: "Where's my order?"
 ✓ Flexible: Understands intent
 ✓ Smart: Reasons about problems
 ✓ Powerful: Uses tools dynamically
@@ -681,21 +681,21 @@ Flowcloser LLM:
 ## Benefits
 
 ```text
-▓▓▓ PARA O NEGÓCIO
+▓▓▓ FOR BUSINESS
 ────────────────────────────────────────
-• Reduz carga humana (70-80%)
-• Atende 24/7 sem custo extra
-• Escala infinitamente
-• Consistência no atendimento
-• Dados estruturados (ledger)
+• Reduces human load (70-80%)
+• 24/7 availability at no extra cost
+• Scales infinitely
+• Consistent service quality
+• Structured data (ledger)
 
-▓▓▓ PARA O CLIENTE
+▓▓▓ FOR CUSTOMERS
 ────────────────────────────────────────
-• Resposta imediata
-• Resolução real de problemas
-• Sem menu chato
-• Memória de contexto
-• Transparência sobre IA
+• Immediate response
+• Real problem resolution
+• No annoying menus
+• Context memory
+• Transparency about AI
 ```
 
 ────────────────────────────────────────
