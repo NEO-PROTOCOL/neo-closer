@@ -1,184 +1,152 @@
-#!/usr/bin/env node
 /**
- * @file status.ts
- * @description Check NEØ Smart Factory deployment status
- * @usage pnpm moltbot factory status --network base
+ * Smart Factory Status Skill
+ * Check factory progress and health via nsf CLI
+ * 
+ * Wraps: nsf status
  */
 
 import { execSync } from 'child_process';
-import path from 'path';
 
-interface StatusOptions {
-  network?: 'base' | 'polygon' | 'ton' | 'all';
-  detailed?: boolean;
-}
-
-const SMART_CORE_PATH = '/Users/nettomello/CODIGOS/neo-smart-token/smart-core';
-
-// Known contract addresses (update after deployments)
-const CONTRACTS: Record<string, Record<string, string>> = {
-  base: {
-    token: '0x...', // Update with actual address
-    factory: '0x...',
-  },
-  polygon: {
-    token: '0x...',
-    factory: '0x...',
-  },
-  ton: {
-    jetton_master: 'EQ...', // Update with actual address
-  },
+export const metadata = {
+  name: 'factory:status',
+  description: 'Check Smart Factory progress and status',
+  category: 'smart-factory',
+  tags: ['factory', 'status', 'health', 'progress'],
+  version: '2.0.0',
+  author: 'NEØ Protocol',
+  priority: 'high'
 };
 
-async function status(options: StatusOptions): Promise<void> {
-  console.log('📊 NEØ Smart Factory · Status');
-  console.log('────────────────────────────');
-  console.log('');
-
-  const network = options.network || 'all';
-
-  // Check if smart-core exists
-  try {
-    execSync(`test -d ${SMART_CORE_PATH}`, { stdio: 'ignore' });
-  } catch {
-    throw new Error(`❌ Smart Factory not found at: ${SMART_CORE_PATH}`);
-  }
-
-  // Status for all networks
-  if (network === 'all') {
-    console.log('🌐 Multi-Chain Status');
-    console.log('');
-    
-    for (const net of ['base', 'polygon', 'ton']) {
-      await checkNetwork(net as 'base' | 'polygon' | 'ton', options.detailed);
-      console.log('');
-    }
-    return;
-  }
-
-  // Status for specific network
-  await checkNetwork(network, options.detailed);
+interface StatusOutput {
+  success: boolean;
+  factory_status?: 'healthy' | 'warning' | 'critical';
+  deployments?: {
+    network: string;
+    contract_address?: string;
+    status: 'deployed' | 'pending' | 'not_deployed';
+  }[];
+  tokens_drafted?: number;
+  tokens_deployed?: number;
+  last_activity?: string;
+  report?: string;
+  error?: string;
 }
 
-async function checkNetwork(
-  network: 'base' | 'polygon' | 'ton',
-  detailed?: boolean
-): Promise<void> {
-  const emoji = network === 'base' ? '🔵' : network === 'polygon' ? '🟣' : '🔷';
-  console.log(`${emoji} ${network.toUpperCase()}`);
-  console.log('─'.repeat(40));
-
-  if (network === 'ton') {
-    await checkTON(detailed);
-    return;
-  }
-
-  // EVM Networks (Base, Polygon)
+export async function execute(ctx: any): Promise<StatusOutput> {
   try {
-    const command = `cd ${SMART_CORE_PATH} && npx hardhat run scripts/status.js --network ${network}`;
-    const output = execSync(command, {
-      stdio: 'pipe',
+    console.log('[factory:status] Checking Smart Factory status...');
+
+    // Check if nsf CLI is installed
+    try {
+      execSync('which nsf', { stdio: 'pipe' });
+    } catch {
+      return {
+        success: false,
+        error: 'nsf CLI not installed. Install: git clone + npm link'
+      };
+    }
+
+    // Execute nsf status
+    const output = execSync('nsf status', {
       encoding: 'utf-8',
+      stdio: 'pipe'
     });
 
-    console.log(output);
+    console.log('[factory:status] nsf output:', output);
 
-    if (detailed) {
-      // Get additional info
-      const balanceCmd = `cd ${SMART_CORE_PATH} && npx hardhat run scripts/checkBalance.js --network ${network}`;
-      const balanceOutput = execSync(balanceCmd, {
-        stdio: 'pipe',
-        encoding: 'utf-8',
+    // Parse status output
+    const result = parseStatusOutput(output);
+
+    // Store in Neobot ledger
+    if (ctx.ledger) {
+      await ctx.ledger.write({
+        actor: 'user',
+        channel: 'smart-factory',
+        action: 'status_checked',
+        data: {
+          factory_status: result.factory_status,
+          tokens_deployed: result.tokens_deployed,
+          timestamp: new Date().toISOString()
+        }
       });
-      console.log(balanceOutput);
-
-      // Check liquidity
-      const liquidityCmd = `cd ${SMART_CORE_PATH} && npx hardhat run scripts/checkLiquidity.js --network ${network}`;
-      try {
-        const liquidityOutput = execSync(liquidityCmd, {
-          stdio: 'pipe',
-          encoding: 'utf-8',
-        });
-        console.log(liquidityOutput);
-      } catch {
-        console.log('⚠️  No liquidity pools found');
-      }
     }
+
+    return {
+      success: true,
+      ...result
+    };
+
   } catch (error: any) {
-    console.log(`❌ Not deployed or error checking status`);
-    console.log(`💡 Deploy: pnpm moltbot factory deploy --network ${network}`);
+    console.error('[factory:status] Error:', error);
+    return {
+      success: false,
+      factory_status: 'critical',
+      error: error.message || 'Failed to check status'
+    };
   }
 }
 
-async function checkTON(detailed?: boolean): Promise<void> {
-  console.log('🔷 TON Blockchain');
-  console.log('');
-
-  const jettonMaster = CONTRACTS.ton.jetton_master;
-
-  if (!jettonMaster || jettonMaster === 'EQ...') {
-    console.log('❌ Not deployed');
-    console.log('💡 Deploy: pnpm moltbot factory deploy --network ton');
-    return;
-  }
-
-  console.log(`✅ Deployed`);
-  console.log(`   Jetton Master: ${jettonMaster}`);
-  console.log('');
-
-  if (detailed) {
-    console.log('📖 Check on TON explorers:');
-    console.log(`   https://tonscan.org/jetton/${jettonMaster}`);
-    console.log(`   https://tonviewer.com/${jettonMaster}`);
-    console.log('');
-    console.log('💡 Use ton-connect or TON SDK for detailed queries');
-  }
-}
-
-// CLI entry point
-if (require.main === module) {
-  const args = process.argv.slice(2);
+/**
+ * Parse nsf status output
+ */
+function parseStatusOutput(output: string): {
+  factory_status: 'healthy' | 'warning' | 'critical';
+  deployments: any[];
+  tokens_drafted: number;
+  tokens_deployed: number;
+  last_activity: string;
+  report: string;
+} {
+  const lines = output.split('\n');
   
-  // Parse arguments
-  const options: StatusOptions = {};
+  // Extract metrics
+  const draftedMatch = output.match(/drafted[:\s]+(\d+)/i);
+  const deployedMatch = output.match(/deployed[:\s]+(\d+)/i);
+  
+  // Extract deployments (lines with network + address)
+  const deployments = lines
+    .filter(line => line.match(/0x[a-fA-F0-9]{40}/))
+    .map(line => {
+      const addressMatch = line.match(/0x[a-fA-F0-9]{40}/);
+      const networkMatch = line.match(/(base|polygon|ton)/i);
+      
+      return {
+        network: networkMatch ? networkMatch[0].toLowerCase() : 'unknown',
+        contract_address: addressMatch ? addressMatch[0] : undefined,
+        status: 'deployed' as const
+      };
+    });
 
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    const next = args[i + 1];
-
-    switch (arg) {
-      case '--network':
-        options.network = next as 'base' | 'polygon' | 'ton' | 'all';
-        i++;
-        break;
-      case '--detailed':
-      case '-d':
-        options.detailed = true;
-        break;
-      case '--help':
-        console.log(`
-Usage: pnpm moltbot factory status [options]
-
-Options:
-  --network <network>  Network to check (base, polygon, ton, all) (default: all)
-  --detailed, -d       Show detailed information (balances, liquidity)
-  --help               Show this help
-
-Examples:
-  pnpm moltbot factory status
-  pnpm moltbot factory status --network base
-  pnpm moltbot factory status --network base --detailed
-  pnpm moltbot factory status --network all -d
-        `);
-        process.exit(0);
-    }
+  // Determine health status
+  let factory_status: 'healthy' | 'warning' | 'critical' = 'healthy';
+  
+  if (output.toLowerCase().includes('critical') || output.includes('❌')) {
+    factory_status = 'critical';
+  } else if (output.toLowerCase().includes('warning') || output.includes('⚠️')) {
+    factory_status = 'warning';
   }
 
-  // Run status check
-  status(options).catch((error) => {
-    console.error('❌ Error:', error.message);
-    process.exit(1);
-  });
+  return {
+    factory_status,
+    deployments,
+    tokens_drafted: draftedMatch ? parseInt(draftedMatch[1]) : 0,
+    tokens_deployed: deployedMatch ? parseInt(deployedMatch[1]) : 0,
+    last_activity: new Date().toISOString(),
+    report: output
+  };
 }
 
-export { status, StatusOptions };
+/**
+ * Usage:
+ * 
+ * ```bash
+ * moltbot factory:status
+ * ```
+ * 
+ * Returns:
+ * - Factory health status
+ * - Number of tokens drafted
+ * - Number of tokens deployed
+ * - Deployment details (network + addresses)
+ * - Full status report
+ */

@@ -17,6 +17,7 @@
 - **Created:** 2026-01-30T04:01:50.082Z
 
 **Metadata:**
+
 - Name: NEO Core System
 - Bio: Sistema principal do protocolo NEO. Gerencia inicialização, health checks e coordenação geral.
 
@@ -35,6 +36,7 @@
 - **Created:** 2026-01-30T04:01:50.116Z
 
 **Metadata:**
+
 - Name: NEO Gateway
 - Bio: Gerenciador de canais, roteamento e sessões. Interface principal entre usuários e o protocolo.
 
@@ -53,6 +55,7 @@
 - **Created:** 2026-01-30T04:01:50.128Z
 
 **Metadata:**
+
 - Name: NEO Skills Manager
 - Bio: Gerenciador do registro descentralizado de skills (IPFS). Publica, instala e verifica skills.
 
@@ -71,6 +74,7 @@
 - **Created:** 2026-01-30T04:01:50.140Z
 
 **Metadata:**
+
 - Name: Smart Factory Manager
 - Bio: Gerenciador de contratos inteligentes na Flow Blockchain. Deploy, mint e verificação de NFTs.
 
@@ -107,6 +111,7 @@
 - **Created:** 2026-01-30T04:01:50.159Z
 
 **Metadata:**
+
 - Name: ASI1 LLM Agent
 - Bio: Modelo de linguagem local (llama.cpp). Inferência AI descentralizada e privada.
 
@@ -125,6 +130,7 @@
 - **Created:** 2026-01-30T04:01:50.174Z
 
 **Metadata:**
+
 - Name: NEO Telegram
 - Bio: Bot Telegram oficial do protocolo NEO. Interface de comandos e automações.
 
@@ -143,6 +149,7 @@
 - **Created:** 2026-01-30T04:01:50.190Z
 
 **Metadata:**
+
 - Name: NEO WhatsApp
 - Bio: Gateway WhatsApp do protocolo NEO. Comunicação end-to-end encrypted.
 
@@ -161,6 +168,7 @@
 - **Created:** 2026-01-30T04:01:50.199Z
 
 **Metadata:**
+
 - Name: NEO IPFS
 - Bio: Nó IPFS descentralizado. Armazenamento, pinning e comunicação via PubSub.
 

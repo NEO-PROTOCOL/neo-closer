@@ -66,3 +66,6 @@ data/flowpay/products/*.json
 # Clawdbot config (pode conter tokens)
 .clawdbot/moltbot.json
 .clawdbot/*.json
+
+# Markdown lint config (opcional)
+# .markdownlintrc

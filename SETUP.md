@@ -88,6 +88,29 @@ Detalhes: [ARCHITECTURE_NEO_PROTOCOL.md](ARCHITECTURE_NEO_PROTOCOL.md)
 
 ---
 
+## High-Level Diagram
+
+```mermaid
+graph TD
+  Core[Moltbot Core]
+  NEO[NEO Layer]
+  Skills[Skills]
+  Gateway[Gateway]
+  Ext[Extensions]
+  Dash[Dashboard]
+  Docs[Docs]
+  Core --> NEO
+  Core --> Skills
+  Core --> Ext
+  Core --> Gateway
+  NEO --> Skills
+  NEO --> Gateway
+  NEO --> Dash
+  NEO --> Docs
+```
+
+---
+
 ## NEO Protocol Layer (Overview)
 
 ```text

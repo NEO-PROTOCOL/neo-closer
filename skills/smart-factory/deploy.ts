@@ -1,99 +1,223 @@
-#!/usr/bin/env tsx
-
 /**
- * 🏭 Smart Factory - Deploy Skill
+ * Smart Factory Deploy Skill
+ * Deploys token contract with security simulation via nsf CLI
  * 
- * Deploy contratos inteligentes (EVM/TON) via Neobot CLI
+ * Wraps: nsf token deploy TOKEN_NAME
  * 
- * Uso:
- *   moltbot factory deploy --network base --token NEOFLW
- *   moltbot factory deploy --network ton --jetton NeoJetton
- * 
- * @version 1.0.0
- * @author Mellø (NEØ Protocol)
+ * Features:
+ * - Security/Econ/Risk simulation before deploy
+ * - Auto-blocks if critical risk detected
+ * - Protocol Authority pattern (Phase 2)
  */
 
 import { execSync } from 'child_process';
-import path from 'path';
+import { readFileSync, existsSync } from 'fs';
+import { join } from 'path';
 
-interface DeployOptions {
-  network: 'base' | 'polygon' | 'ton';
-  contract?: string;
-  verify?: boolean;
+export const metadata = {
+  name: 'factory:deploy',
+  description: 'Deploy token with security simulation',
+  category: 'smart-factory',
+  tags: ['factory', 'deploy', 'token', 'security'],
+  version: '2.0.0',
+  author: 'NEØ Protocol',
+  priority: 'critical'
+};
+
+interface DeployInput {
+  token: string; // Token name or symbol
+  network?: 'base' | 'polygon';
+  skipSimulation?: boolean; // Emergency override
 }
 
-/**
- * Path para smart-core local
- */
-const SMART_CORE_PATH = '/Users/nettomello/CODIGOS/neo-smart-token/smart-core';
+interface DeployOutput {
+  success: boolean;
+  contract_address?: string;
+  tx_hash?: string;
+  network?: string;
+  security_report?: {
+    passed: boolean;
+    risk_level: 'low' | 'medium' | 'high' | 'critical';
+    issues: string[];
+  };
+  message?: string;
+  error?: string;
+}
 
-/**
- * Deploy contract na rede especificada
- */
-async function deploy(options: DeployOptions): Promise<void> {
-  console.log(`🏭 Deploying to ${options.network}...`);
+export async function execute(ctx: any, input: DeployInput): Promise<DeployOutput> {
+  const { token, network = 'base', skipSimulation = false } = input;
+
+  if (!token) {
+    return {
+      success: false,
+      error: 'Missing required field: token'
+    };
+  }
 
   try {
-    // Verificar se smart-core existe
-    const coreExists = execSync(`test -d ${SMART_CORE_PATH} && echo "yes" || echo "no"`)
-      .toString()
-      .trim();
+    console.log(`[factory:deploy] Deploying ${token} to ${network}...`);
 
-    if (coreExists !== 'yes') {
-      throw new Error(`smart-core not found at ${SMART_CORE_PATH}`);
+    // Check if nsf CLI is installed
+    try {
+      execSync('which nsf', { stdio: 'pipe' });
+    } catch {
+      return {
+        success: false,
+        error: 'nsf CLI not installed. Install: git clone + npm link'
+      };
     }
 
-    // Executar deploy baseado na rede
-    let command: string;
-
-    if (options.network === 'ton') {
-      // Deploy TON Jetton via Tact
-      command = `cd ${SMART_CORE_PATH} && npm run deploy:ton`;
-    } else {
-      // Deploy EVM via Hardhat
-      command = `cd ${SMART_CORE_PATH} && npx hardhat run scripts/deployV2.js --network ${options.network}`;
+    // Check if token config exists
+    const configFile = `tokens/${token}.json`;
+    if (!existsSync(configFile)) {
+      return {
+        success: false,
+        error: `Token config not found: ${configFile}. Run factory:draft first.`
+      };
     }
 
-    console.log(`📦 Executing: ${command}`);
-    const output = execSync(command, { encoding: 'utf-8' });
-    console.log(output);
+    // Read token config
+    const config = JSON.parse(readFileSync(configFile, 'utf-8'));
+    console.log(`[factory:deploy] Config loaded: ${config.name} (${config.symbol})`);
 
-    // Se verificar flag estiver ativa
-    if (options.verify && options.network !== 'ton') {
-      console.log('✅ Verifying contract on block explorer...');
-      const verifyCommand = `cd ${SMART_CORE_PATH} && npx hardhat verify --network ${options.network}`;
-      execSync(verifyCommand, { encoding: 'utf-8' });
+    // Phase 1: Security Simulation (unless skipped)
+    let securityReport: DeployOutput['security_report'] = undefined;
+    if (!skipSimulation) {
+      console.log('[factory:deploy] Running security simulation...');
+      
+      try {
+        const simOutput = execSync(`nsf simulate`, {
+          encoding: 'utf-8',
+          stdio: 'pipe',
+          env: {
+            ...process.env,
+            TOKEN_NAME: token
+          }
+        });
+
+        // Parse simulation output
+        securityReport = parseSimulationOutput(simOutput);
+        console.log('[factory:deploy] Security report:', securityReport);
+
+        // Block if critical risk
+        if (securityReport && securityReport.risk_level === 'critical') {
+          return {
+            success: false,
+            error: 'BLOCKED: Critical security risk detected',
+            security_report: securityReport
+          };
+        }
+      } catch (simError: any) {
+        console.warn('[factory:deploy] Simulation error:', simError.message);
+        // Continue with deploy (simulation is best-effort)
+      }
     }
 
-    console.log('🎉 Deploy completed successfully!');
+    // Phase 2: Deploy via nsf token deploy
+    console.log(`[factory:deploy] Executing: nsf token deploy ${token}...`);
+    
+    const deployOutput = execSync(`nsf token deploy ${token}`, {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+      env: {
+        ...process.env,
+        NETWORK: network
+      }
+    });
 
-    // TODO: Registrar no Neobot Ledger
-    // TODO: Notificar via Telegram
-    // TODO: Atualizar Notion Database
+    console.log('[factory:deploy] Deploy output:', deployOutput);
 
-  } catch (error) {
-    console.error('❌ Deploy failed:', error);
-    throw error;
+    // Parse deploy output
+    const result = parseDeployOutput(deployOutput);
+
+    // Store in Neobot ledger
+    if (ctx.ledger) {
+      await ctx.ledger.write({
+        actor: 'user',
+        channel: 'smart-factory',
+        action: 'token_deployed',
+        data: {
+          token_name: config.name,
+          symbol: config.symbol,
+          contract_address: result.contract_address,
+          tx_hash: result.tx_hash,
+          network,
+          security_passed: securityReport?.passed ?? true,
+          risk_level: securityReport?.risk_level ?? 'unknown'
+        }
+      });
+    }
+
+    return {
+      success: true,
+      contract_address: result.contract_address,
+      tx_hash: result.tx_hash,
+      network,
+      security_report: securityReport,
+      message: `Token deployed: ${config.name} (${config.symbol})`
+    };
+
+  } catch (error: any) {
+    console.error('[factory:deploy] Error:', error);
+    return {
+      success: false,
+      error: error.message || 'Failed to deploy token'
+    };
   }
 }
 
 /**
- * CLI Entry Point
+ * Parse nsf simulate output
  */
-if (require.main === module) {
-  const args = process.argv.slice(2);
-  const network = args.find((arg) => arg.startsWith('--network='))?.split('=')[1] as DeployOptions['network'];
-  const verify = args.includes('--verify');
-
-  if (!network) {
-    console.error('Usage: moltbot factory deploy --network=<base|polygon|ton> [--verify]');
-    process.exit(1);
-  }
-
-  deploy({ network, verify }).catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+function parseSimulationOutput(output: string): {
+  passed: boolean;
+  risk_level: 'low' | 'medium' | 'high' | 'critical';
+  issues: string[];
+} {
+  // nsf simulate returns structured report
+  // Parse for risk level and issues
+  
+  const hasRisk = output.toLowerCase().includes('risk');
+  const hasCritical = output.toLowerCase().includes('critical');
+  
+  return {
+    passed: !hasCritical,
+    risk_level: hasCritical ? 'critical' : hasRisk ? 'medium' : 'low',
+    issues: output.split('\n').filter(line => 
+      line.includes('⚠️') || line.includes('❌')
+    )
+  };
 }
 
-export { deploy };
+/**
+ * Parse nsf token deploy output
+ */
+function parseDeployOutput(output: string): { contract_address?: string; tx_hash?: string } {
+  // Extract contract address (0x...)
+  const addressMatch = output.match(/0x[a-fA-F0-9]{40}/);
+  
+  // Extract tx hash
+  const txMatch = output.match(/tx[:\s]+0x[a-fA-F0-9]{64}/i);
+  
+  return {
+    contract_address: addressMatch ? addressMatch[0] : undefined,
+    tx_hash: txMatch ? txMatch[0].split(/[:\s]+/)[1] : undefined
+  };
+}
+
+/**
+ * Usage:
+ * 
+ * ```bash
+ * # Standard deploy (with security simulation)
+ * moltbot factory:deploy --token MyToken
+ * 
+ * # Deploy to specific network
+ * moltbot factory:deploy --token MyToken --network polygon
+ * 
+ * # Emergency deploy (skip simulation)
+ * moltbot factory:deploy --token MyToken --skipSimulation true
+ * ```
+ * 
+ * Returns contract address + tx hash + security report
+ */

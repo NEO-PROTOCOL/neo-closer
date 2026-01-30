@@ -158,6 +158,7 @@ openssl rand -base64 32
 ```
 
 ### Requisitos:
+
 - ✅ 16+ caracteres
 - ✅ Letras maiúsculas e minúsculas
 - ✅ Números
@@ -166,6 +167,7 @@ openssl rand -base64 32
 - ✅ Difícil de adivinhar
 
 ### Exemplos:
+
 ```
 MyN3o!Pr0t0c0l#2026$S3cur3  (Bom)
 Correct-Horse-Battery-Staple-2026!  (Melhor - passphrase)
@@ -195,6 +197,7 @@ Correct-Horse-Battery-Staple-2026!  (Melhor - passphrase)
 ❌ **Não há como recuperar sem a senha!**
 
 Solução:
+
 ```bash
 # Gerar novas identidades
 pnpm tsx scripts/generate-neo-identities.ts
@@ -209,6 +212,7 @@ cd .neo-identities
 ❌ **Sem backup = sem keys!**
 
 Se ainda tiver `.env`:
+
 ```bash
 # Fazer backup AGORA
 cd .neo-identities
