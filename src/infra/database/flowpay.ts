@@ -36,7 +36,8 @@ export function getDatabase(): DatabaseInstance {
     initializeSchema();
   }
 
-  return db;
+  // TypeScript: db is guaranteed to be non-null here
+  return db as DatabaseInstance;
 }
 
 function initializeSchema(): void {
