@@ -11,13 +11,23 @@
 # FORMATO: +55 (DDD) 9XXXX-XXXX
 # Adicione um número por linha
 
-# Você
+# Netto (você)
 +5562983231110
 
-# Família (aguardando)
-# +5562XXXXXXXX  # Nome
-# +5562XXXXXXXX  # Nome
-# +5562XXXXXXXX  # Nome
+# Família (SEM IA - apenas "Oi! 👋")
++5562985739994  # Melissa (filha)
++5562995576493  # Vó Maria
++5562998128179  # Méllany (filha)
+
+# Pai (Especial - Rock 🎸)
++5562999868438  # Pai (resposta curta + aviso Telegram)
+
+# Esposa (Julia - Timeout 2-5 min)
++5562992668717  # Julia (IA só se timeout > 2-5min)
+
+# Clientes (IA Ativa - Profissional)
++5548991638753  # Rodolpho (GLT SaaS)
++5562981912169  # Bruno Sizo (PUNK | BLVCK)
 ```
 
 ---
