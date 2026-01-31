@@ -19,6 +19,7 @@ import { createSessionsSpawnTool } from "./tools/sessions-spawn-tool.js";
 import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.js";
 import { createTtsTool } from "./tools/tts-tool.js";
 import { createFlowPayTool } from "./tools/flowpay-tool.js";
+import { createASI1AITool } from "./tools/asi1ai-tool.js";
 
 export function createMoltbotTools(options?: {
   sandboxBrowserBridgeUrl?: string;
@@ -139,6 +140,7 @@ export function createMoltbotTools(options?: {
     ...(webFetchTool ? [webFetchTool] : []),
     ...(imageTool ? [imageTool] : []),
     createFlowPayTool({ config: options?.config }),
+    createASI1AITool({ config: options?.config }),
   ];
 
   const pluginTools = resolvePluginTools({

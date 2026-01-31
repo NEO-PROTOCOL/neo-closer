@@ -58,7 +58,7 @@ const FlowPayToolSchema = Type.Object({
   ),
 });
 
-export function createFlowPayTool(options?: { config?: MoltbotConfig }): AnyAgentTool {
+export function createFlowPayTool(_options?: { config?: MoltbotConfig }): AnyAgentTool {
   return {
     label: "FlowPay",
     name: "flowpay",

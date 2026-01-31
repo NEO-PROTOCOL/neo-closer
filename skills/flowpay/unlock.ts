@@ -216,7 +216,8 @@ function generateUnlockToken(customer_ref: string, permissions: string[]): strin
     exp: Math.floor(Date.now() / 1000) + (365 * 24 * 60 * 60) // 1 year
   };
 
-  const secret = process.env.FLOWPAY_JWT_SECRET || 'neo-protocol-secret-change-me';
+  // Use TOKEN_SECRET (Railway) or fallback to FLOWPAY_JWT_SECRET (legacy)
+  const secret = process.env.TOKEN_SECRET || process.env.FLOWPAY_JWT_SECRET || 'neo-protocol-secret-change-me';
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const signature = crypto
