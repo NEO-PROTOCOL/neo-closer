@@ -138,7 +138,7 @@ Confirme que estas variáveis estão no Railway:
 
 ```bash
 # Nome exato (case-sensitive)
-WOOVI_API_KEY = Q2xpZW50X0lkX1hYWFhYWFhYOnNlY3JldF9YWFhYWFhYWA==
+WOOVI_API_KEY = Q2xpZW50X0lkX1hYWF.....A==
 
 WOOVI_WEBHOOK_SECRET = openpix_XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 

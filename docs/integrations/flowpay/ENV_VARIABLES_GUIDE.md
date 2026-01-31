@@ -37,9 +37,9 @@ FLOWPAY_API_URL=https://flowpay-production-10d8.up.railway.app
 
 ```bash
 # Chave de autenticação da Woovi
-FLOWPAY_API_KEY=Q2xpZW50X0lkX1hYWFhYWFhYOnNlY3JldF9YWFhYWFhYWA==
-OPENPIX_API_KEY=Q2xpZW50X0lkX1hYWFhYWFhYOnNlY3JldF9YWFhYWFhYWA==  # Legacy fallback
-WOOVI_API_KEY=Q2xpZW50X0lkX1hYWFhYWFhYOnNlY3JldF9YWFhYWFhYWA==    # Documentação
+FLOWPAY_API_KEY=Q2xpZW50X0.....==
+OPENPIX_API_KEY=Q2xpZW50X0.....==  # Legacy fallback
+WOOVI_API_KEY=Q2xpZW50X0lk....==    # Documentação
 
 # Use a MESMA chave para todos (compatibilidade)
 ```
