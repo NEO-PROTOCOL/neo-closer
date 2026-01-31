@@ -469,12 +469,12 @@ Para cada projeto, responda:
 ▓▓▓ CHECKLIST DE DECISÃO
 ────────────────────────────────────────
 └─ Este projeto usa/precisa de:
-   └─ [ ] WhatsApp/Telegram?
-   └─ [ ] AI/LLM capabilities?
-   └─ [ ] Web3/Blockchain?
-   └─ [ ] IPFS/Storage descentralizado?
-   └─ [ ] Identity management?
-   └─ [ ] Automation/Cron jobs?
+   └─ [x] WhatsApp/Telegram?
+   └─ [x] AI/LLM capabilities?
+   └─ [x] Web3/Blockchain?
+   └─ [x] IPFS/Storage descentralizado?
+   └─ [x] Identity management?
+   └─ [x] Automation/Cron jobs?
 
 └─ Seria melhor como:
    └─ [ ] Skill do NEØ (CLI)

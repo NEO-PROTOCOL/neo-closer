@@ -147,6 +147,7 @@
 > Communication channel integrations
 
 **Popular Channels:**
+
 - 📱 [WhatsApp](./docs/channels/whatsapp.md) - Baileys multi-device integration
 - 🤖 [Telegram](./docs/channels/telegram.md) - grammY bot framework
 - 💬 [iMessage](./docs/channels/imessage.md) - BlueBubbles integration
@@ -157,6 +158,7 @@
 - 🔷 [Matrix](./docs/channels/matrix.md) - Matrix protocol
 
 **More Channels:**
+
 - [Line](./docs/channels/line.md)
 - [Mattermost](./docs/channels/mattermost.md)
 - [Nextcloud Talk](./docs/channels/nextcloud-talk.md)
@@ -167,6 +169,7 @@
 - [Google Chat](./docs/channels/googlechat.md)
 
 **General:**
+
 - [Channel Index](./docs/channels/index.md)
 - [Troubleshooting](./docs/channels/troubleshooting.md)
 - [Location Services](./docs/channels/location.md)
@@ -176,17 +179,20 @@
 > Core gateway functionality and configuration
 
 **Configuration:**
+
 - [Main Configuration](./docs/gateway/configuration.md)
 - [Configuration Examples](./docs/gateway/configuration-examples.md)
 - [CLI Backends](./docs/gateway/cli-backends.md)
 
 **Deployment:**
+
 - [Remote Gateway](./docs/gateway/remote.md)
 - [Background Process](./docs/gateway/background-process.md)
 - [Multiple Gateways](./docs/gateway/multiple-gateways.md)
 - [Gateway Lock](./docs/gateway/gateway-lock.md)
 
 **Security:**
+
 - [Security Overview](./docs/gateway/security/index.md)
 - [Formal Verification](./docs/gateway/security/formal-verification.md)
 - [Authentication](./docs/gateway/authentication.md)
@@ -194,6 +200,7 @@
 - [Sandbox vs Tool Policy](./docs/gateway/sandbox-vs-tool-policy-vs-elevated.md)
 
 **Monitoring & Health:**
+
 - [Health Monitoring](./docs/gateway/health.md)
 - [Heartbeat](./docs/gateway/heartbeat.md)
 - [Doctor Command](./docs/gateway/doctor.md)
@@ -201,22 +208,26 @@
 - [Troubleshooting](./docs/gateway/troubleshooting.md)
 
 **APIs:**
+
 - [OpenAI HTTP API](./docs/gateway/openai-http-api.md)
 - [OpenResponses HTTP API](./docs/gateway/openresponses-http-api.md)
 - [Tools Invoke HTTP API](./docs/gateway/tools-invoke-http-api.md)
 
 **Networking:**
+
 - [Discovery](./docs/gateway/discovery.md)
 - [Bonjour](./docs/gateway/bonjour.md)
 - [Tailscale](./docs/gateway/tailscale.md)
 - [Pairing](./docs/gateway/pairing.md)
 
 **Advanced:**
+
 - [Bridge Protocol](./docs/gateway/bridge-protocol.md)
 - [Protocol Spec](./docs/gateway/protocol.md)
 - [Local Models](./docs/gateway/local-models.md)
 
 **Full Index:**
+
 - [Gateway Documentation Index](./docs/gateway/index.md)
 
 ### 🧠 Concepts
@@ -224,6 +235,7 @@
 > Core concepts and architecture patterns
 
 **Agent System:**
+
 - [Architecture Overview](./docs/concepts/architecture.md)
 - [Agent System](./docs/concepts/agent.md)
 - [Agent Loop](./docs/concepts/agent-loop.md)
@@ -231,6 +243,7 @@
 - [Agent Workspace](./docs/concepts/agent-workspace.md)
 
 **Sessions & Context:**
+
 - [Sessions](./docs/concepts/session.md) / [Sessions (alt)](./docs/concepts/sessions.md)
 - [Session Management](./docs/concepts/session-pruning.md)
 - [Context Handling](./docs/concepts/context.md)
@@ -238,6 +251,7 @@
 - [Compaction](./docs/concepts/compaction.md)
 
 **Messages:**
+
 - [Message Flow](./docs/concepts/messages.md)
 - [Group Messages](./docs/concepts/group-messages.md)
 - [Channel Routing](./docs/concepts/channel-routing.md)
@@ -245,6 +259,7 @@
 - [Retry Logic](./docs/concepts/retry.md)
 
 **AI & Models:**
+
 - [Models](./docs/concepts/models.md)
 - [Model Providers](./docs/concepts/model-providers.md)
 - [Model Failover](./docs/concepts/model-failover.md)
@@ -253,12 +268,14 @@
 - [Memory System](./docs/concepts/memory.md)
 
 **UX Features:**
+
 - [Typing Indicators](./docs/concepts/typing-indicators.md)
 - [Presence](./docs/concepts/presence.md)
 - [Groups](./docs/concepts/groups.md)
 - [Markdown Formatting](./docs/concepts/markdown-formatting.md)
 
 **Technical:**
+
 - [OAuth](./docs/concepts/oauth.md)
 - [TypeBox](./docs/concepts/typebox.md)
 - [Timezone](./docs/concepts/timezone.md)
@@ -305,6 +322,7 @@
 - [BOOTSTRAP Template](./docs/reference/templates/BOOTSTRAP.md)
 
 **Reference Docs:**
+
 - [API Usage Costs](./docs/reference/api-usage-costs.md)
 - [Transcript Hygiene](./docs/reference/transcript-hygiene.md)
 - [Session Management & Compaction](./docs/reference/session-management-compaction.md)

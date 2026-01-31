@@ -1,12 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { promisify } from 'util';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { setupAIRoutes } from './ai-routes.js';
 import automationRoutes from './automation-routes.js';
 import { initializeAutomations } from '../dist/automations/index.js';
+import { NeoSkillsRegistry } from '../dist/neo/registry/index.js';
 
 const execAsync = promisify(exec);
 const __filename = fileURLToPath(import.meta.url);
@@ -178,13 +179,45 @@ app.post('/api/messages', async (req, res) => {
             return res.status(400).json({ error: 'Missing to or message' });
         }
 
-        // Execute the telegram script
+        // Use spawn for safer argument handling
         const scriptPath = path.join(__dirname, '../skills/telegram/scripts/telegram.ts');
-        const command = `pnpm tsx "${scriptPath}" --to ${to} --message "${message}"`;
+        console.log(`📤 Sending message to ${to}...`);
 
-        const { stdout } = await execAsync(command, {
-            cwd: path.join(__dirname, '..')
+        const result = await new Promise((resolve, reject) => {
+            const child = spawn('pnpm', ['tsx', scriptPath, '--to', to, '--message', message], {
+                cwd: path.join(__dirname, '..'),
+                stdio: ['ignore', 'pipe', 'pipe']
+            });
+
+            let stdout = '';
+            let stderr = '';
+
+            child.stdout.on('data', (data) => {
+                stdout += data.toString();
+            });
+
+            child.stderr.on('data', (data) => {
+                stderr += data.toString();
+            });
+
+            child.on('close', (code) => {
+                if (code === 0) {
+                    resolve({ stdout, stderr });
+                } else {
+                    reject(new Error(stderr || `Process exited with code ${code}`));
+                }
+            });
+
+            child.on('error', (error) => {
+                reject(error);
+            });
         });
+
+        const { stdout, stderr } = result;
+
+        if (stderr && !stderr.includes('✅')) {
+            console.warn('⚠️ Telegram script stderr:', stderr);
+        }
 
         const msg = {
             id: Date.now().toString(),
@@ -198,10 +231,20 @@ app.post('/api/messages', async (req, res) => {
         messages.push(msg);
         stats.totalMessages++;
 
-        res.json({ success: true, message: msg, output: stdout });
+        res.json({ 
+            success: true, 
+            message: msg, 
+            output: stdout,
+            warning: stderr || undefined
+        });
     } catch (error) {
-        console.error('Error sending message:', error);
-        res.status(500).json({ error: error.message });
+        console.error('❌ Error sending message:', error);
+        const errorMessage = error.message || 'Erro desconhecido ao enviar mensagem';
+        res.status(500).json({ 
+            success: false,
+            error: errorMessage,
+            details: error.stack
+        });
     }
 });
 
@@ -233,6 +276,63 @@ app.get('/api/status', async (req, res) => {
             telegram: { status: 'unknown' },
             scheduler: { status: 'unknown' },
             stats
+        });
+    }
+});
+
+// Get NEO Registry Status
+app.get('/api/neo/registry', async (req, res) => {
+    try {
+        const registry = new NeoSkillsRegistry();
+        const index = await registry.getIndex();
+        const indexCID = await registry.getIndexCID();
+        
+        const skills = Object.entries(index.skills).map(([id, data]) => ({
+            id,
+            latest: data.latest,
+            versions: Object.keys(data.versions).length,
+            versionList: Object.keys(data.versions)
+        }));
+
+        res.json({
+            success: true,
+            indexCID,
+            totalSkills: skills.length,
+            skills,
+            updatedAt: index.updatedAt
+        });
+    } catch (error) {
+        console.error('Error fetching NEO registry:', error);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Get NEO Skills List
+app.get('/api/neo/skills', async (req, res) => {
+    try {
+        const registry = new NeoSkillsRegistry();
+        const skills = await registry.list();
+        
+        res.json({
+            success: true,
+            skills: skills.map(skill => ({
+                id: skill.id,
+                name: skill.name,
+                version: skill.version,
+                author: skill.author,
+                category: skill.category,
+                cid: skill.cid,
+                description: skill.metadata.description
+            }))
+        });
+    } catch (error) {
+        console.error('Error listing NEO skills:', error);
+        res.status(500).json({
+            success: false,
+            error: error.message
         });
     }
 });

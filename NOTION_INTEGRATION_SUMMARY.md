@@ -66,7 +66,7 @@ Descrição: Lead qualification agent
 ▓▓▓ PROJETO 3: NEØ:ONE AGENT
 ────────────────────────────────────────
 Nome: NEØ:One (ASI1 Agent)
-Status: 🟡 Desenvolvimento
+Status: 🟢 Produção
 Prioridade: ⚡ Média
 Fase: Fase 1 - Expansão
 Camada: Camada 2 - Produto
@@ -86,7 +86,8 @@ Camada: Camada 1 - Infraestrutura
 GitHub: neomello/
         neoflowoff-nodemello.run
 Descrição: Node runner infrastructure.
-          Precisa auditoria.
+          Precisa auditoria. Bot dentro do Github com SSH
+          perfil: https://github.com/nodeneoprotocol-bot 
 ```
 
 ────────────────────────────────────────
@@ -137,7 +138,12 @@ Descrição:
   
   Status: ✅ 100% operacional
   URL: flowcloser-agent-production
-       .up.railway.app
+       .up.railway.app é o suporte ou fallback do whatsapp
+       para leads que não foram atendidos pelo agente de IA ou para segunda
+       opiniao. O agente de IA é o flowcloser-agent-whatsapp
+       que está em /CODIGOS/bots_ia/flowcloser-agent-whatsapp/
+       e é um agente de IA que usa o Meta API para se comunicar com os leads.
+       
   
   Mapeado todo ecossistema FlowOFF:
   - FlowOFF.xyz (agência)

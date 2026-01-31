@@ -99,14 +99,29 @@ export async function skillPublishCommand(skillPath: string): Promise<void> {
       skillPath,
     );
 
+    const lighthouseConfigured = !!process.env.LIGHTHOUSE_API_KEY;
+    const pinataGateway = process.env.PINATA_GATEWAY_URL;
+
     console.log("");
     console.log("✅ Skill published successfully!");
     console.log(`   CID: ${cid}`);
     console.log("");
+    console.log("📋 Access URLs:");
+    console.log(`   - Local Gateway: http://127.0.0.1:8080/ipfs/${cid}`);
+    console.log(`   - Public IPFS:   https://ipfs.io/ipfs/${cid}`);
+    if (lighthouseConfigured) {
+      console.log(`   - Lighthouse:    https://gateway.lighthouse.storage/ipfs/${cid}`);
+      console.log(`     ✅ Web3 decentralized storage (pinned remotely)`);
+    }
+    if (pinataGateway) {
+      console.log(`   - Pinata Gateway: ${pinataGateway}/ipfs/${cid}`);
+      console.log(`     ⚠️  Note: Pinata gateway requires paid plan for pin by CID`);
+    }
+    console.log(`   - IPFS CLI: ipfs cat ${cid}`);
+    console.log("");
     console.log("📋 Next steps:");
-    console.log(`   - Install: pnpm neobot neo:skill:install ${skillJSON.id}@${skillJSON.version}`);
-    console.log(`   - View:    ipfs cat ${cid}`);
-    console.log(`   - Gateway: http://127.0.0.1:8080/ipfs/${cid}`);
+    console.log(`   - Install: pnpm neobot neo skill install ${skillJSON.id}@${skillJSON.version}`);
+    console.log(`   - List:    pnpm neobot neo skill list`);
     console.log("");
   } catch (error: any) {
     console.error("");

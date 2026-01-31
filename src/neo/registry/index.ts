@@ -10,6 +10,8 @@ import { CID } from "multiformats/cid";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { Readable } from "node:stream";
+import { pinToPinata, pinMultipleToPinata, isPinataConfigured } from "./pinata.js";
+import { pinToLighthouse, pinMultipleToLighthouse, isLighthouseConfigured } from "./lighthouse.js";
 
 /**
  * Schema de uma NEO Skill
@@ -87,7 +89,8 @@ export class NeoSkillsRegistry {
 
   constructor(options?: { ipfsEndpoint?: string; indexCID?: string }) {
     this.ipfsEndpoint = options?.ipfsEndpoint || "http://127.0.0.1:5001";
-    this.indexCID = options?.indexCID || null;
+    // Carrega index CID do .env se disponível
+    this.indexCID = options?.indexCID || process.env.NEO_INDEX_CID || null;
   }
 
   /**
@@ -153,6 +156,19 @@ export class NeoSkillsRegistry {
     console.log(`✅ Skill published: ${skill.id}@${skill.version}`);
     console.log(`   CID: ${skillCID}`);
     console.log(`   Metadata CID: ${metadataResult.cid.toString()}`);
+
+    // Pina remotamente (Lighthouse primeiro, depois Pinata como fallback)
+    const cidsToPin = [skillCID, metadataResult.cid.toString()];
+
+    if (isLighthouseConfigured()) {
+      await pinMultipleToLighthouse(cidsToPin);
+    } else if (isPinataConfigured()) {
+      await pinMultipleToPinata(cidsToPin);
+    } else {
+      console.warn(
+        "⚠️  No remote pinning configured (Lighthouse/Pinata). Skill only pinned locally.",
+      );
+    }
 
     return skillCID;
   }
@@ -300,6 +316,13 @@ export class NeoSkillsRegistry {
   }
 
   /**
+   * Obtém o index completo (público)
+   */
+  async getIndex(): Promise<NeoSkillsIndex> {
+    return this.loadIndex();
+  }
+
+  /**
    * Define o CID do index
    */
   setIndexCID(cid: string): void {
@@ -326,6 +349,13 @@ export class NeoSkillsRegistry {
     this.setIndexCID(indexCID);
 
     console.log(`✅ Index created: ${indexCID}`);
+
+    // Pina index remotamente (Lighthouse primeiro, depois Pinata como fallback)
+    if (isLighthouseConfigured()) {
+      await pinToLighthouse(indexCID, "neo-skills-index.json");
+    } else if (isPinataConfigured()) {
+      await pinToPinata(indexCID);
+    }
 
     return indexCID;
   }
@@ -357,15 +387,31 @@ export class NeoSkillsRegistry {
   private async loadSkillMetadata(skillCID: string): Promise<NeoSkill | null> {
     try {
       const client = await this.getClient();
+      const cid = CID.parse(skillCID);
 
-      const chunks: Uint8Array[] = [];
-
-      for await (const chunk of client.cat(CID.parse(skillCID))) {
-        chunks.push(chunk);
+      // Tenta ler como arquivo primeiro (metadata JSON direto)
+      try {
+        const chunks: Uint8Array[] = [];
+        for await (const chunk of client.cat(cid)) {
+          chunks.push(chunk);
+        }
+        const metadataJSON = Buffer.concat(chunks).toString("utf-8");
+        return JSON.parse(metadataJSON);
+      } catch {
+        // Se falhar, tenta como diretório e busca skill.json
+        try {
+          const chunks: Uint8Array[] = [];
+          const skillJsonPath = `${skillCID}/skill.json`;
+          for await (const chunk of client.cat(skillJsonPath)) {
+            chunks.push(chunk);
+          }
+          const metadataJSON = Buffer.concat(chunks).toString("utf-8");
+          return JSON.parse(metadataJSON);
+        } catch {
+          // Se ainda falhar, retorna null
+          return null;
+        }
       }
-
-      const metadataJSON = Buffer.concat(chunks).toString("utf-8");
-      return JSON.parse(metadataJSON);
     } catch (error) {
       console.error(`Failed to load skill metadata: ${skillCID}`, error);
       return null;
@@ -424,6 +470,13 @@ export class NeoSkillsRegistry {
     this.setIndexCID(newIndexCID);
 
     console.log(`✅ Index updated: ${newIndexCID}`);
+
+    // Pina index remotamente (Lighthouse primeiro, depois Pinata como fallback)
+    if (isLighthouseConfigured()) {
+      await pinToLighthouse(newIndexCID, "neo-skills-index.json");
+    } else if (isPinataConfigured()) {
+      await pinToPinata(newIndexCID);
+    }
   }
 }
 

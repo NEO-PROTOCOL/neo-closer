@@ -176,13 +176,42 @@ Docs: ARCHITECTURE_NEO_PROTOCOL.md
 
 ## CI / GitHub Actions
 
-CI runs in **slim** mode by default (fewer jobs per push) so it doesn’t block day-to-day work.
+▓▓▓ MODO PADRÃO (SLIM)
+────────────────────────────────────────
+└─ Execução leve por padrão
+└─ Não bloqueia trabalho diário
+└─ Node: lint, test, build,
+   protocol, format
+└─ install-check + secrets
+└─ Audit: falha apenas em
+   vulnerabilidades críticas
+└─ Docker: apenas em tag `v*`
+└─ Install Smoke: apenas em PR
 
-- **Default:** Node (lint, test, build, protocol, format) + install-check + secrets. Audit fails only on critical vulns. Docker and Install Smoke do not run on push to `main` (Docker only on tag `v*`, Smoke only on PR).
-- **Full CI (Windows + Android):** In the repo go to **Settings > Secrets and variables > Actions > Variables** and add **NEO_CI_FULL** with value **true**. Remove or change it to go back to slim. Useful before a release or when syncing with upstream.
-- **Bun:** In [.github/workflows/ci.yml](.github/workflows/ci.yml), in the `checks` job matrix, uncomment the 2 `runtime: bun` entries if you want to run tests/build with Bun.
+▓▓▓ CI COMPLETO
+────────────────────────────────────────
+└─ Windows + Android
+└─ Configurar: Settings >
+   Secrets and variables >
+   Actions > Variables
+└─ Adicionar: NEO_CI_FULL = true
+└─ Remover para voltar ao slim
+└─ Útil antes de release ou
+   ao sincronizar upstream
 
-Workflows stay flexible: CI weight is controlled by this variable (and by the matrix if you enable Bun).
+▓▓▓ BUN RUNTIME
+────────────────────────────────────────
+└─ Em `.github/workflows/ci.yml`
+└─ Job `checks` na matrix
+└─ Descomentar 2 entradas
+   `runtime: bun`
+└─ Para rodar testes/build
+   com Bun
+
+────────────────────────────────────────
+CI flexível: peso controlado pela
+variável NEO_CI_FULL e pela matrix
+(se Bun estiver habilitado).
 
 ---
 
