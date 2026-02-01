@@ -25,7 +25,8 @@ próprio. Neobot orquestra via skills.
 
 **FlowCloser Tech Stack:**
 
-- Intelligence: IQAI Agent (@iqai/adk)
+- Intelligence: GPT-4o + Gemini 2.5 Flash
+  (formerly IQAI - discontinued JAN 2026)
 - Delivery: Express.js (Railway)
 - Channels: Instagram/WhatsApp (Meta API)
 - Storage: SQLite + IPFS (Storacha)
@@ -39,7 +40,7 @@ FlowCloser Agent                 Neobot
 🔧 Dev em Antigravity            🔧 Dev em Cursor
 💾 Código completo               🔗 Referências
 🌐 HTTP API                      🎯 Skills (client)
-📊 IQAI Agent + SQLite           📖 Documentação
+📊 GPT-4o/Gemini + SQLite        📖 Documentação
 ──────────────────────────────────────────────
          ↕️ HTTP / Filesystem
          ↕️ Skills orchestration

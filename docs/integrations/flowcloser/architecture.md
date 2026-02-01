@@ -19,10 +19,10 @@ FlowCloser Agent integration.
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ┃ ░ Meta Business API (Instagram)
 ┃ ░ Meta Cloud API (WhatsApp)
-┃ ░ OpenAI API (GPT-4o-mini)
-┃ ░ Google AI API (Gemini 2.5)
-┃ ░ IQAI Platform
+┃ ░ OpenAI API (GPT-4o)
+┃ ░ Google AI API (Gemini 2.5 Flash)
 ┃ ░ Storacha (IPFS)
+┃ ░ Note: IQAI discontinued (JAN 2026)
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            │
            ↓
@@ -31,8 +31,8 @@ FlowCloser Agent integration.
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ┃ ░ Express.js HTTP server
 ┃ ░ Webhook handlers
-┃ ░ Agent orchestration (IQAI ADK)
-┃ ░ LLM fallback system
+┃ ░ Agent orchestration (own AI)
+┃ ░ Dual LLM system (GPT-4o + Gemini)
 ┃ ░ Lead qualification logic
 ┃ ░ SQLite persistence
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

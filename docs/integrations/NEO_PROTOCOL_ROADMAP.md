@@ -96,10 +96,14 @@ orchestrator.
 - `docs/integrations/flowcloser/`
 
 **Tech Stack:**
-- IQAI Agent (@iqai/adk)
+- GPT-4o + Gemini 2.5 Flash (direct)
 - Express.js (Railway)
 - Instagram/WhatsApp (Meta API)
 - SQLite + IPFS
+
+**Note:** IQAI Agent discontinued (JAN 2026).
+FlowCloser agora assume estrategicamente
+sua própria inteligência AI.
 
 ────────────────────────────────────────
 
@@ -271,9 +275,10 @@ Integrate CEO automation platform.
 
 **External:**
 - Moltbot (Fork origin)
-- IQAI Agent (FlowCloser brain)
-- ~Thirdweb (Evaluated~ → Removed)
-  └─ Substituído por NEØ Smart Factory
+- ~IQAI Agent~ (Discontinued JAN 2026)
+  └─ FlowCloser assume com GPT-4o/Gemini
+- ~Thirdweb~ (Evaluated → Removed)
+  └─ Substituído por Smart Factory NEØ
 
 ────────────────────────────────────────
 

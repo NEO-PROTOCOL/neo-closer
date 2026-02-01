@@ -21,8 +21,9 @@
           "role": "executor",
           "repository": "https://github.com/neomello/flowcloser-agent",
           "description": "Lead qualification agent with Instagram DM automation. Executes with dual LLM architecture (primary + fallback opinion)",
-          "tech": ["IQAI Agent", "Express.js", "SQLite", "IPFS"],
-          "deployment": "Railway"
+          "tech": ["GPT-4o", "Gemini 2.5 Flash", "Express.js", "SQLite", "IPFS"],
+          "deployment": "Railway",
+          "note": "IQAI discontinued (JAN 2026) - now uses direct LLM access"
         },
         {
           "id": "mio-system",
@@ -43,9 +44,10 @@
         }
       ],
       "llm": {
-        "primary": "IQAI Agent (@iqai/adk)",
-        "fallback": "Opinion-based LLM",
-        "architecture": "dual-llm-with-fallback"
+        "primary": "GPT-4o (OpenAI)",
+        "fallback": "Gemini 2.5 Flash (Google)",
+        "architecture": "dual-llm-with-fallback",
+        "legacy": "IQAI Agent (discontinued JAN 2026)"
       }
     },
     "commands": [

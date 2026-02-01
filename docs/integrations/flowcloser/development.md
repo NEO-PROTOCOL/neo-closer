@@ -129,8 +129,10 @@ npm start          # Run compiled code
 
 # Testing
 npm run test:openai    # Test OpenAI key
-npm run test:iqai      # Test IQAI connection
+npm run test:gemini    # Test Gemini connection
 npm test               # (not configured yet)
+
+# Note: test:iqai removed (IQAI discontinued JAN 2026)
 
 # Chat
 npm run chat       # Interactive chat
@@ -143,12 +145,15 @@ npm run chat       # Interactive chat
 **Required:**
 
 ```env
-IQAI_API_KEY=your_iqai_key
 OPENAI_API_KEY=your_openai_key
+GOOGLE_AI_API_KEY=your_gemini_key
 WEBHOOK_VERIFY_TOKEN=your_token
 INSTAGRAM_APP_ID=your_app_id
 INSTAGRAM_APP_SECRET=your_secret
 ```
+
+**Note:** `IQAI_API_KEY` removed (discontinued JAN 2026).
+FlowCloser now uses direct GPT-4o + Gemini access.
 
 **Optional (but recommended):**
 

@@ -155,7 +155,8 @@
 ────────────────────────────────────────
 └─ GPT-4o (primary)
 └─ Gemini 2.5 Flash (fallback)
-└─ IQAI API (discontinued)
+└─ IQAI API (discontinued JAN 2026)
+   └─ FlowCloser assume strategic role
 └─ ASI1 API (planned)
 
 ▓▓▓ CAMADA WEB3
@@ -254,7 +255,9 @@
    └─ Model: gemini-2.5-flash
    └─ Fallback option
 
-└─ IQAI (discontinued)
+└─ IQAI (discontinued JAN 2026)
+   └─ FlowCloser now uses GPT-4o/Gemini
+   └─ Assumes strategic AI role
 └─ ASI1 (planned integration)
 
 ▓▓▓ WEB3 SERVICES

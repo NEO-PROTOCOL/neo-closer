@@ -77,7 +77,8 @@ and integration strategy with Neobot.
 **Connection to others:**
 - → Provides memory for FlowCloser
 - → Stores Smart Factory metadata
-- → Future: Replace IQAI backend
+- → Note: IQAI discontinued (JAN 2026)
+  FlowCloser now uses GPT-4o/Gemini direct
 
 ────────────────────────────────────────
 
@@ -370,7 +371,7 @@ and integration strategy with Neobot.
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ┃
 ┃ 1. Lead via Instagram DM
-┃    └─> FlowCloser (IQAI Agent)
+┃    └─> FlowCloser (GPT-4o/Gemini)
 ┃        └─> Qualifies interest
 ┃            └─> Creates lead in CRM
 ┃
@@ -640,15 +641,17 @@ Simplified workflow, manual publish
 
 **Priority:** 🔥 HIGH
 **Deadline:** 15 Feb 2026
-**Options:** ASi1 vs LangChain vs IQAI
+**Options:** ASi1 vs LangChain
 
 **Current:**
-- FlowCloser uses IQAI ✅
-- AGENT-FULL uses LangGraph ✅
-- Neo-one planned for ASi1
+- FlowCloser: GPT-4o + Gemini ✅
+  (IQAI discontinued JAN 2026)
+- AGENT-FULL: LangGraph ✅
+- Neo-one: ASi1 (planned)
 
 **Decision Needed:**
 - Standardize on one?
+- Or keep multi-engine strategy?
 - Keep multi-engine?
 - Cost/benefit analysis
 
