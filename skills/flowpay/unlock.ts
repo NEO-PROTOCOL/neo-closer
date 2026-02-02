@@ -64,7 +64,7 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
 
   try {
     // Step 1: Get order from database
-    const { getOrder, updateOrderStatus } = await import('../../src/infra/database/flowpay.js');
+    const { getOrder, updateOrderStatus } = await import('../../src/infra/flowpay/index.js');
     const order = getOrder(charge_id);
 
     if (!order) {
@@ -94,7 +94,7 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
     };
 
     // Step 3: Get product details for permissions and access URL
-    const { getProduct } = await import('../../src/infra/database/flowpay.js');
+    const { getProduct } = await import('../../src/infra/flowpay/index.js');
     const product = getProduct(paymentDetails.product_ref);
 
     if (!product) {
@@ -132,7 +132,7 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
     };
 
     // Step 7: Store receipt in database
-    const { createReceipt, logAudit } = await import('../../src/infra/database/flowpay.js');
+    const { createReceipt, logAudit } = await import('../../src/infra/flowpay/index.js');
 
     const receiptId = createReceipt({
       receipt_id: receipt.receipt_id,

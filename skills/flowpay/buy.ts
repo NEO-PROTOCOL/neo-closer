@@ -57,9 +57,9 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
 
   try {
     // Check if product exists in local DB
-    const { getProduct } = await import('../../src/infra/database/flowpay.js');
+    const { getProduct } = await import('../../src/infra/flowpay/index.js');
     const product = getProduct(product_ref);
-    
+
     if (!product) {
       return {
         success: false,
@@ -106,8 +106,8 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
     };
 
     // Store in local SQLite database
-    const { createOrder, logAudit } = await import('../../src/infra/database/flowpay.js');
-    
+    const { createOrder, logAudit } = await import('../../src/infra/flowpay/index.js');
+
     const orderId = createOrder({
       charge_id: result.charge_id,
       amount_brl,

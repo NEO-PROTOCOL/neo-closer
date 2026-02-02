@@ -1,8 +1,6 @@
 /**
  * FlowPay SQLite Database Manager
  * NEØ Protocol - Sovereign Local Storage
- *
- * No cloud, no accounts, full control.
  */
 
 import * as Database from "better-sqlite3";
@@ -36,14 +34,12 @@ export function getDatabase(): DatabaseInstance {
     initializeSchema();
   }
 
-  // TypeScript: db is guaranteed to be non-null here
   return db as DatabaseInstance;
 }
 
 function initializeSchema(): void {
   if (!db) return;
 
-  // Check if schema is initialized
   const tables = db
     .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='orders'")
     .all();
@@ -62,10 +58,6 @@ export function closeDatabase(): void {
     db = null;
   }
 }
-
-// ════════════════════════════════════════
-// ORDER OPERATIONS
-// ════════════════════════════════════════
 
 export interface Order {
   id?: number;
@@ -108,7 +100,6 @@ export type OrderStatus =
 
 export function createOrder(order: Omit<Order, "id" | "created_at" | "updated_at">): number {
   const db = getDatabase();
-
   const stmt = db.prepare(`
     INSERT INTO orders (
       charge_id, amount_brl, amount_usdt, exchange_rate,
@@ -118,7 +109,6 @@ export function createOrder(order: Omit<Order, "id" | "created_at" | "updated_at
       metadata
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-
   const result = stmt.run(
     order.charge_id,
     order.amount_brl,
@@ -136,7 +126,6 @@ export function createOrder(order: Omit<Order, "id" | "created_at" | "updated_at
     order.checkout_url || null,
     order.metadata || null,
   );
-
   return result.lastInsertRowid as number;
 }
 
@@ -152,7 +141,6 @@ export function updateOrderStatus(
   extra?: Partial<Order>,
 ): void {
   const db = getDatabase();
-
   let fields = ["status = ?", "updated_at = CURRENT_TIMESTAMP"];
   let values: any[] = [status];
 
@@ -174,27 +162,11 @@ export function updateOrderStatus(
       values.push(extra.receipt_cid, extra.receipt_ipfs_url);
     }
   }
-
   values.push(charge_id);
 
-  const stmt = db.prepare(`
-    UPDATE orders 
-    SET ${fields.join(", ")}
-    WHERE charge_id = ?
-  `);
-
+  const stmt = db.prepare(`UPDATE orders SET ${fields.join(", ")} WHERE charge_id = ?`);
   stmt.run(...values);
 }
-
-export function listOrdersPendingReview(): Order[] {
-  const db = getDatabase();
-  const stmt = db.prepare("SELECT * FROM v_orders_pending_review");
-  return stmt.all() as Order[];
-}
-
-// ════════════════════════════════════════
-// RECEIPT OPERATIONS
-// ════════════════════════════════════════
 
 export interface Receipt {
   id?: number;
@@ -205,7 +177,7 @@ export interface Receipt {
   customer_ref: string;
   product_ref: string;
   amount_brl: number;
-  permissions: string; // JSON array
+  permissions: string;
   access_url?: string;
   unlock_token: string;
   issuer: string;
@@ -220,7 +192,6 @@ export interface Receipt {
 
 export function createReceipt(receipt: Omit<Receipt, "id" | "created_at">): number {
   const db = getDatabase();
-
   const stmt = db.prepare(`
     INSERT INTO receipts (
       receipt_id, order_id, charge_id, paid_at,
@@ -229,7 +200,6 @@ export function createReceipt(receipt: Omit<Receipt, "id" | "created_at">): numb
       issuer, signature, metadata
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-
   const result = stmt.run(
     receipt.receipt_id,
     receipt.order_id,
@@ -245,7 +215,6 @@ export function createReceipt(receipt: Omit<Receipt, "id" | "created_at">): numb
     receipt.signature,
     receipt.metadata || null,
   );
-
   return result.lastInsertRowid as number;
 }
 
@@ -255,20 +224,6 @@ export function getReceipt(receipt_id: string): Receipt | null {
   return stmt.get(receipt_id) as Receipt | null;
 }
 
-export function updateReceiptIPFS(receipt_id: string, ipfs_cid: string, ipfs_url: string): void {
-  const db = getDatabase();
-  const stmt = db.prepare(`
-    UPDATE receipts
-    SET ipfs_cid = ?, ipfs_url = ?, pinned = 1, pinned_at = CURRENT_TIMESTAMP
-    WHERE receipt_id = ?
-  `);
-  stmt.run(ipfs_cid, ipfs_url, receipt_id);
-}
-
-// ════════════════════════════════════════
-// PRODUCT OPERATIONS
-// ════════════════════════════════════════
-
 export interface Product {
   id?: number;
   ref: string;
@@ -276,7 +231,7 @@ export interface Product {
   description?: string;
   price_brl: number;
   currency: string;
-  permissions: string; // JSON array
+  permissions: string;
   access_url?: string;
   access_duration_days?: number;
   active: boolean;
@@ -300,10 +255,6 @@ export function listProducts(): Product[] {
   return stmt.all() as Product[];
 }
 
-// ════════════════════════════════════════
-// AUDIT LOG
-// ════════════════════════════════════════
-
 export function logAudit(
   event_type: string,
   actor: string,
@@ -312,9 +263,8 @@ export function logAudit(
   order_id?: number,
 ): void {
   const db = getDatabase();
-  const stmt = db.prepare(`
-    INSERT INTO audit_log (event_type, actor, action, details, order_id)
-    VALUES (?, ?, ?, ?, ?)
-  `);
+  const stmt = db.prepare(
+    `INSERT INTO audit_log (event_type, actor, action, details, order_id) VALUES (?, ?, ?, ?, ?)`,
+  );
   stmt.run(event_type, actor, action, details ? JSON.stringify(details) : null, order_id || null);
 }
