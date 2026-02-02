@@ -246,6 +246,13 @@ export function createGatewayHttpServer(opts: {
       return;
     }
 
+    // Favicon Fallback (prevent 404/502 noise if missing)
+    if (req.url === "/favicon.ico") {
+      res.statusCode = 204; // No Content
+      res.end();
+      return;
+    }
+
     // Don't interfere with WebSocket upgrades; ws handles the 'upgrade' event.
     if (String(req.headers.upgrade ?? "").toLowerCase() === "websocket") return;
 
