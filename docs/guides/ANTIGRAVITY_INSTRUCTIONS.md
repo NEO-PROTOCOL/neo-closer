@@ -233,7 +233,7 @@ Antes de cada commit, verificar:
 
 ## 🤝 COMUNICAÇÃO
 
-**Quando pedir ajuda a Mellø:**
+**Quando pedir ajuda a NODE NEØ:**
 - Decisões arquiteturais críticas
 - Mudanças que afetam produção
 - Dúvidas sobre regras de negócio
@@ -484,16 +484,16 @@ configure as ferramentas.
 ```text
 ▓▓▓ TÍPICO WORKFLOW
 ────────────────────────────────────────
-1. Mellø abre Antigravity
+1. NODE NEØ abre Antigravity
 2. Cole "Contexto de Trabalho" (acima)
 3. IA analisa projeto (já feito)
-4. Mellø escolhe prioridade
-5. Mellø cola Prompt específico
+4. NODE NEØ escolhe prioridade
+5. NODE NEØ cola Prompt específico
 6. IA implementa
-7. Mellø testa localmente
-8. Mellø commita
+7. NODE NEØ testa localmente
+8. NODE NEØ commita
 9. Railway auto-deploya
-10. Mellø valida production
+10. NODE NEØ valida production
 ```
 
 ────────────────────────────────────────

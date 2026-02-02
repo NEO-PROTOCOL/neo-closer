@@ -2,7 +2,7 @@
 
 **Data:** 29 Janeiro 2026  
 **Sistema:** [mio-system](https://github.com/neomello/mio-system)  
-**Node Arquiteto:** Mellø
+**Node Arquiteto:** NODE NEØ
 
 ---
 
@@ -56,7 +56,7 @@
 
 ### 🎛️ Plataformas (Orchestrators)
 
-#### 3. NodeMello (neoflowoff-nodemello.run)
+#### 3. NODE NEØ (neoflowoff-nodemello.run)
 ```bash
 ./scripts/register-identity.sh platform nodemello "Orchestrator/Content State Machine"
 ```
@@ -213,7 +213,7 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 │  └── Neobot (delegated identity)           │
 │                                             │
 │  🎛️ PLATFORMS                               │
-│  ├── NodeMello (content orchestration)     │
+│  ├── NODE NEØ (content orchestration)     │
 │  └── Smart Factory (tokenization)          │
 │                                             │
 │  🔌 CONNECTORS                              │
@@ -236,7 +236,7 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 |------------|------|-------|---------|
 | **neo-agent-full** | GitHub, Brave, Notion, Kwil DB | Twitter, Ceramic, IPFS, GUN.js | LangGraph, Tool use |
 | **Neobot** | File system, Notion, GitHub | Telegram, WhatsApp, Ledger | Skills, CLI, Health |
-| **NodeMello** | neo-agent-full drafts | FlowCloser, Twitter, Instagram | State Machine, Workflows |
+| **NODE NEØ** | neo-agent-full drafts | FlowCloser, Twitter, Instagram | State Machine, Workflows |
 | **Smart Factory** | smart-core contracts | Base, Polygon, TON blockchains | Deploy, Mint, Bridge |
 | **FlowCloser** | Evolution API, Baileys | Typebot, Chatwoot, Dify | External Services |
 | **FlowPay** | PIX API, Bank webhooks | Smart Contracts (mint) | Payment processing |
@@ -283,4 +283,4 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 ---
 
 **Documento criado em:** 29 Janeiro 2026  
-**Autor:** Mellø (NEØ Protocol - Node Arquiteto)
+**Autor:** NODE NEØ (NEØ Protocol - Node Arquiteto)

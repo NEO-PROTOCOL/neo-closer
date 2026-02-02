@@ -313,5 +313,5 @@ docs/integrations/
 
 **Criado:** 30 Janeiro 2026, 21:50  
 **Autor:** Claude (via Cursor)  
-**Revisado por:** Mellø  
+**Revisado por:** NODE NEØ  
 **ETA para 100%:** 10 minutos (após Railway re-deploy)

@@ -1,9 +1,14 @@
 {
-  "name": "FlowPay Gateway",
-  "version": "2.2.0",
-  "type": "remote",
-  "status": "production",
-  "priority": "critical",
+  "name": "FlowPay Sovereign Gateway",
+  "version": "3.0.0",
+  "type": "financial_node",
+  "status": "active_sovereign",
+  "priority": "critical_infrastructure",
+  "governance": {
+    "authority": "NEØ SMART CONTRACT",
+    "transparency": "total_on_chain",
+    "audit_mechanism": "continuous_verification"
+  },
   "location": {
     "local": "/Users/nettomello/CODIGOS/flowpay",
     "repository": "https://github.com/flowpaycash/flowpay",
@@ -11,29 +16,58 @@
     "deploy_platform": "railway"
   },
   "tech_stack": {
-    "framework": "Astro",
-    "auth": "Web3Auth",
+    "framework": "Astro 5 (SSR)",
+    "auth": "Web3Auth (MPC)",
     "payment": "Woovi/OpenPix",
-    "blockchain_rpc": "QuickNode",
-    "percentage_complete": 90
+    "blockchain_layer": "Base L2 / Polygon",
+    "settlement_engine": "Custom Liquidity Provider"
+  },
+  "capabilities": [
+    "pix_to_crypto_settlement",
+    "recurring_subscriptions",
+    "embedded_wallet_generation",
+    "proof_of_access_tokenization",
+    "client_driven_checkout"
+  ],
+  "integration_model": {
+    "architecture": "Access Unlock Primary",
+    "role": "Financial Execution Engine",
+    "coordinator": "Neobot Protocol",
+    "flow": "PIX -> ORACLE -> SMART_CONTRACT -> UNLOCK"
   },
   "endpoints": {
     "health": "/api/health",
-    "buy": "/api/create-charge",
-    "status": "/api/charge-status",
-    "webhook": "/api/webhooks/pix"
+    "buy": "/api/charges/create",
+    "status": "/api/charges/status",
+    "webhook": "/api/webhooks/pix",
+    "settlement": "/api/settlement/execute"
   },
-  "integration_model": "B",
-  "value_model": "access_unlock_primary",
-  "token_model": "ledger_secondary",
-  "description": "PIX → Access Unlock. Token as invisible ledger.",
-  "revenue_impact": "PAYS_BILLS",
-  "blocks": [
-    "Smart Factory revenue",
-    "Agency income",
-    "All ecosystem monetization"
-  ],
-  "ide": "Cursor",
-  "maintainer": "Mellø",
-  "last_updated": "2026-01-30"
+  "revenue_impact": "PROTOCOL_SUSTAINABILITY",
+  "maintainer": "NODE NEØ",
+  "last_updated": "2026-02-02",
+  "synergies": {
+    "audit_layer": {
+      "module": "skills/ledger",
+      "purpose": "Immutable audit log of all Unlock Receipt generations (System Governance)"
+    },
+    "decentralized_storage": {
+      "module": "skills/ipfs",
+      "purpose": "Permanent, censorship-resistant storage of Unlock Receipts"
+    },
+    "sales_agent": {
+      "module": "skills/flowcloser",
+      "purpose": "Native integration for automated sales and checkout link generation"
+    },
+    "delivery_channels": {
+      "modules": [
+        "skills/telegram",
+        "skills/whatsapp"
+      ],
+      "purpose": "Direct secure delivery of Access Tokens to user's private chat"
+    },
+    "currency_oracle": {
+      "module": "skills/currency",
+      "purpose": "Real-time BRL/USDT conversion display for transparency"
+    }
+  }
 }

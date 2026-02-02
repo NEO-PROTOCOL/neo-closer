@@ -21,7 +21,7 @@
 [----] FlowPay .................. ⏳
 [----] Smart Factory ............ ⏳
 [----] Neo One (ASI1) ........... ⏳
-[----] NodeMello.run ............ ⏳
+[----] NODE NEØ.run ............ ⏳
 [----] Evolution API .......... ✗ DISC
        (Discontinued - JAN 2026)
 [----] CEO Escalável ............ ⏳
@@ -184,7 +184,7 @@
 
 ────────────────────────────────────────
 
-## Phase 5: NodeMello.run
+## Phase 5: NODE NEØ.run
 
 ```text
 ▓▓▓ DELIVERABLES PENDENTES
@@ -344,7 +344,7 @@ own AI stack. Zero dependências externas.
    └─ Effort: 2-3 dias
    └─ Impact: MEDIUM
    
-6. NodeMello.run (MAI 2026) ...... 💤
+6. NODE NEØ.run (MAI 2026) ...... 💤
    └─ Priority: Lower
    └─ Effort: 3-4 dias
    └─ Impact: LOW-MEDIUM
@@ -404,7 +404,7 @@ own AI stack. Zero dependências externas.
 └─ CEO Escalável: 2-3 dias (review)
    └─ Then: 3-5 dias (if integrate)
    
-└─ NodeMello.run: 3-4 dias
+└─ NODE NEØ.run: 3-4 dias
 ```
 
 **Total estimado:** 
@@ -446,7 +446,7 @@ own AI stack. Zero dependências externas.
 Total Projects: 6 (Evolution API removed)
 Completed: 1 (FlowCloser)
 In Progress: 2 (FlowPay, Smart Factory)
-Pending: 3 (Neo One, CEO, NodeMello)
+Pending: 3 (Neo One, CEO, NODE NEØ)
 Discontinued: 1 (Evolution API)
 
 Progress: 16% (1/6 complete)

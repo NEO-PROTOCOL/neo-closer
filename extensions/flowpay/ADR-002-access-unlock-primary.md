@@ -9,7 +9,7 @@
 
 **Status:** ACCEPTED ✅  
 **Date:** 2026-01-30  
-**Decider:** Mellø (Node Architect)  
+**Decider:** NODE NEØ (Node Architect)  
 **Priority:** 🔥🔥 CRITICAL (PAYS BILLS!)
 
 ────────────────────────────────────────
@@ -24,7 +24,7 @@ needs integration with Neobot while
 remaining independent (Railway + Netlify).
 
 **Revenue Critical:** This project pays
-Mellø's bills and unblocks all other
+MELLØ's bills and unblocks all other
 revenue streams.
 
 ────────────────────────────────────────

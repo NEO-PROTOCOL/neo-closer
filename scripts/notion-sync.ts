@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { env } from 'process';
 
 const NOTION_KEY = env.NOTION_API_KEY;
@@ -97,7 +98,7 @@ const PROJECTS = [
         url: "https://github.com/neomello/neo-one"
     },
     {
-        name: "NodeMello.run",
+        name: "NODE NEØ.run",
         status: "Avaliação",
         description: "Node runner infrastructure. Precisa auditoria.",
         url: "https://github.com/nodeneoprotocol-bot"

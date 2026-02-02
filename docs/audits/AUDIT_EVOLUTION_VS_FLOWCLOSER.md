@@ -1,7 +1,7 @@
 # ⚖️ AUDIT: evolution-api vs FlowCloser
 
 **Data:** 29 Janeiro 2026  
-**Node Arquiteto:** Mellø
+**Node Arquiteto:** NODE NEØ
 
 ---
 
@@ -188,7 +188,7 @@ src/
 ```
 NEØ Protocol WhatsApp Stack:
 ├── Neobot (Baileys nativo)
-│   └── +5562983231110 (Mellø pessoal)
+│   └── +5562983231110 (NODE NEØ pessoal)
 ├── evolution-api (local/deploy)
 │   └── Multi-instances (clientes)
 └── FlowCloser (Railway)

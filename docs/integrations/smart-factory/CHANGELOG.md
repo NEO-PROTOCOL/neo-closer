@@ -292,7 +292,7 @@ moltbot factory:deploy --name MyToken --symbol MTK --supply 1000
 
 **Core Contributors:**
 
-- Mellø (Node Architect) - Architecture, Integration
+- NODE NEØ (Node Architect) - Architecture, Integration
 - NEØ Protocol Community - Testing, Feedback
 
 **Special Thanks:**
@@ -310,7 +310,7 @@ moltbot factory:deploy --name MyToken --symbol MTK --supply 1000
 ## License
 
 Private - NEØ Protocol  
-Copyright © 2025-2026 Mellø
+Copyright © 2025-2026 NODE NEØ
 
 ────────────────────────────────────────
 

@@ -12,7 +12,7 @@ projects, their invisible connections,
 and integration strategy with Neobot.
 
 **Date:** 2026-01-30
-**Audited by:** Claude + Mellø (Node Architect)
+**Audited by:** Claude + NODE NEØ (Node Architect)
 **Source:** Notion Command Center + GitHub
 
 ────────────────────────────────────────
@@ -241,12 +241,12 @@ and integration strategy with Neobot.
 
 ────────────────────────────────────────
 
-### 5. NodeMello.run (Content Machine)
+### 5. NODE NEØ.run (Content Machine)
 
 **Status:** 🔴 REPLACED (Beta archived)
 **Priority:** 💤 LOW (Superseded)
 
-**Notion:** NΞØ FLOWOFF · NodeMello.run
+**Notion:** NΞØ FLOWOFF · NODE NEØ.run
 **GitHub:** neomello/neoflowoff-nodemello.run
 **Replaced by:** neoflow-content-machine (local)
 
@@ -438,10 +438,10 @@ Client PIX → FlowPay Gateway
 ### Content Flow (Replaced)
 
 ```text
-[ARCHIVED - NodeMello.run]
+[ARCHIVED - NODE NEØ.run]
 Editorial Contract → Agent Drafts
                         ↓
-            Human Approval (Mellø)
+            Human Approval (NODE NEØ)
                         ↓
                IPFS Storage
                         ↓
@@ -471,7 +471,7 @@ Simplified workflow, manual publish
 6. ADR-002 (Payment gateway strategy)
 
 **Why First:**
-- Pays Mellø's bills! 💰
+- Pays NODE NEØ's bills! 💰
 - Unblocks all other projects
 - Revenue enables team growth
 
@@ -512,7 +512,7 @@ Simplified workflow, manual publish
    - `flowoff:client:add`
    - `flowoff:project:status`
 4. Integrate with FlowCloser leads
-5. Dashboard for Mellø
+5. Dashboard for NODE NEØ
 
 **Why Third:**
 - Customer-facing
@@ -525,7 +525,7 @@ Simplified workflow, manual publish
 
 **WOD [X] PRO:** Medium priority (niche)
 **FLUXX:** Medium priority (governance)
-**NodeMello.run:** Low (evaluate salvage)
+**NODE NEØ.run:** Low (evaluate salvage)
 **AGENT-FULL:** Continuous (backend evolution)
 
 ────────────────────────────────────────
@@ -558,7 +558,7 @@ Simplified workflow, manual publish
 **Needs:**
 - [ ] Add FlowPay as Phase 0 (critical!)
 - [ ] Update Smart Factory status
-- [ ] Mark NodeMello.run as archived
+- [ ] Mark NODE NEØ.run as archived
 - [ ] Add integration tracking per project
 
 ────────────────────────────────────────
@@ -614,7 +614,7 @@ Simplified workflow, manual publish
 ┃
 ┃ 💤 LOW/NONE:
 ┃    └─ AGENT-FULL: Infrastructure only
-┃    └─ NodeMello.run: Archived
+┃    └─ NODE NEØ.run: Archived
 ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -684,7 +684,7 @@ Simplified workflow, manual publish
 
 1. **Update Notion Command Center**
    - Add FlowPay as Phase 0 project
-   - Mark NodeMello.run as archived
+   - Mark NODE NEØ.run as archived
    - Update Smart Factory status
 
 2. **Start FlowPay Audit**

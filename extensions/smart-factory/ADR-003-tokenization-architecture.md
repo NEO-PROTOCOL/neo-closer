@@ -9,7 +9,7 @@
 
 **Status:** ACCEPTED ✅  
 **Date:** 2026-01-30  
-**Decider:** Mellø (Node Architect)  
+**Decider:** NODE NEØ (Node Architect)  
 **Priority:** 🔥 HIGH (Revenue Generator)
 
 ────────────────────────────────────────
@@ -281,7 +281,7 @@ export async function execute(ctx) {
       "rpc": "https://polygon-rpc.com"
     }
   },
-  "maintainer": "Mellø",
+  "maintainer": "NODE NEØ",
   "last_updated": "2026-01-30"
 }
 ```

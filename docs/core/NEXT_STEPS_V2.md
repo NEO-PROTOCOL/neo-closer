@@ -9,7 +9,7 @@
 ```
 **Versao:** 2.0.0
 **Data:** 30 Janeiro 2026
-**Arquiteto:** Mello
+**Arquiteto:** NODE NEØ
 **Timeline:** 8 semanas (release 27 Marco 2026)
 ```
 ================================================================

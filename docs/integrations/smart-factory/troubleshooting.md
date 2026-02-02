@@ -542,7 +542,7 @@ nxf call \
 3. Discord/Slack
    └─ #smart-factory channel
 
-4. Email Mellø
+4. Email NODE NEØ
    └─ neo@neoprotocol.space
 
 5. Vercel Support

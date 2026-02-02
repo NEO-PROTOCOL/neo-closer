@@ -86,16 +86,17 @@
     },
     {
         "id": "flowpay",
-        "name": "FlowPay",
-        "description": "Gateway de Pagamentos PIX via Woovi API",
+        "name": "FlowPay Sovereign",
+        "description": "Gateway Financeiro Soberano (PIX ↔ Crypto) com liquidação on-chain e recorrência.",
         "localPath": "../flowpay",
-        "repository": "https://github.com/flowpaycash/flowpay.git",
-        "role": "Financial Gateway",
+        "repository": "https://github.com/flowpaycash/flowpay",
+        "role": "Financial Sovereign Node",
         "hosting": {
-            "platform": "Railway",
+            "platform": "Railway (Sovereign Node)",
             "productionUrl": "https://flowpay-production-10d8.up.railway.app",
             "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "pay.flowoff.xyz"
+            "targetCustomDomain": "pay.flowoff.xyz",
+            "governance": "NEØ SMART CONTRACT"
         }
     },
     {
@@ -268,7 +269,7 @@
     },
     {
         "id": "nodemello-run",
-        "name": "NodeMello Run",
+        "name": "NODE NEØ Run",
         "description": "Página e infraestrutura de Node Runner",
         "localPath": "../neoflowoff-nodemello.run",
         "repository": "git@github.com:neomello/neoflowoff-nodemello.run.git",
@@ -356,15 +357,18 @@
         }
     },
     {
-        "id": "flowpay-legacy",
-        "name": "FlowPay Legacy",
-        "description": "Versão legada do sistema FlowPay",
-        "localPath": "../web_apps/projetos_flowpay/FlowPAY",
-        "repository": "https://github.com/neomello/flowpaycash.git",
-        "role": "Financial Gateway",
+        "id": "flowpay",
+        "name": "FlowPay Sovereign",
+        "description": "Gateway Financeiro Soberano (PIX ↔ Crypto) com liquidação on-chain e recorrência.",
+        "localPath": "../flowpay",
+        "repository": "https://github.com/flowpaycash/flowpay",
+        "role": "Financial Sovereign Node",
         "hosting": {
-            "platform": "N/A",
-            "adminEmail": "neo@neoprotocol.space"
+            "platform": "Railway (Sovereign Node)",
+            "productionUrl": "https://flowpay-production-10d8.up.railway.app",
+            "adminEmail": "neo@neoprotocol.space",
+            "targetCustomDomain": "pay.flowoff.xyz",
+            "governance": "NEØ SMART CONTRACT"
         }
     }
 ]

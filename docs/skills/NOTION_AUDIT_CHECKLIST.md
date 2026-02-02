@@ -1,7 +1,7 @@
 # NOTION AUDIT CHECKLIST
 
 Data da Auditoria: 30 Janeiro 2026
-Responsável: Mellø (NeoBot)
+Responsável: NODE NEØ (NeoBot)
 Objetivo: Garantir sincronia entre Realidade (Código/Railway) e Mapa (Notion).
 
 ## 1. Projetos para Adicionar (New)
@@ -21,7 +21,7 @@ Objetivo: Garantir sincronia entre Realidade (Código/Railway) e Mapa (Notion).
   - [ ] Status: Desarrollo
   - [ ] MCP Stack
 
-- [ ] **NEØFlowOFF Node (NodeMello)**
+- [ ] **NEØFlowOFF Node (NODE NEØ)**
   - [ ] Infra check
   - [ ] Status: Avaliação
 

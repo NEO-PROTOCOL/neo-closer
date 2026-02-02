@@ -66,7 +66,7 @@ Uso:
   /log <projeto> <texto>
 
 Exemplos:
-  /log NodeMello "Integrei MCP do Notion com sucesso"
+  /log NODE NEØ "Integrei MCP do Notion com sucesso"
   /log neo-agent "Corrigi bug no dashboard"
   /log neobot "Setup das automações do Telegram"
 

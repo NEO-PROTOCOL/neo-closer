@@ -476,7 +476,7 @@ A integração ASI1:One AI foi implementada com sucesso e está **PRODUCTION REA
 
 ---
 
-**Implementado por**: Claude + Mellø  
+**Implementado por**: Claude + NODE NEØ  
 **Data**: 30 Jan 2026  
 **Tempo de implementação**: ~2 horas  
 **Status**: ✅ **PRODUCTION READY**

@@ -915,7 +915,7 @@ chmod +x scripts/setup-dashboard.sh && ./scripts/setup-dashboard.sh
 
 **Data:** 29-30 Janeiro 2026  
 **Duração:** ~5h master-level  
-**Node Arquiteto:** Mellø  
+**Node Arquiteto:** NODE NEØ  
 **Co-Pilot:** Claude Sonnet 4.5
 
 ---
@@ -1467,7 +1467,7 @@ Todos os objetivos cumpridos:
 
 ## 🦞 **Agradecimentos**
 
-**Node Arquiteto Mellø:**
+**Node Arquiteto NODE NEØ:**
 
 - Visão estratégica clara
 - Arquitetura NEØ Protocol impecável

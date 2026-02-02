@@ -73,7 +73,7 @@ LLM coleta:
 - Faixa de investimento
         ↓
 OPÇÃO A: Fecha venda direto
-OPÇÃO B: Escalona pro Mellø
+OPÇÃO B: Escalona pro NODE NEØ
 ```
 
 ---

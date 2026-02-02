@@ -156,6 +156,7 @@ const manager = initializeAutomations(config);
 await manager.initialize();
 ```
 
+
 #### Opção B: Standalone
 
 ```bash

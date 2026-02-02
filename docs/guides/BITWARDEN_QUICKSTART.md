@@ -32,7 +32,7 @@ open "https://vault.bitwarden.com/#/register"
 **Fill in:**
 
 - Email: `mello.neoprotocol@gmail.com` (or other)
-- Name: `Mellø`
+- Name: `NODE NEØ`
 - Master Password: **STRONG** (min 12 chars)
 - ✅ Create Account
 

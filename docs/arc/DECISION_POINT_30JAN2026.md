@@ -783,7 +783,7 @@ C: GitHub org first (2-3 weeks)
 Hybrid: 70% Production, 30% Tech
 ```
 
-**Your call, Mellø.**
+**Your call, NODE NEØ.**
 
 What creates the most value RIGHT NOW?
 

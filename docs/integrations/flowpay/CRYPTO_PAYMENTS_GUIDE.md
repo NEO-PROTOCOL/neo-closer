@@ -537,7 +537,7 @@ Vou configurar:
 ---
 
 **Criado por:** NEØ Protocol  
-**Maintainer:** Mellø  
+**Maintainer:** NODE NEØ  
 **Last Updated:** 2026-01-30
 
 ────────────────────────────────────────

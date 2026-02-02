@@ -345,7 +345,7 @@ Compare CEO Escalável vs Smart UI Mobile
 
 ## 💤 LOW PRIORITY INTEGRATIONS
 
-### [F] NodeMello.run
+### [F] NODE NEØ.run
 
 **Status:** PENDING
 

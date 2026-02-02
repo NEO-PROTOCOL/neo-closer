@@ -1,7 +1,7 @@
 # 🎯 NEXT STEPS · NEØ Protocol
 
 **Data:** 30 Janeiro 2026  
-**Node Arquiteto:** Mellø  
+**Node Arquiteto:** NODE NEØ  
 **Status:** 🚀 FASE 1.0 - NEO PROTOCOL STACK
 
 ---

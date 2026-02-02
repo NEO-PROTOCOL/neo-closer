@@ -66,7 +66,7 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
     // Step 1: Get order from database
     const { getOrder, updateOrderStatus } = await import('../../src/infra/database/flowpay.js');
     const order = getOrder(charge_id);
-    
+
     if (!order) {
       return {
         success: false,
@@ -93,16 +93,24 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
       amount_brl: order.amount_brl
     };
 
-    // Step 3: Determine permissions based on product
-    const permissions = getPermissionsForProduct(paymentDetails.product_ref);
+    // Step 3: Get product details for permissions and access URL
+    const { getProduct } = await import('../../src/infra/database/flowpay.js');
+    const product = getProduct(paymentDetails.product_ref);
+
+    if (!product) {
+      console.warn(`[flowpay:unlock] Product not found in DB: ${paymentDetails.product_ref}. Falling back to defaults.`);
+    }
+
+    // Determine permissions based on product
+    const permissions = product?.permissions ? JSON.parse(product.permissions) : ['member'];
+
+    // Determine access URL
+    const accessUrl = product?.access_url || 'https://neoprotocol.space/members';
 
     // Step 4: Generate unlock token (JWT-like)
     const unlockToken = generateUnlockToken(paymentDetails.customer_ref, permissions);
 
-    // Step 5: Determine access URL
-    const accessUrl = getAccessUrlForProduct(paymentDetails.product_ref);
-
-    // Step 6: Create UNLOCK_RECEIPT
+    // Step 5: Create UNLOCK_RECEIPT (following UNLOCK_RECEIPT.spec.json)
     const receipt: UnlockReceipt = {
       receipt_id: crypto.randomUUID(),
       charge_id: paymentDetails.charge_id,
@@ -114,12 +122,18 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
       access_url: accessUrl,
       unlock_token: unlockToken,
       issuer: 'Neobot',
-      signature: generateSignature(paymentDetails)
+      signature: generateSignature(paymentDetails),
+      metadata: order.metadata ? JSON.parse(order.metadata) : {},
+      blockchain_anchor: order.tx_hash ? {
+        tx_hash: order.tx_hash,
+        network: order.network || 'polygon',
+        token_id: order.id?.toString()
+      } : undefined
     };
 
     // Step 7: Store receipt in database
     const { createReceipt, logAudit } = await import('../../src/infra/database/flowpay.js');
-    
+
     const receiptId = createReceipt({
       receipt_id: receipt.receipt_id,
       order_id: order.id!,
@@ -184,28 +198,6 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
 
 // Helper functions
 
-function getPermissionsForProduct(product_ref: string): string[] {
-  const productMap: Record<string, string[]> = {
-    'smart-factory-basic': ['member', 'dashboard', 'api:mint'],
-    'smart-factory-pro': ['member', 'dashboard', 'api:mint', 'api:verify', 'support'],
-    'wod-pro-membership': ['member', 'arena', 'validator'],
-    'fluxx-dao-stake': ['member', 'governance', 'treasury:view']
-  };
-
-  return productMap[product_ref] || ['member'];
-}
-
-function getAccessUrlForProduct(product_ref: string): string {
-  const urlMap: Record<string, string> = {
-    'smart-factory-basic': 'https://smart-ui-delta.vercel.app/members/dashboard',
-    'smart-factory-pro': 'https://smart-ui-delta.vercel.app/members/pro',
-    'wod-pro-membership': 'https://wodxpro.com/arena',
-    'fluxx-dao-stake': 'https://fluxx-dao.vercel.app/governance'
-  };
-
-  return urlMap[product_ref] || 'https://neoprotocol.space/members';
-}
-
 function generateUnlockToken(customer_ref: string, permissions: string[]): string {
   // In production: use proper JWT library
   // For MVP: simple signed token
@@ -239,9 +231,9 @@ function generateSignature(data: any): string {
 async function storeReceipt(receipt: UnlockReceipt): Promise<void> {
   // MVP: Store in file system
   // Future: IPFS, AGENT-FULL (Kwil DB), or blockchain
-  
+
   const receiptsDir = path.join(process.cwd(), 'data', 'flowpay', 'receipts');
-  
+
   // Ensure directory exists
   if (!fs.existsSync(receiptsDir)) {
     fs.mkdirSync(receiptsDir, { recursive: true });

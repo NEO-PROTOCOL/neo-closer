@@ -367,7 +367,7 @@ Diretrizes: Mudancas src/ discutir; neo/ livre; skills/ via NEO Registry.
   NEO Layer (neo/, skills/, dashboard/) .... MIT (neomello)
 
 ========================================================================
-  Mantido por: Mellø (@neomello) | Versao 1.0.0 | 30 Jan 2026
+  Mantido por: NODE NEØ (@neomello) | Versao 1.0.0 | 30 Jan 2026
 ========================================================================
 
 ┌─────────────────────────────────────────────────────────────────┐

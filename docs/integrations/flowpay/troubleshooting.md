@@ -583,7 +583,7 @@ curl -X POST https://YOUR-NGROK.ngrok.io/api/webhooks/pix \
 3. GitHub Issues
    └─ https://github.com/neomello/flowpay/issues
 
-4. Email Mellø
+4. Email NODE NEØ
    └─ neo@neoprotocol.space
 
 5. Woovi Support

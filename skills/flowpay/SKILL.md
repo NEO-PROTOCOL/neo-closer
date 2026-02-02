@@ -104,7 +104,7 @@ See: `ADR-002-access-unlock-primary.md`
 
 ## Revenue Impact
 
-**CRITICAL:** This pays Mellø's bills! 💰
+**CRITICAL:** This pays NODE NEØ's bills! 💰
 
 Without FlowPay:
 - No agency revenue

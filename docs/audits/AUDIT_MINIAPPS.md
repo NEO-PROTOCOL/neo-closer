@@ -1,7 +1,7 @@
 # 📱 AUDIT: ceo-escalavel-miniapp vs smart-ui-mobile
 
 **Data:** 29 Janeiro 2026  
-**Node Arquiteto:** Mellø
+**Node Arquiteto:** NODE NEØ
 
 ---
 
@@ -319,7 +319,7 @@ neo-miniapp-unified/
 4. ⏳ Migrar componentes
 5. ⏳ Testar integração
 
-**Bloqueador:** Mellø decidir framework final (React ou Vue?)
+**Bloqueador:** NODE NEØ decidir framework final (React ou Vue?)
 
 **Recomendação:** **React** (ceo-escalavel)
 - Mais maduro (19.2.3)
@@ -330,6 +330,6 @@ neo-miniapp-unified/
 ---
 
 **Status:** ✅ Análise completa  
-**Decisão:** 🟡 Aguardando confirmação de Mellø para iniciar merge
+**Decisão:** 🟡 Aguardando confirmação de NODE NEØ para iniciar merge
 
 ---

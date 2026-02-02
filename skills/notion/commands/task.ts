@@ -83,7 +83,7 @@ Prioridades disponíveis:
   💤 Baixa
 
 Exemplos:
-  /task "Integrar MCP com Telegram" NodeMello "🔥 Alta"
+  /task "Integrar MCP com Telegram" NODE NEØ "🔥 Alta"
   /task "Revisar documentação" neo-agent
   /task "Testar nova feature" neobot "⚡ Média"
 

@@ -246,7 +246,7 @@ git push origin main
 
 **Core Contributors:**
 
-- Mellø (Node Architect) - Architecture, Integration
+- NODE NEØ (Node Architect) - Architecture, Integration
 - Woovi Team - PIX API support
 - NEØ Protocol Community - Testing, Feedback
 
@@ -262,7 +262,7 @@ git push origin main
 ## License
 
 Private - NEØ Protocol  
-Copyright © 2025-2026 Mellø
+Copyright © 2025-2026 NODE NEØ
 
 ────────────────────────────────────────
 

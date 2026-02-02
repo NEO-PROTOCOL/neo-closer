@@ -7,7 +7,7 @@
 ```
 
 **Data:** 30 Janeiro 2026  
-**Node Arquiteto:** Mellø
+**Node Arquiteto:** NODE NEØ
 
 ────────────────────────────────────────
 
@@ -242,7 +242,7 @@
 └─ WhatsApp Business API
    └─ Via Baileys (Neobot native)
    └─ QR Code auth
-   └─ +5562983231110 (Mellø)
+   └─ +5562983231110 (NODE NEØ)
 
 ▓▓▓ AI/LLM PROVIDERS
 ────────────────────────────────────────
@@ -311,8 +311,8 @@
 └─ 2. Envia DM ou preenche formulário
 └─ 3. FlowCloser Agent responde (AI)
 └─ 4. Qualifica lead automaticamente
-└─ 5. Lead qualificado → Mellø (humano)
-└─ 6. Mellø fecha venda
+└─ 5. Lead qualificado → NODE NEØ (humano)
+└─ 6. NODE NEØ fecha venda
 └─ 7. Cliente paga via FlowPay (PIX)
 └─ 8. Recebe $NEOFLW ou USDC
 └─ 9. Projeto iniciado
@@ -434,7 +434,7 @@
    └─ No business logic
 
 └─ Neobot
-   └─ WhatsApp native (Mellø personal)
+   └─ WhatsApp native (NODE NEØ personal)
    └─ CLI toolkit
    └─ Gateway orchestration
 

@@ -263,7 +263,18 @@ node -e "
 
 ---
 
-## 🎯 Roadmap
+## 🎯 Roadmap & Governance
+
+### Metadata Soberana
+
+*   **Skill Origin:** `skills/flowpay` (Módulo nativo do Neobot que expõe a API do Gateway)
+*   **Interactions:**
+    *   **Orchestrator:** `Agent "FlowCloser"` (Sales AI) decide *quando* usar a tool.
+    *   **Execution:** `FlowPay Sovereign Node` (Railway) executa a transação financeira real.
+    *   **Audit:** `skills/ledger` registra o recibo on-chain ou localmente para conformidade.
+*   **Compliance:** Toda transação gera um *Correlation ID* que deve ser propagado do Agente -> Gateway -> Blockchain.
+
+### Próximas Features
 
 ### Próximas Features
 
@@ -308,7 +319,7 @@ tail -f ~/.local/state/moltbot/logs/gateway.log | grep flowpay
 ---
 
 **Criado por:** NEØ Protocol  
-**Maintainer:** Mellø  
+**Maintainer:** NODE NEØ  
 **Last Updated:** 2026-01-30
 
 ────────────────────────────────────────

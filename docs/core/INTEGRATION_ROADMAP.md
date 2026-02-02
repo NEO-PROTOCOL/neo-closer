@@ -517,7 +517,7 @@ PRODUCTION USE:  ░░░░░░░░░░░░░░░░░░░░ 0%
 - Adicionar automações depois
 - **Resultado:** Revenue imediato, automações depois
 
-**Recomendação Mellø:** **Opção A** (Automações primeiro)
+**Recomendação NODE NEØ:** **Opção A** (Automações primeiro)
 - Você já construiu os sistemas
 - 1 semana para integrar tudo
 - Deploy Railway com sistema completo

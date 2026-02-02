@@ -1,7 +1,7 @@
 # 🚀 NEO Protocol Stack - Kickoff
 
 **Data:** 30 Janeiro 2026  
-**Arquiteto:** Mellø + Claude AI  
+**Arquiteto:** NODE NEØ + Claude AI  
 **Status:** ✅ Foundation Architecture Complete
 
 ---
@@ -487,6 +487,6 @@ Porque:
 
 ---
 
-**Mantido por:** Mellø (@neomello)  
+**Mantido por:** NODE NEØ (@neomello)  
 **Versão NEO:** 1.0.0-alpha  
 **Última atualização:** 30 Jan 2026 21:00 BRT

@@ -3,7 +3,7 @@
 **Data:** 29 Janeiro 2026  
 **Versão FlowPay:** v2.2.0  
 **Status:** 🟢 EM PRODUÇÃO  
-**Node Arquiteto:** Mellø
+**Node Arquiteto:** NODE NEØ
 
 ---
 
@@ -436,7 +436,7 @@ O projeto está **muito bem implementado** e apenas aguarda:
 
 **Auditoria Completa em:** 29 Janeiro 2026  
 **Auditor:** IA Assistant (Claude Sonnet 4.5)  
-**Aprovação Node Arquiteto:** Aguardando Mellø
+**Aprovação Node Arquiteto:** Aguardando NODE NEØ
 
 ---
 

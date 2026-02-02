@@ -1,7 +1,7 @@
 {
     "channels": {
         "telegram": {
-            "enabled": false
+            "enabled": true
         },
         "whatsapp": {
             "enabled": true

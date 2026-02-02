@@ -117,7 +117,7 @@ WOOVI_API_KEY=Q2xYdmJEb3RhblpwWkRveE56TTRNalk0TXpreE9ESXhOems0TWpnME16YzRPRFE0TW
    ```
 
 2. **Login:**
-   - Usar conta: NEØ Protocol / Mellø
+   - Usar conta: NEØ Protocol / NODE NEØ
    - Email/senha configurados
 
 3. **Obter API Key:**

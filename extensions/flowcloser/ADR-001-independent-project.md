@@ -8,7 +8,7 @@
 
 **Status:** ACCEPTED ✅  
 **Date:** 2026-01-30  
-**Decider:** Mellø (Node Architect)
+**Decider:** NODE NEØ (Node Architect)
 
 ────────────────────────────────────────
 

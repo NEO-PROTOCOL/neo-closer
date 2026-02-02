@@ -362,7 +362,7 @@ railway logs -f
 └─ Meta Developer Support:
    developers.facebook.com/support
 
-└─ Internal (Mellø):
+└─ Internal (NODE NEØ):
    Direct message via Telegram
 ```
 

@@ -145,7 +145,7 @@ URL: flowcloser-agent-production.up.railway.app
     "leads_json": "/Users/nettomello/CODIGOS/flowcloser-local/data/leads.json"
   },
   "ide": "Antigravity",
-  "maintainer": "Mellø",
+  "maintainer": "NODE NEØ",
   "last_updated": "2026-01-30"
 }
 ```
@@ -164,7 +164,7 @@ ADR-001 · FlowCloser como Projeto
 
 Data: 2026-01-30
 Status: ACEITO ✅
-Decisor: Mellø
+Decisor: NODE NEØ
 
 ----------------------------------------
 
@@ -764,7 +764,7 @@ Neobot:
 
 **Versão:** 2.0 (Remote Integration)
 **Data:** 2026-01-30
-**Status:** Proposta aprovada por Mellø ✅
+**Status:** Proposta aprovada por NODE NEØ ✅
 
 ========================================
          ▓▓▓ NΞØ MELLØ - 2026

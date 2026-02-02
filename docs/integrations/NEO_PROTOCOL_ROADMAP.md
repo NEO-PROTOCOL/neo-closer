@@ -69,7 +69,7 @@ orchestrator.
 ┃ FlowPay           [----]    🔥 HIGH
 ┃ Smart Factory     [----]    🔥 HIGH
 ┃ Neo One (ASI1)    [----]    ⚡ MEDIUM
-┃ NodeMello.run     [----]    💤 LOW
+┃ NODE NEØ.run     [----]    💤 LOW
 ┃ Evolution API     [----]    ⚡ MEDIUM
 ┃ CEO Escalável     [----]    ⚡ MEDIUM
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -172,7 +172,7 @@ Integrate ASI1 LLM agent with Neobot.
 
 ────────────────────────────────────────
 
-## 📡 Phase 5: NodeMello.run
+## 📡 Phase 5: NODE NEØ.run
 
 **Status:** PENDING
 
@@ -295,7 +295,7 @@ Integrate CEO automation platform.
 - CEO Escalável integration
 
 **Q3-Q4 2026:**
-- NodeMello.run
+- NODE NEØ.run
 - neo-agent-full migration
 - Full ecosystem unification
 

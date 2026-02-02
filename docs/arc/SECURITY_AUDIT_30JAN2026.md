@@ -17,7 +17,7 @@
 ### Discovery
 
 **Date:** 2026-01-30
-**Reporter:** User (Mellø)
+**Reporter:** User (NODE NEØ)
 **Severity:** CRITICAL
 **Status:** ✅ FIXED
 

@@ -12,7 +12,7 @@ Registra progresso de trabalho no Notion.
 /log <projeto> <texto>
 
 # Exemplos
-/log NodeMello "Integrei MCP do Notion com sucesso"
+/log NODE NEØ "Integrei MCP do Notion com sucesso"
 /log neo-agent "Corrigi bug no dashboard"
 /log neobot "Setup das automações do Telegram"
 ```
@@ -31,7 +31,7 @@ Adiciona nova tarefa ao backlog.
 💤 Baixa
 
 # Exemplos
-/task "Integrar MCP com Telegram" NodeMello "🔥 Alta"
+/task "Integrar MCP com Telegram" NODE NEØ "🔥 Alta"
 /task "Revisar documentação" neo-agent
 /task "Testar nova feature" neobot
 ```
@@ -62,17 +62,17 @@ Lista todos os projetos ativos.
 
 ```bash
 # No Telegram, envie:
-/log NodeMello "Criei automações do Telegram"
+/log NODE NEØ "Criei automações do Telegram"
 ```
 
 ### Método 2: CLI Local
 
 ```bash
 # Criar Work Log
-pnpm tsx skills/notion/commands/log.ts NodeMello "Texto do log"
+pnpm tsx skills/notion/commands/log.ts NODE NEØ "Texto do log"
 
 # Criar Tarefa
-pnpm tsx skills/notion/commands/task.ts "Título da tarefa" NodeMello "🔥 Alta"
+pnpm tsx skills/notion/commands/task.ts "Título da tarefa" NODE NEØ "🔥 Alta"
 
 # Ver Status
 pnpm tsx skills/notion/commands/status.ts
@@ -122,7 +122,7 @@ skills/notion/
 ### "Projeto não encontrado"
 - Use `/projetos` para ver a lista exata
 - O nome deve corresponder exatamente ao nome no Notion
-- Exemplo: `NodeMello.run` (não `nodemello` ou `NodeMello`)
+- Exemplo: `NODE NEØ.run` (não `nodemello` ou `NODE NEØ`)
 
 ### Erro de MCP
 - Verifique se o Notion MCP está ativo no Cursor

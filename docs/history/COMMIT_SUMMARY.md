@@ -1,7 +1,7 @@
 # 🎯 Commit Summary - NEO Protocol Foundation
 
 **Data:** 30 Janeiro 2026 22:40 BRT  
-**Autor:** Mellø + Claude AI  
+**Autor:** NODE NEØ + Claude AI  
 **Branch:** `main` → `neo/foundation-architecture`
 
 ---
@@ -341,10 +341,10 @@ git push origin neo/foundation-architecture
 
 ---
 
-**Status:** ⏳ Aguardando go/no-go de Mellø
+**Status:** ⏳ Aguardando go/no-go de NODE NEØ
 
 ---
 
-**Mantido por:** Mellø (@neomello)  
+**Mantido por:** NODE NEØ (@neomello)  
 **Versão NEO:** 1.0.0-alpha  
 **Última atualização:** 30 Jan 2026 22:40 BRT

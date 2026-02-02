@@ -99,4 +99,4 @@ moltbot factory contracts --all
 ---
 
 **Criado em:** 29 Janeiro 2026  
-**Node Arquiteto:** Mellø
+**Node Arquiteto:** NODE NEØ

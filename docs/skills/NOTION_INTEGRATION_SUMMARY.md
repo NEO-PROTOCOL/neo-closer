@@ -78,7 +78,7 @@ Descrição: Agente ASI1 autônomo com
 
 ▓▓▓ PROJETO 4: NEOFLOWOFF NODE
 ────────────────────────────────────────
-Nome: NodeMello.run
+Nome: NODE NEØ.run
 Status: 🟡 Avaliação
 Prioridade: 💤 Baixa
 Fase: Fase 1 - Expansão
