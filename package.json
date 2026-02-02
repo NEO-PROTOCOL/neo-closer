@@ -93,7 +93,7 @@
     "ui:install": "node scripts/ui.js install",
     "ui:dev": "node scripts/ui.js dev",
     "ui:build": "node scripts/ui.js build",
-    "start": "node scripts/run-node.mjs",
+    "start": "node scripts/run-node.mjs gateway --bind lan --allow-unconfigured",
     "moltbot": "node scripts/run-node.mjs",
     "gateway:watch": "node scripts/watch-node.mjs gateway --force",
     "gateway:dev": "CLAWDBOT_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway",

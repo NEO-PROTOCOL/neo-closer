@@ -38,4 +38,8 @@ ENV NODE_ENV=production
 # This reduces the attack surface by preventing container escape via root privileges
 USER node
 
-CMD ["node", "dist/index.js"]
+# Expose default port (Railway will override this with its own PORT env)
+EXPOSE 18789
+
+# Use a shell to allow expansion of PORT environment variable
+CMD ["sh", "-c", "node dist/index.js gateway --bind lan --allow-unconfigured --port ${PORT:-18789}"]
