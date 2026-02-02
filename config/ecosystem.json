@@ -7,8 +7,9 @@
         "repository": "https://github.com/nsf-ctory/neoflw-metadata",
         "role": "Orchestrator",
         "hosting": {
-            "platform": "Fly.io / Render",
-            "productionUrl": "https://neobot-core.fly.dev",
+            "platform": "Railway",
+            "productionUrl": "https://daring-illumination.up.railway.app",
+            "projectLink": "https://railway.com/project/d200219e-b32d-4f47-a0b6-2c6ab839f02a",
             "adminEmail": "neo@neoprotocol.space",
             "targetCustomDomain": "core.neoprotocol.space"
         }
