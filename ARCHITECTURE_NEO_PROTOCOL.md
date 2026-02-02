@@ -105,7 +105,7 @@ Implementacao: neo/registry/index.ts
   }
 ```
 Estrutura no IPFS:
-
+```
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ ipfs://QmNeoSkillsIndex                                     │
 ├────────────────────────────────────────────────────────────────┤
@@ -115,7 +115,7 @@ Estrutura no IPFS:
 │    └─ smart-factory/v2.0.0 -> QmZzz...                         │
 │ └─ index.json -> QmIndexRoot...                                 │
 └────────────────────────────────────────────────────────────────┘
-
+```
 Comando CLI:
 ```text
   pnpm neobot neo:skill:publish ./skills/ipfs/
@@ -141,7 +141,7 @@ Implementacao: neo/identity/mio-system.ts
   }
 ```
 Registro das 9 Identidades (neo/identity/registry.ts):
-
+```
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ NEO_IDENTITIES                                              │
 ├────────────────────────────────────────────────────────────────┤
@@ -155,14 +155,14 @@ Registro das 9 Identidades (neo/identity/registry.ts):
 │ └─ mio-whatsapp  WhatsApp Gateway     NEO WhatsApp              │
 │ └─ mio-ipfs      IPFS Node            NEO IPFS                  │
 └────────────────────────────────────────────────────────────────┘
-
+```
 ----------------------------------------------------------------------
 3. NEO Docs (Self-Hosted)
 ----------------------------------------------------------------------
 Substitui: <https://docs.molt.bot>
 
 Estrutura:
-
+```
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ docs-neo/                                                  │
 ├────────────────────────────────────────────────────────────────┤
@@ -172,20 +172,21 @@ Estrutura:
 │ └─ guides/ (quickstart, telegram-setup, whatsapp-setup)        │
 │ └─ api/ (gateway, skills-registry, mio-identity)               │
 └────────────────────────────────────────────────────────────────┘
-
+```
 Hosting: Build estatico (Vitepress) -> ipfs add -r dist/
          Alias DNS: neo-docs.mellø.eth -> ipfs://QmNeoDocsV1...
 
 ----------------------------------------------------------------------
 4. NEO Gateway Extensions (Web3-Native)
 ----------------------------------------------------------------------
+```
 neo/gateway/extensions.ts
 
   export interface NeoGatewayExtension {
     name, version, protocol: 'ipfs'|'web3'|'matrix'|'nostr',
     handler: (message) => Promise<void>
   }
-
+```
   Exemplo: IPFSChannelAdapter - IPFS PubSub para mensagens NEO,
            roteamento para gateway moltbot.
 
@@ -248,18 +249,18 @@ Melhorias: NeoDashboardService - loadSkills(), loadIdentities(),
 ========================================================================
 
 config/neobot.runtime.json:
-
+```
   neo.enabled, neo.protocol (version, network)
   neo.registry (type: ipfs, endpoint, indexCID)
   neo.identity (system: mio, wallet: ethereum/flow-mainnet)
   neo.gateway.extensions: ipfs-channel, web3-signer, nostr-relay
   neo.dashboard (port: 3000, auth: mio-identity)
   - gateway, channels (config moltbot existente)
-
+```
 ========================================================================
                        COMANDOS CLI NEO
 ========================================================================
-
+```
 [####] Info ............ pnpm neobot neo:info ........................ OK
 [####] Skills list ...... pnpm neobot neo:skill:list .................. OK
 [####] Skill publish .... pnpm neobot neo:skill:publish ./path/ ...... OK
@@ -271,7 +272,7 @@ config/neobot.runtime.json:
 [####] IPFS publish ..... pnpm neobot neo:ipfs:publish ./data/ ........ OK
 [####] IPFS cat ......... pnpm neobot neo:ipfs:cat QmXxx... ........... OK
 [####] Dashboard ........ pnpm neobot neo:dashboard:start ............. OK
-
+```
 ========================================================================
                       METRICAS DE AUTONOMIA
 ========================================================================
