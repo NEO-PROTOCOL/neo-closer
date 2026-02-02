@@ -22,7 +22,6 @@ Documentation Locations
 • One-click deploy template
 • Volume configuration (/data)
 • Environment variables
-• Setup wizard (/setup)
 • Backup/export process
 • Required Railway settings
 ```
@@ -33,11 +32,11 @@ Documentation Locations
 Port: 8080
 Volume: /data
 Variables:
-  - SETUP_PASSWORD (required)
+  - GATEWAY_PASSWORD (required)
   - PORT=8080
   - CLAWDBOT_STATE_DIR=/data/.clawdbot
   - CLAWDBOT_WORKSPACE_DIR=/data/workspace
-  - CLAWDBOT_GATEWAY_TOKEN
+  - GATEWAY_TOKEN
 ```
 
 ## 2. Active Deployment (FlowCloser)
@@ -108,16 +107,15 @@ Railway Setup Process
 1. Add Volume: /data (1GB+)
 2. Set PORT: 8080
 3. Enable HTTP Proxy
-4. Set SETUP_PASSWORD
-5. Set CLAWDBOT_GATEWAY_TOKEN
+4. Set GATEWAY_PASSWORD
+5. Set GATEWAY_TOKEN
 
-▓▓▓ STEP 3: SETUP WIZARD
+▓▓▓ STEP 3: CONFIGURE
 ────────────────────────────────────────
-1. Visit: https://<domain>/setup
-2. Enter SETUP_PASSWORD
-3. Configure model/provider
+1. Access: https://<domain>/moltbot
+2. Authorize with GATEWAY_PASSWORD
+3. Configure model/provider in settings
 4. Add channel tokens
-5. Run setup
 
 ▓▓▓ STEP 4: VERIFY
 ────────────────────────────────────────
@@ -168,8 +166,8 @@ Backup & Migration
 **Export State:**
 
 ```bash
-# Via web
-https://<domain>/setup/export
+# Via web (Control UI)
+https://<domain>/moltbot/settings/export
 
 # Via CLI (if SSH enabled)
 moltbot backup export

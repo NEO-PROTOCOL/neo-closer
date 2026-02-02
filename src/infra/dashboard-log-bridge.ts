@@ -23,10 +23,12 @@ export function startDashboardLogBridge() {
       // But here we are in the Core repo, so it's fine.
 
       const payload = {
-        type: String(logObj["level"] || "info"),
+        type: typeof logObj["level"] === "string" ? logObj["level"] : "info",
         message: Array.isArray(logObj["_raw"])
           ? logObj["_raw"].join(" ")
-          : String(logObj["message"] || "No message"),
+          : typeof logObj["message"] === "string"
+            ? logObj["message"]
+            : "No message",
         timestamp:
           logObj["date"] instanceof Date
             ? (logObj["date"] as Date).toISOString()
