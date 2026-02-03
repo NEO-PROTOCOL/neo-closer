@@ -116,12 +116,7 @@ export function formatTargetDisplay(params: {
 }
 
 function preserveTargetCase(channel: ChannelId, raw: string, normalized: string): string {
-  if (channel !== "slack") return normalized;
-  const trimmed = raw.trim();
-  if (/^channel:/i.test(trimmed) || /^user:/i.test(trimmed)) return trimmed;
-  if (trimmed.startsWith("#")) return `channel:${trimmed.slice(1).trim()}`;
-  if (trimmed.startsWith("@")) return `user:${trimmed.slice(1).trim()}`;
-  return trimmed;
+  return normalized;
 }
 
 function detectTargetKind(
@@ -135,11 +130,6 @@ function detectTargetKind(
 
   if (trimmed.startsWith("@") || /^<@!?/.test(trimmed) || /^user:/i.test(trimmed)) return "user";
   if (trimmed.startsWith("#") || /^channel:/i.test(trimmed)) return "group";
-
-  // For some channels (e.g., BlueBubbles/iMessage), bare phone numbers are almost always DM targets.
-  if ((channel === "bluebubbles" || channel === "imessage") && /^\+?\d{6,}$/.test(trimmed)) {
-    return "user";
-  }
 
   return "group";
 }
@@ -306,9 +296,6 @@ export async function resolveMessagingTarget(params: {
     if (/^(channel|group|user):/i.test(trimmed)) return true;
     if (/^[@#]/.test(trimmed)) return true;
     if (/^\+?\d{6,}$/.test(trimmed)) {
-      // BlueBubbles/iMessage phone numbers should usually resolve via the directory to a DM chat,
-      // otherwise the provider may pick an existing group containing that handle.
-      if (params.channel === "bluebubbles" || params.channel === "imessage") return false;
       return true;
     }
     if (trimmed.includes("@thread")) return true;
@@ -370,23 +357,6 @@ export async function resolveMessagingTarget(params: {
       ok: false,
       error: ambiguousTargetError(providerLabel, raw, hint),
       candidates: match.entries,
-    };
-  }
-  // For iMessage-style channels, allow sending directly to the normalized handle
-  // even if the directory doesn't contain an entry yet.
-  if (
-    (params.channel === "bluebubbles" || params.channel === "imessage") &&
-    /^\+?\d{6,}$/.test(query)
-  ) {
-    const directTarget = preserveTargetCase(params.channel, raw, normalized);
-    return {
-      ok: true,
-      target: {
-        to: directTarget,
-        kind,
-        display: stripTargetPrefixes(raw),
-        source: "normalized",
-      },
     };
   }
 

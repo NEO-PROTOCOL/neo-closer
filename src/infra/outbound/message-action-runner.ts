@@ -42,7 +42,6 @@ import { actionHasTarget, actionRequiresTarget } from "./message-action-spec.js"
 import { resolveChannelTarget, type ResolvedMessagingTarget } from "./target-resolver.js";
 import { loadWebMedia } from "../../web/media.js";
 import { extensionForMime } from "../../media/mime.js";
-import { parseSlackTarget } from "../../slack/targets.js";
 
 export type MessageActionRunnerGateway = {
   url?: string;
@@ -208,51 +207,12 @@ function readBooleanParam(params: Record<string, unknown>, key: string): boolean
   return undefined;
 }
 
-function resolveSlackAutoThreadId(params: {
-  to: string;
-  toolContext?: ChannelThreadingToolContext;
-}): string | undefined {
-  const context = params.toolContext;
-  if (!context?.currentThreadTs || !context.currentChannelId) return undefined;
-  // Only mirror auto-threading when Slack would reply in the active thread for this channel.
-  if (context.replyToMode !== "all" && context.replyToMode !== "first") return undefined;
-  const parsedTarget = parseSlackTarget(params.to, { defaultKind: "channel" });
-  if (!parsedTarget || parsedTarget.kind !== "channel") return undefined;
-  if (parsedTarget.id.toLowerCase() !== context.currentChannelId.toLowerCase()) return undefined;
-  if (context.replyToMode === "first" && context.hasRepliedRef?.value) return undefined;
-  return context.currentThreadTs;
-}
-
 function resolveAttachmentMaxBytes(params: {
   cfg: MoltbotConfig;
   channel: ChannelId;
   accountId?: string | null;
 }): number | undefined {
-  const fallback = params.cfg.agents?.defaults?.mediaMaxMb;
-  if (params.channel !== "bluebubbles") {
-    return typeof fallback === "number" ? fallback * 1024 * 1024 : undefined;
-  }
-  const accountId = typeof params.accountId === "string" ? params.accountId.trim() : "";
-  const channelCfg = params.cfg.channels?.bluebubbles;
-  const channelObj =
-    channelCfg && typeof channelCfg === "object"
-      ? (channelCfg as Record<string, unknown>)
-      : undefined;
-  const channelMediaMax =
-    typeof channelObj?.mediaMaxMb === "number" ? channelObj.mediaMaxMb : undefined;
-  const accountsObj =
-    channelObj?.accounts && typeof channelObj.accounts === "object"
-      ? (channelObj.accounts as Record<string, unknown>)
-      : undefined;
-  const accountCfg = accountId && accountsObj ? accountsObj[accountId] : undefined;
-  const accountMediaMax =
-    accountCfg && typeof accountCfg === "object"
-      ? (accountCfg as Record<string, unknown>).mediaMaxMb
-      : undefined;
-  const limitMb =
-    (typeof accountMediaMax === "number" ? accountMediaMax : undefined) ??
-    channelMediaMax ??
-    params.cfg.agents?.defaults?.mediaMaxMb;
+  const limitMb = params.cfg.agents?.defaults?.mediaMaxMb;
   return typeof limitMb === "number" ? limitMb * 1024 * 1024 : undefined;
 }
 
@@ -674,11 +634,6 @@ async function handleSendAction(ctx: ResolvedActionContext): Promise<MessageActi
 
   const replyToId = readStringParam(params, "replyTo");
   const threadId = readStringParam(params, "threadId");
-  // Slack auto-threading can inject threadTs without explicit params; mirror to that session key.
-  const slackAutoThreadId =
-    channel === "slack" && !replyToId && !threadId
-      ? resolveSlackAutoThreadId({ to, toolContext: input.toolContext })
-      : undefined;
   const outboundRoute =
     agentId && !dryRun
       ? await resolveOutboundSessionRoute({
@@ -689,7 +644,7 @@ async function handleSendAction(ctx: ResolvedActionContext): Promise<MessageActi
           target: to,
           resolvedTarget,
           replyToId,
-          threadId: threadId ?? slackAutoThreadId,
+          threadId: threadId,
         })
       : null;
   if (outboundRoute && agentId && !dryRun) {

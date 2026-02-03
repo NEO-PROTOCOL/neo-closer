@@ -7,10 +7,8 @@ import {
 import { createServer as createHttpsServer } from "node:https";
 import type { TlsOptions } from "node:tls";
 import type { WebSocketServer } from "ws";
-import type { CanvasHostHandler } from "../canvas-host/server.js";
 import { loadConfig } from "../config/config.js";
-import type { createSubsystemLogger } from "../logging/subsystem.js";
-import { handleSlackHttpRequest } from "../slack/http/index.js";
+import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveAgentAvatar } from "../agents/identity-avatar.js";
 import { handleControlUiAvatarRequest, handleControlUiHttpRequest } from "./control-ui.js";
 import {
@@ -200,7 +198,6 @@ export function createHooksRequestHandler(
 }
 
 export function createGatewayHttpServer(opts: {
-  canvasHost: CanvasHostHandler | null;
   controlUiEnabled: boolean;
   controlUiBasePath: string;
   openAiChatCompletionsEnabled: boolean;
@@ -212,7 +209,6 @@ export function createGatewayHttpServer(opts: {
   tlsOptions?: TlsOptions;
 }): HttpServer {
   const {
-    canvasHost: _canvasHost,
     controlUiEnabled,
     controlUiBasePath,
     openAiChatCompletionsEnabled,
@@ -266,7 +262,6 @@ export function createGatewayHttpServer(opts: {
         })
       )
         return;
-      if (await handleSlackHttpRequest(req, res)) return;
       if (handlePluginRequest && (await handlePluginRequest(req, res))) return;
       if (openResponsesEnabled) {
         if (
@@ -287,12 +282,7 @@ export function createGatewayHttpServer(opts: {
         )
           return;
       }
-      /* A2UI & CanvasHost disabled per lockdown request
-      if (canvasHost) {
-        if (await handleA2uiHttpRequest(req, res)) return;
-        if (await canvasHost.handleHttpRequest(req, res)) return;
-      }
-      */
+
       if (controlUiEnabled) {
         if (
           handleControlUiAvatarRequest(req, res, {
@@ -326,13 +316,9 @@ export function createGatewayHttpServer(opts: {
 export function attachGatewayUpgradeHandler(opts: {
   httpServer: HttpServer;
   wss: WebSocketServer;
-  canvasHost: CanvasHostHandler | null;
 }) {
-  const { httpServer, wss, canvasHost: _canvasHost } = opts;
+  const { httpServer, wss } = opts;
   httpServer.on("upgrade", (req, socket, head) => {
-    /* A2UI & CanvasHost disabled per lockdown request
-      if (canvasHost?.handleUpgrade(req, socket, head)) return;
-    */
     wss.handleUpgrade(req, socket, head, (ws) => {
       wss.emit("connection", ws, req);
     });

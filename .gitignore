@@ -72,3 +72,7 @@ docs/guides/
 docs/history/
 docs/audits/
 docs/arc/
+
+# Package Manager
+.pnpm-store/
+pnpm-lock.yaml

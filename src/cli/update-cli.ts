@@ -447,7 +447,7 @@ function createUpdateProgress(enabled: boolean): ProgressController {
     };
   }
 
-  let currentSpinner: ReturnType<typeof spinner> | null = null;
+  let currentSpinner: any = null;
 
   const progress: UpdateStepProgress = {
     onStepStart: (step) => {
