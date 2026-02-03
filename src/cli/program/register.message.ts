@@ -31,9 +31,9 @@ export function registerMessageCommands(program: Command, ctx: ProgramContext) {
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['moltbot message send --target +15555550123 --message "Hi"', "Send a text message."],
+  ['moltbot message send --target +5562983231110 --message "Hi"', "Send a text message."],
   [
-    'moltbot message send --target +15555550123 --message "Hi" --media photo.jpg',
+    'moltbot message send --target +5562983231110 --message "Hi" --media photo.jpg',
     "Send a message with media.",
   ],
   [

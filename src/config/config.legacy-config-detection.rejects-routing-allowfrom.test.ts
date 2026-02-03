@@ -5,7 +5,7 @@ describe("legacy config detection", () => {
     vi.resetModules();
     const { validateConfigObject } = await import("./config.js");
     const res = validateConfigObject({
-      routing: { allowFrom: ["+15555550123"] },
+      routing: { allowFrom: ["+5562983231110"] },
     });
     expect(res.ok).toBe(false);
     if (!res.ok) {
@@ -27,18 +27,18 @@ describe("legacy config detection", () => {
     vi.resetModules();
     const { migrateLegacyConfig } = await import("./config.js");
     const res = migrateLegacyConfig({
-      routing: { allowFrom: ["+15555550123"] },
+      routing: { allowFrom: ["+5562983231110"] },
       channels: { whatsapp: {} },
     });
     expect(res.changes).toContain("Moved routing.allowFrom → channels.whatsapp.allowFrom.");
-    expect(res.config?.channels?.whatsapp?.allowFrom).toEqual(["+15555550123"]);
+    expect(res.config?.channels?.whatsapp?.allowFrom).toEqual(["+5562983231110"]);
     expect(res.config?.routing?.allowFrom).toBeUndefined();
   });
   it("drops routing.allowFrom when whatsapp missing", async () => {
     vi.resetModules();
     const { migrateLegacyConfig } = await import("./config.js");
     const res = migrateLegacyConfig({
-      routing: { allowFrom: ["+15555550123"] },
+      routing: { allowFrom: ["+5562983231110"] },
     });
     expect(res.changes).toContain("Removed routing.allowFrom (channels.whatsapp not configured).");
     expect(res.config?.channels?.whatsapp).toBeUndefined();
@@ -191,7 +191,7 @@ describe("legacy config detection", () => {
     const res = validateConfigObject({
       tools: {
         elevated: {
-          allowFrom: { whatsapp: ["+15555550123"] },
+          allowFrom: { whatsapp: ["+5562983231110"] },
         },
       },
       agents: {
@@ -202,7 +202,7 @@ describe("legacy config detection", () => {
             tools: {
               elevated: {
                 enabled: false,
-                allowFrom: { whatsapp: ["+15555550123"] },
+                allowFrom: { whatsapp: ["+5562983231110"] },
               },
             },
           },
@@ -213,7 +213,7 @@ describe("legacy config detection", () => {
     if (res.ok) {
       expect(res.config?.agents?.list?.[0]?.tools?.elevated).toEqual({
         enabled: false,
-        allowFrom: { whatsapp: ["+15555550123"] },
+        allowFrom: { whatsapp: ["+5562983231110"] },
       });
     }
   });
@@ -319,7 +319,7 @@ describe("legacy config detection", () => {
     const { validateConfigObject } = await import("./config.js");
     const res = validateConfigObject({
       channels: {
-        whatsapp: { dmPolicy: "open", allowFrom: ["+15555550123"] },
+        whatsapp: { dmPolicy: "open", allowFrom: ["+5562983231110"] },
       },
     });
     expect(res.ok).toBe(false);
@@ -360,7 +360,7 @@ describe("legacy config detection", () => {
     vi.resetModules();
     const { validateConfigObject } = await import("./config.js");
     const res = validateConfigObject({
-      channels: { signal: { dmPolicy: "open", allowFrom: ["+15555550123"] } },
+      channels: { signal: { dmPolicy: "open", allowFrom: ["+5562983231110"] } },
     });
     expect(res.ok).toBe(false);
     if (!res.ok) {
@@ -430,7 +430,7 @@ describe("legacy config detection", () => {
     const { validateConfigObject } = await import("./config.js");
     const res = validateConfigObject({
       channels: {
-        imessage: { dmPolicy: "open", allowFrom: ["+15555550123"] },
+        imessage: { dmPolicy: "open", allowFrom: ["+5562983231110"] },
       },
     });
     expect(res.ok).toBe(false);

@@ -62,7 +62,7 @@ describe("sessionsCommand", () => {
 
   it("renders a tabular view with token percentages", async () => {
     const store = writeStore({
-      "+15555550123": {
+      "+5562983231110": {
         sessionId: "abc123",
         updatedAt: Date.now() - 45 * 60_000,
         inputTokens: 1200,
@@ -79,7 +79,7 @@ describe("sessionsCommand", () => {
     const tableHeader = logs.find((line) => line.includes("Tokens (ctx %"));
     expect(tableHeader).toBeTruthy();
 
-    const row = logs.find((line) => line.includes("+15555550123")) ?? "";
+    const row = logs.find((line) => line.includes("+5562983231110")) ?? "";
     expect(row).toContain("2.0k/32k (6%)");
     expect(row).toContain("45m ago");
     expect(row).toContain("pi:opus");

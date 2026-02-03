@@ -1,13 +1,15 @@
 import 'dotenv/config';
 import { env } from 'process';
 
+// === CONFIG ===
+// Obtido via Debug: "📁 Projetos NEØ"
+const DB_ID_PROJETOS = "29fb6f21-b534-41c0-8a2a-88dbefedc498";
 const NOTION_KEY = env.NOTION_API_KEY;
-const NOTION_VERSION = "2022-06-28"; // Stable version
+const NOTION_VERSION = "2022-06-28";
 
 if (!NOTION_KEY) {
-    console.error("❌ Erro: NOTION_API_KEY não encontrada no ambiente.");
-    console.error("   Export a chave: export NOTION_API_KEY='ntn_...'");
-    console.error("   Ou adicione no .env");
+    console.error("❌ Erro: NOTION_API_KEY não encontrada.");
+    console.error("   Execute: export NOTION_API_KEY='ntn_...'");
     process.exit(1);
 }
 
@@ -17,141 +19,108 @@ const headers = {
     "Content-Type": "application/json"
 };
 
-async function searchDatabase(query: string) {
-    console.log(`🔍 Buscando database: "${query}"...`);
-    const res = await fetch("https://api.notion.com/v1/search", {
-        method: "POST",
-        headers,
+// === HELPER FUNCTIONS ===
+
+async function findPageInDatabase(dbId: string, titleParams: { key: string, value: string }) {
+    // Tenta encontrar pelo título exato para evitar duplicatas
+    const res = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
+        method: "POST", headers,
         body: JSON.stringify({
-            query,
-            filter: { value: "database", property: "object" }
+            filter: {
+                property: titleParams.key,
+                title: { equals: titleParams.value }
+            }
         })
     });
 
-    const data = await res.json() as any;
     if (!res.ok) {
-        throw new Error(`Notion API Error: ${JSON.stringify(data)}`);
+        // Se falhar (ex: 404), retorna null silenciosamente ou loga erro
+        const err = await res.text();
+        console.error(`⚠️ Erro ao buscar no DB ${dbId}: ${err}`);
+        return null;
     }
 
-    // Find exact match or first result
-    const db = data.results[0];
-    if (!db) {
-        throw new Error(`Database "${query}" não encontrada.`);
-    }
-
-    console.log(`✅ Database encontrada: ${db.title?.[0]?.plain_text || "Sem titulo"} (${db.id})`);
-    return db.id;
+    const data = await res.json() as any;
+    return data.results?.[0] || null;
 }
 
-async function createPage(dbId: string, project: any) {
-    console.log(`🚀 Criando projeto: ${project.name}...`);
+async function upsertProject(dbId: string, project: any) {
+    // 1. Verificar se já existe
+    const existing = await findPageInDatabase(dbId, { key: "Nome", value: project.name });
 
+    // 2. Preparar payload (Propriedades padrão)
+    // Nota: Os nomes das propriedades ("Status", "Nome") devem bater EXATAMENTE com as colunas do seu Notion.
     const properties: any = {
         "Nome": { "title": [{ "text": { "content": project.name } }] },
-        "Status": { "select": { "name": project.status } },
+        // "Status": { "select": { "name": project.status } }, // Comentado pois se a opção não existir no select, a API dá erro.
         "Descrição": { "rich_text": [{ "text": { "content": project.description } }] }
     };
 
+    // Tenta adicionar Status se soubermos que é seguro (ou envia como texto na descrição)
+    // Para segurança, vou concatenar o status na descrição:
+    properties["Descrição"].rich_text.push({ "text": { "content": `\n\n📌 Status: ${project.status}` } });
+
     if (project.url) {
-        if (project.url.includes("github.com")) {
-            properties["GitHub"] = { "url": project.url };
-        } else {
-            // If not GitHub, append to description or ignore (Notion schema doesn't have URL field)
-            properties["Descrição"].rich_text.push({ "text": { "content": "\nURL: " + project.url } });
-        }
+        properties["Descrição"].rich_text.push({ "text": { "content": `\n🔗 Link: ${project.url}` } });
+        // Se tivermos certeza que existe uma coluna URL:
+        // properties["URL"] = { "url": project.url }; 
     }
 
-    const res = await fetch("https://api.notion.com/v1/pages", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-            parent: { database_id: dbId },
-            properties
-        })
-    });
-
-    const data = await res.json();
-    if (!res.ok) {
-        console.error(`❌ Falha ao criar ${project.name}:`, JSON.stringify(data));
+    if (existing) {
+        console.log(`🔄 Atualizando: ${project.name} (${existing.id})...`);
+        const res = await fetch(`https://api.notion.com/v1/pages/${existing.id}`, {
+            method: "PATCH", headers,
+            body: JSON.stringify({ properties })
+        });
+        if (res.ok) console.log(`✅ Atualizado!`);
+        else console.error(`❌ Erro update:`, await res.text());
     } else {
-        console.log(`✅ Criado com sucesso! ID: ${data.id}`);
+        console.log(`✨ Criando novo: ${project.name}...`);
+        const res = await fetch("https://api.notion.com/v1/pages", {
+            method: "POST", headers,
+            body: JSON.stringify({
+                parent: { database_id: dbId },
+                properties
+            })
+        });
+        if (res.ok) console.log(`✅ Criado!`);
+        else console.error(`❌ Erro create:`, await res.text());
     }
 }
 
-const PROJECTS = [
-    {
-        name: "NEØ FlowOFF (Agência)",
-        status: "Ativo",
-        description: "Site oficial da agência de marketing digital e blockchain. Traz clientes.",
-        url: "https://www.flowoff.xyz/"
-    },
-    {
-        name: "FlowCloser Agent",
-        status: "Produção",
-        description: "Lead qualification agent com Instagram DM automation. 100% operacional no Railway.",
-        url: "https://flowcloser-agent-production.up.railway.app"
-    },
-    {
-        name: "NEØ:One (ASI1 Agent)",
-        status: "Em desenvolvimento",
-        description: "Agente ASI1 autônomo com Model Context Protocol para orquestração multi-intents.",
-        url: "https://github.com/neomello/neo-one"
-    },
-    {
-        name: "NODE NEØ.run",
-        status: "Avaliação",
-        description: "Node runner infrastructure. Precisa auditoria.",
-        url: "https://github.com/nodeneoprotocol-bot"
-    }
-];
-
-const WOD_PROJECT = {
-    name: "WOD [X] PRO",
-    status: "Ativo", // Assuming active based on "updates made"
-    description: "Fitness + Blockchain. Deployed on Base Mainnet. Updates JAN 31.",
-    url: "https://github.com/wodxpro/wod-x-pro" // Guessing based on folder structure
-};
-
-// Check WOD and Create if Missing
-async function ensureWodProject(dbId: string) {
-    console.log(`🔍 Checking "WOD [X] PRO" in DB ${dbId}...`);
-
-    const res = await fetch("https://api.notion.com/v1/search", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-            query: "WOD",
-            filter: { value: "page", property: "object" }
-        })
-    });
-
-    const data = await res.json() as any;
-    const project = data.results.find((p: any) =>
-        p.parent.database_id === dbId &&
-        (p.properties["Nome"].title[0]?.plain_text.includes("WOD") || p.properties["Nome"].title[0]?.plain_text.includes("PRO"))
-    );
-
-    if (project) {
-        console.log(`✅ FOUND: ${project.properties["Nome"].title[0].plain_text} (ID: ${project.id})`);
-    } else {
-        console.log("❌ NOT FOUND: WOD [X] PRO. Creating...");
-        await createPage(dbId, WOD_PROJECT);
-    }
-}
+// === MAIN ===
 
 async function main() {
     try {
-        const dbId = "29fb6f21-b534-41c0-8a2a-88dbefedc498";
+        console.log(`🎯 Iniciando Sync para Database: Projetos NEØ (${DB_ID_PROJETOS})`);
+        console.log(`   (Certifique-se que o Bot tem acesso e que as colunas 'Nome' e 'Descrição' existem)\n`);
 
-        // Check WOD
-        await ensureWodProject(dbId);
+        const CURRENT_STATUS = [
+            {
+                name: "FlowCloser Agent",
+                status: "Em andamento",
+                description: "Agente de Vendas WhatsApp. Versão Lean (No Slack/Discord). Admin: +5562983231110.",
+                url: "https://flowcloser-agent-production.up.railway.app"
+            },
+            {
+                name: "FlowPay Sovereign",
+                status: "Em andamento",
+                description: "Gateway de Pagamentos + Smart Factory Bridge. Webhook Idempotency OK.",
+                url: "https://pay.flowoff.xyz"
+            },
+            {
+                name: "WOD [X] PRO",
+                status: "Concluido",
+                description: "Fitness DApp on Base. 100% Operational.",
+                url: "https://wod-x-pro.vercel.app"
+            }
+        ];
 
-        // Optional: Sync other projects if needed
-        /*
-        for (const proj of PROJECTS) {
-             await createPage(dbId, proj);
+        for (const proj of CURRENT_STATUS) {
+            await upsertProject(DB_ID_PROJETOS, proj);
         }
-        */
+
+        console.log("\n✅ Sync Finalizado.");
 
     } catch (e) {
         console.error(e);

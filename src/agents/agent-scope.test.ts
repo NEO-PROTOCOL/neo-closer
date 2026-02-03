@@ -147,7 +147,7 @@ describe("resolveAgentConfig", () => {
               deny: ["exec", "write", "edit"],
               elevated: {
                 enabled: false,
-                allowFrom: { whatsapp: ["+15555550123"] },
+                allowFrom: { whatsapp: ["+5562983231110"] },
               },
             },
           },
@@ -160,7 +160,7 @@ describe("resolveAgentConfig", () => {
       deny: ["exec", "write", "edit"],
       elevated: {
         enabled: false,
-        allowFrom: { whatsapp: ["+15555550123"] },
+        allowFrom: { whatsapp: ["+5562983231110"] },
       },
     });
   });

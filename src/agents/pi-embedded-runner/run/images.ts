@@ -6,8 +6,23 @@ import type { ImageContent } from "@mariozechner/pi-ai";
 
 import { assertSandboxPath } from "../../sandbox-paths.js";
 import { sanitizeImageBlocks } from "../../tool-images.js";
-import { extractTextFromMessage } from "../../../tui/tui-formatters.js";
 import { loadWebMedia } from "../../../web/media.js";
+
+/**
+ * Extracts text content from a message, handling both string and part-array formats.
+ */
+function extractTextFromMessage(msg: any): string {
+  if (!msg || !msg.content) return "";
+  if (typeof msg.content === "string") return msg.content;
+  if (Array.isArray(msg.content)) {
+    return msg.content
+      .filter((part: any) => part.type === "text")
+      .map((part: any) => part.text || "")
+      .join("\n");
+  }
+  return "";
+}
+
 import { resolveUserPath } from "../../../utils.js";
 import { log } from "../logger.js";
 

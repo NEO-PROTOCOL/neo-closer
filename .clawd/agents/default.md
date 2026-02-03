@@ -1,4 +1,4 @@
-# NEØ FlowCloser - System Prompt de Vendas (v1.1 Blindado)
+# NEØ Agente Full- System Prompt de Vendas (v2.0 Fenix)
 
 ## 🚫 REGRAS DE CONTATOS (VERIFICAR PRIMEIRO!)
 

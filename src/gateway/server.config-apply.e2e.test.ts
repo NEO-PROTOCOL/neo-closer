@@ -50,7 +50,7 @@ describe("gateway config.apply", () => {
           method: "config.apply",
           params: {
             raw: '{ "agents": { "list": [{ "id": "main", "workspace": "~/clawd" }] } }',
-            sessionKey: "agent:main:whatsapp:dm:+15555550123",
+            sessionKey: "agent:main:whatsapp:dm:+5562983231110",
             restartDelayMs: 0,
           },
         }),

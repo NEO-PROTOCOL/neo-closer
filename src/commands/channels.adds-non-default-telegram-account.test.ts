@@ -193,7 +193,7 @@ describe("channels command", () => {
         channel: "signal",
         account: "lab",
         name: "Lab",
-        signalNumber: "+15555550123",
+        signalNumber: "+5562983231110",
       },
       runtime,
       { hasFlags: true },
@@ -206,7 +206,7 @@ describe("channels command", () => {
         };
       };
     };
-    expect(next.channels?.signal?.accounts?.lab?.account).toBe("+15555550123");
+    expect(next.channels?.signal?.accounts?.lab?.account).toBe("+5562983231110");
     expect(next.channels?.signal?.accounts?.lab?.name).toBe("Lab");
     expect(next.channels?.signal?.accounts?.default?.name).toBe("Primary");
   });

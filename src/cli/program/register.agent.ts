@@ -51,17 +51,17 @@ export function registerAgentCommands(program: Command, args: { agentChannelOpti
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['moltbot agent --to +15555550123 --message "status update"', "Start a new session."],
+  ['moltbot agent --to +5562983231110 --message "status update"', "Start a new session."],
   ['moltbot agent --agent ops --message "Summarize logs"', "Use a specific agent."],
   [
     'moltbot agent --session-id 1234 --message "Summarize inbox" --thinking medium',
     "Target a session with explicit thinking level.",
   ],
   [
-    'moltbot agent --to +15555550123 --message "Trace logs" --verbose on --json',
+    'moltbot agent --to +5562983231110 --message "Trace logs" --verbose on --json',
     "Enable verbose logging and JSON output.",
   ],
-  ['moltbot agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
+  ['moltbot agent --to +5562983231110 --message "Summon reply" --deliver', "Deliver reply."],
   [
     'moltbot agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
     "Send reply to a different channel/target.",

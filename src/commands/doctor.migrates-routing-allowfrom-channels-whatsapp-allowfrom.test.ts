@@ -329,7 +329,7 @@ describe("doctor command", () => {
       path: "/tmp/moltbot.json",
       exists: true,
       raw: "{}",
-      parsed: { routing: { allowFrom: ["+15555550123"] } },
+      parsed: { routing: { allowFrom: ["+5562983231110"] } },
       valid: false,
       config: {},
       issues: [
@@ -354,7 +354,7 @@ describe("doctor command", () => {
     };
 
     migrateLegacyConfig.mockReturnValue({
-      config: { channels: { whatsapp: { allowFrom: ["+15555550123"] } } },
+      config: { channels: { whatsapp: { allowFrom: ["+5562983231110"] } } },
       changes: ["Moved routing.allowFrom → channels.whatsapp.allowFrom."],
     });
 
@@ -363,7 +363,7 @@ describe("doctor command", () => {
     expect(writeConfigFile).toHaveBeenCalledTimes(1);
     const written = writeConfigFile.mock.calls[0]?.[0] as Record<string, unknown>;
     expect((written.channels as Record<string, unknown>)?.whatsapp).toEqual({
-      allowFrom: ["+15555550123"],
+      allowFrom: ["+5562983231110"],
     });
     expect(written.routing).toBeUndefined();
   });

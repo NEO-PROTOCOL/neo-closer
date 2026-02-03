@@ -14,7 +14,12 @@
             "enabled": true
         },
         "whatsapp": {
-            "enabled": true
+            "enabled": true,
+            "dmPolicy": "open",
+            "allowFrom": [
+                "*"
+            ],
+            "ownerNumber": "+5562983231110"
         },
         "slack": {
             "enabled": false

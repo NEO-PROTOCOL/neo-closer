@@ -10,7 +10,7 @@ const CLI_NAME = resolveCliName();
 const EXAMPLES = [
   ["moltbot channels login --verbose", "Link personal WhatsApp Web and show QR + connection logs."],
   [
-    'moltbot message send --target +15555550123 --message "Hi" --json',
+    'moltbot message send --target +5562983231110 --message "Hi" --json',
     "Send via your web session and print JSON result.",
   ],
   ["moltbot gateway --port 18789", "Run the WebSocket Gateway locally."],
@@ -18,7 +18,7 @@ const EXAMPLES = [
   ["moltbot gateway --force", "Kill anything bound to the default gateway port, then start it."],
   ["moltbot gateway ...", "Gateway control via WebSocket."],
   [
-    'moltbot agent --to +15555550123 --message "Run summary" --deliver',
+    'moltbot agent --to +5562983231110 --message "Run summary" --deliver',
     "Talk directly to the agent using the Gateway; optionally send the WhatsApp reply.",
   ],
   [

@@ -137,6 +137,19 @@ export const NEO_IDENTITY_TEMPLATES = [
       bio: "Nó IPFS descentralizado. Armazenamento, pinning e comunicação via PubSub.",
     },
   },
+  {
+    id: "mio-warrior",
+    role: "Node Warrior",
+    permissions: {
+      channels: ["*"],
+      skills: ["*"],
+      tools: ["*"],
+    },
+    metadata: {
+      name: "NEO Node Warrior",
+      bio: "Unidade de execução autônoma e protetor do protocolo. Focado em resiliência, expansão e soberania radical.",
+    },
+  },
 ] as const;
 
 /**

@@ -5,10 +5,12 @@
   "type": "module",
   "packageManager": "pnpm@10.28.2",
   "scripts": {
-    "dev": "node scripts/run-node.mjs",
-    "build": "(tsc -p tsconfig.json || true) && node --import tsx scripts/copy-hook-metadata.ts && node --import tsx scripts/write-build-info.ts",
-    "start": "node scripts/run-node.mjs gateway --bind lan --allow-unconfigured",
+    "dev": "node --import tsx src/cli/neobot.ts",
+    "build": "tsdown && node --import tsx scripts/copy-hook-metadata.ts && node --import tsx scripts/write-build-info.ts",
+    "start": "node dist/cli/neobot.js gateway --bind lan --allow-unconfigured",
+    "sync-graph": "node --import tsx scripts/sync-graph.ts",
     "lint": "oxlint --type-aware src test",
+    "tsgo": "tsc -p tsconfig.json --noEmit",
     "test": "node scripts/test-parallel.mjs",
     "test:live": "CLAWDBOT_LIVE_TEST=1 vitest run --config vitest.live.config.ts"
   },
@@ -47,13 +49,16 @@
     "@types/ws": "^8.18.1",
     "oxlint": "^1.41.0",
     "oxlint-tsgolint": "^0.11.4",
+    "tsdown": "^0.20.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   },
   "pnpm": {
     "overrides": {
-      "tough-cookie": ">=4.1.3"
+      "tough-cookie": ">=4.1.3",
+      "qs": ">=6.14.1",
+      "form-data": ">=2.5.4"
     }
   }
 }
