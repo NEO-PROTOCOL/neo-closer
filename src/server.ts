@@ -25,15 +25,30 @@ app.get('/health', (req, res) => {
 app.post('/api/webhook/nexus', async (req, res) => {
     try {
         // Validate HMAC signature
-        const signature = req.headers['x-nexus-signature'];
+        const signature = req.headers['x-nexus-signature'] as string;
         const body = JSON.stringify(req.body);
         const expectedSignature = createHmac('sha256', NEXUS_SECRET)
             .update(body)
             .digest('hex');
 
-        if (signature !== expectedSignature) {
+        // Timing-safe comparison (security best practice)
+        if (!signature || signature.length !== expectedSignature.length) {
             console.error('[WEBHOOK] Invalid signature');
-            return res.status(401).json({ error: 'Invalid signature' });
+            return res.status(401).json({
+                error: 'Invalid signature',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const sigBuffer = Buffer.from(signature);
+        const expectedBuffer = Buffer.from(expectedSignature);
+
+        if (!sigBuffer.equals(expectedBuffer)) {
+            console.error('[WEBHOOK] Invalid signature');
+            return res.status(401).json({
+                error: 'Invalid signature',
+                timestamp: new Date().toISOString()
+            });
         }
 
         const { event, payload } = req.body;
@@ -51,10 +66,17 @@ app.post('/api/webhook/nexus', async (req, res) => {
                 console.warn(`[WEBHOOK] Unknown event: ${event}`);
         }
 
-        res.json({ status: 'processed', event });
+        res.json({
+            status: 'received',
+            event,
+            timestamp: new Date().toISOString()
+        });
     } catch (error) {
         console.error('[WEBHOOK] Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({
+            error: 'Internal server error',
+            timestamp: new Date().toISOString()
+        });
     }
 });
 
